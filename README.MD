@@ -1,12 +1,12 @@
-# Python Ping Fed SDK
+# Python Ping Access SDK
 
-Python based SDK for the Ping Federation API.
+Python based SDK for the Ping Access API.
 Contains data modules and API interactions
 
 
 # Setup
 
-This module is built off of the back of the `ping-devops` tool made available [here](https://pingidentity-devops.gitbook.io/devops/getstarted). To run your own local development version of the Federate server follow all the steps from the prior link. On completion you will have the following environment variables which should be present in your local profile:
+This module is built off of the back of the `ping-devops` tool made available [here](https://pingidentity-devops.gitbook.io/devops/getstarted). To run your own local development version of the Access server follow all the steps from the prior link. On completion you will have the following environment variables which should be present in your local profile:
 
 ```
 PING_IDENTITY_DEVOPS_USER
@@ -34,7 +34,7 @@ To regenerate the APIs and models of the SDK
 make generate
 ```
 
-This requires an available Ping Federate admin server instance with a set of credentials for access, to do this against a dockerised version of Ping Federate run the following:
+This requires an available Ping Access admin server instance with a set of credentials for access, to do this against a dockerised version of Ping Access run the following:
 
 ```bash
 make docker-generate
