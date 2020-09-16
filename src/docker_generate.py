@@ -15,7 +15,7 @@ parser = argparse.ArgumentParser(description='PyLogger Generator')
 def add_args():
     parser.add_argument(
         'version', type=str, choices=["5.3.2", "6.0.4", "6.1.0", "edge"],
-        default="edge", help='Ping Federate Version'
+        default="edge", help='Ping Access Version'
     )
 
 
@@ -23,7 +23,7 @@ class Container:
     """
         Manager class for the SDK generator, encapsulates the process in a
         docker container such that there is no external dependency on a
-        live ping federate instance
+        live ping access instance
 
         TODO: make generic to run any other Ping solution
     """
@@ -96,10 +96,10 @@ class Container:
 
     def __enter__(self):
         """
-            Enter method to setup a PingFed container
+            Enter method to setup a Ping Access container
         """
         if not self.running(self.image_name):
-            self.logger.info("Initialising Ping Federate container...")
+            self.logger.info("Initialising Ping Access container...")
             self.run()
             self.wait()
         else:
@@ -112,7 +112,7 @@ class Container:
 
     def __exit__(self, type, value, traceback):
         """
-            Exit method to cleanup PingFed container when done
+            Exit method to cleanup Ping Access container when done
         """
         self.logger.info("Terminating container...")
         self.logger.debug("Terminating container...")
@@ -136,11 +136,11 @@ if __name__ == "__main__":
             print("Container service didn't stabilise, exiting...")
             exit(1)
         try:
-            version = __import__("pingfedsdk.apis.version", fromlist=[""])
-            response = version.Version(endpoint, session).getVersion()
-            print(f"Ping Federate, version: {response.version}")
+            version = __import__("pingaccesssdk.apis.version", fromlist=[""])
+            response = version.Version(endpoint, session).versionCommand()
+            print(f"Ping Access, version: {response.version}")
         except Exception as err:
-            print(f"Was unable to determine the Ping Federate version: {err}")
+            print(f"Was unable to determine the Ping Access version: {err}")
             print(traceback.format_exc())
         finally:
-            print("Ping Federation SDK Generation Finished")
+            print("Ping Access SDK Generation Finished")

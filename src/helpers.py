@@ -55,18 +55,20 @@ def json_type_convert(json_type):
 
 def get_auth_session():
     ping_user = os.environ.get(
-        "PING_IDENTITY_DEVOPS_ADMINISTRATOR", "administrator"
+        "PING_IDENTITY_DEVOPS_ADMINISTRATOR", "Administrator"
     )
     ping_pass = os.environ.get(
-        "PING_IDENTITY_DEVOPS_PASSWORD", "2FederateM0re"
+        "PING_IDENTITY_DEVOPS_PASSWORD", "2Access"
     )
 
     session = requests.Session()
-    session.auth = HTTPBasicAuth(ping_user, ping_pass)
+    session.auth = (ping_user, ping_pass)
     session.headers = {
         "Accept": "application/json",
-        "X-Xsrf-Header": "PingFederate"
+        "X-Xsrf-Header": "PingAccess"
     }
+
+    print(session)
 
     return session
 
