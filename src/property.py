@@ -42,19 +42,20 @@ class Property:
         elif "type" in self.raw_property_dict and self.raw_property_dict["type"] == "array":
             self.json_type = "array"
             self.type = "list"
-
-            items = self.raw_property_dict["items"]
-            if "enum" in items:
-                self.json_sub_type = "enum"
-                self.enum_domain = items["$ref"]
-                self.sub_type = items["$ref"]
-                self.enum_domain = items["enum"]
-            elif "$ref" in items and not json_type_convert(items["$ref"]):
-                self.json_sub_type = items["$ref"]
-                self.sub_type = items["$ref"]
-            else:
-                self.json_sub_type = items["type"]
-                self.sub_type = json_type_convert(items["type"])
+            
+            if "items" in self.raw_property_dict:
+                items = self.raw_property_dict["items"]
+                if "enum" in items:
+                    self.json_sub_type = "enum"
+                    self.enum_domain = items["$ref"]
+                    self.sub_type = items["$ref"]
+                    self.enum_domain = items["enum"]
+                elif "$ref" in items and not json_type_convert(items["$ref"]):
+                    self.json_sub_type = items["$ref"]
+                    self.sub_type = items["$ref"]
+                else:
+                    self.json_sub_type = items["type"]
+                    self.sub_type = json_type_convert(items["type"])
 
         elif type_class and type_class.startswith("Map"):
             self.json_type = "Map"
