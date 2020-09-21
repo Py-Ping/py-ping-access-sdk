@@ -129,6 +129,7 @@ if __name__ == "__main__":
     swagger_url = f"{endpoint}/api-docs/pa/api-docs.json"
     session = get_auth_session()
     session.verify = False
+    session.auth = ('administrator', '2Access')
 
     with Container(home, ping_user, ping_key, args.version) as container:
         print(f'Running container {container.id}')
