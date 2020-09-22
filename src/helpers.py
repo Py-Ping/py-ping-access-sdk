@@ -67,9 +67,6 @@ def get_auth_session():
         "Accept": "application/json",
         "X-Xsrf-Header": "PingAccess"
     }
-
-    print(session)
-
     return session
 
 
