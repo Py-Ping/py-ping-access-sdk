@@ -74,37 +74,45 @@ class Fetch():
         except IOError:
             return False
 
-    def get_api_schema(self, api_schema_key="apis", verify=False):
+    def get_api_schema(self, api_path, api_name, verify=False):
+        safe_api_name = safe_name(api_name)
+        print(api_path)
+        if os.path.exists(api_path):
+            response = self.read_json(file=api_path)
+            self.apis[safe_name(response.get("resourcePath", safe_api_name))] = ApiEndpoint(
+                api_name, response.get("apis", [])
+            )
+            self.models.update(response.get("models", {}))
+        else:
+            try:
+                self.logger.info(f"Attempting to retrieve {self.base_path}{api_name}")
+                response = requests.get(f"{self.base_path}{api_name}", verify=verify, auth=('Administrator', '2Access'))
+            except Exception as err:
+                self.logger.error(f"Failed to download swagger from: {self.base_path}{api_name} with error {err}")
+            else:
+                r_json = response.json()
+
+                self.apis[r_json.get("resourcePath", safe_api_name)] = ApiEndpoint(api_name, r_json.get("apis", []))
+                self.models.update(r_json.get("models", {}))
+                self.logger.debug(f"Successfully downloaded Ping Swagger document: {self.base_path}{api_name}")
+                if safe_api_name.startswith('_'):
+                    safe_api_name = safe_api_name[1:]
+                self.write_json(data=r_json, name=safe_api_name, directory="../pingaccesssdk/source/apis/")
+
+    def get_api_schemas(self, api_schema_key="apis", verify=False):
         """
             Iterate over each API in the schema file pf-admin-api and pull
             down each paths content. Store in the api and model dictionaries
             and write to the repository
         """
         for api in self.ping_data.get(api_schema_key, {}):
-            safe_api_path = safe_name(api.get("path"))
-            api_path = api.get("path")
-            abs_path = f"{self.project_path}/pingaccesssdk/source/apis/{safe_api_path}.json"
-            if os.path.exists(abs_path):
-                response = self.read_json(file=abs_path)
-                self.apis[safe_name(response.get("resourcePath", safe_api_path))] = ApiEndpoint(
-                    api_path, response.get("apis", [])
-                )
-                self.models.update(response.get("models", {}))
-            else:
-                try:
-                    self.logger.info(f"Attempting to retrieve {self.base_path}{api_path}")
-                    response = requests.get(f"{self.base_path}{api.get('path')}", verify=verify, auth=('Administrator', '2Access'))
-                except Exception as err:
-                    self.logger.error(f"Failed to download swagger from: {self.base_path}{api_path} with error {err}")
-                else:
-                    r_json = response.json()
+            safe_api_name = safe_name(api.get("path"))
+            api_path = f"{self.project_path}/pingaccesssdk/source/apis/{safe_api_name}.json"
+            self.get_api_schema(api_path, api.get("path"), verify=False)
 
-                    self.apis[r_json.get("resourcePath", safe_api_path)] = ApiEndpoint(api_path, r_json.get("apis", []))
-                    self.models.update(r_json.get("models", {}))
-                    self.logger.debug(f"Successfully downloaded Ping Swagger document: {self.base_path}{api_path}")
-                    if safe_api_path.startswith('_'):
-                        safe_api_path = safe_api_path[1:]
-                    self.write_json(data=r_json, name=safe_api_path, directory="../pingaccesssdk/source/apis/")
+        # set the overridden definitions
+        api_path = f"{self.project_path}/overrides.json"
+        self.get_api_schema(api_path, 'override', verify=False)
 
         self.processed_model = {}
         for model, details in self.models.items():
@@ -130,7 +138,7 @@ class Fetch():
 
     def fetch(self):
         self.get_source()
-        self.get_api_schema()
+        self.get_api_schemas()
 
         return {
             "models": self.models,

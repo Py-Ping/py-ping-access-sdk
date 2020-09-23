@@ -18,7 +18,6 @@ class Property:
         self.map_list_type = None
         self._process()
 
-
     def _process(self):
         """
         Each property section of a model defines details of the variable it represents, including:
@@ -65,7 +64,6 @@ class Property:
                 # if no type is defined, assume string type
                 self.json_sub_type = "string"
                 self.sub_type = "str"
-
 
         elif type_class and type_class.startswith("List"):
             self.json_type = "List"
