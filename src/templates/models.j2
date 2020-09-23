@@ -44,7 +44,7 @@ class {{ class_name }}(Model):
     def from_dict(cls, python_dict: dict):
         valid_data = {}
         for k, v in python_dict.items():
-            if k in [{% for property in details.get('properties', {}) %}"{{ property }}"{% if not loop.last %}, {% endif %}{% endfor %}] and v is not None:
+            if k in [{% for property in details.get('properties', {}) %}"{{ property }}"{% if not loop.last %}, {% endif %}{% endfor %}]:
 {% for property, detail in details.get('properties').items() %}                if k == "{{ safe_name(property) }}":
                     valid_data[k] = {{ detail.get_from_dict_str() }}
 {% endfor %}

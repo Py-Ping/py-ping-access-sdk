@@ -40,7 +40,7 @@ def json_type_convert(json_type):
         return "str"
     elif json_type == "boolean":
         return "bool"
-    elif json_type == "array":
+    elif json_type in ("array", "java.util.Collection"):
         return "list"
     elif json_type == "integer":
         return "int"
@@ -50,6 +50,8 @@ def json_type_convert(json_type):
         return "float"
     elif json_type == "void":
         return "None"
+    elif json_type == "java.lang.Object":
+        return "Object"
     return ""
 
 

@@ -61,6 +61,11 @@ class Property:
                 else:
                     self.json_sub_type = items["type"]
                     self.sub_type = json_type_convert(items["type"])
+            else:
+                # if no type is defined, assume string type
+                self.json_sub_type = "string"
+                self.sub_type = "str"
+
 
         elif type_class and type_class.startswith("List"):
             self.json_type = "List"
@@ -99,6 +104,14 @@ class Property:
             self.json_type = "java.util.Optional"
             self.type = "str"
 
+        elif type_class and type_class.startswith("java.util.Collection"):
+            self.json_type = "java.util.Collection"
+            self.type = "list"
+            self.json_sub_type = type_class.replace("java.util.Collection<", "").replace(">", "").split(".")[-1]
+            self.sub_type = self.json_sub_type
+            if json_type_convert(self.json_sub_type):
+                self.sub_type = json_type_convert(self.json_sub_type)
+
         elif type_class == "Set" and "items" in self.raw_property_dict:
             items = self.raw_property_dict["items"]
             self.type = "set"
@@ -126,6 +139,9 @@ class Property:
         elif "$ref" in self.raw_property_dict and not json_type_convert(self.raw_property_dict["$ref"]):
             self.json_type = self.raw_property_dict["$ref"]
             self.type = self.raw_property_dict["$ref"]
+        elif "$ref" in self.raw_property_dict and self.raw_property_dict["$ref"] == "integer":
+            self.json_type = self.raw_property_dict["$ref"]
+            self.type = "int"
 
     def get_model_import(self):
         """
@@ -133,7 +149,7 @@ class Property:
         """
         if self.type == self.model_name or self.json_sub_type == self.model_name:
             return None
-        elif self.json_type == "java.util.Optional":
+        elif self.json_type in ("java.util.Optional", "java.util.Collection"):
             return None
         elif self.type == "dict":
             if self.json_map_list_type and not json_type_convert(self.json_map_list_type):
