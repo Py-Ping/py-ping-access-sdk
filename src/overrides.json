@@ -1,0 +1,85 @@
+{
+    "apiVersion": "6.1.1.0",
+    "apis": [],
+    "basePath": "https://localhost:9000/pa-admin-api/v3",
+    "models": {
+        "Instant": {
+            "description": "A timestamp when the key was created.",
+            "id": "Instant",
+            "properties": {
+                "timestamp": {
+                    "description": "Timestamp value",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "timestamp"
+            ]
+        },
+        "JsonNode": {
+            "description": "A JSON Node.",
+            "id": "JsonNode",
+            "properties": {
+                "json": {
+                    "description": "JSON String?",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "json"
+            ]
+        },
+        "SanType": {
+            "description": "Available general name.",
+            "id": "SanType",
+            "properties": {
+                "name": {
+                    "description": "Available general name.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name"
+            ]
+        },
+        "PublicKey": {
+            "description": "A public key.",
+            "id": "PublicKey",
+            "properties": {
+                "key": {
+                    "description": "Key string.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "key"
+            ]
+        },
+        "PolicyItem": {
+            "description": "A policy in Ping Access.",
+            "id": "PolicyItem",
+            "properties": {
+                "policy": {
+                    "description": "The actual list of resources.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "policy"
+            ]
+        },
+        "ExportEntities": {
+            "description": "Entities to export.",
+            "id": "ExportEntities",
+            "properties": {
+                "entity": {
+                    "description": "TBD.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "entity"
+            ]
+        }
+    }
+}

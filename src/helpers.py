@@ -9,7 +9,7 @@ def safe_name(unsafe_string, unsafe_char="/", sub_char="_"):
         x if x not in unsafe_char else sub_char for x in unsafe_string
     ]
     safe_string_list = [
-        x if x not in "{}-" else "" for x in safe_string_list
+        x if x not in "{}- " else "" for x in safe_string_list
     ]
 
     return "".join(safe_string_list)
@@ -40,7 +40,7 @@ def json_type_convert(json_type):
         return "str"
     elif json_type == "boolean":
         return "bool"
-    elif json_type == "array":
+    elif json_type in ("array", "java.util.Collection"):
         return "list"
     elif json_type == "integer":
         return "int"
@@ -50,6 +50,10 @@ def json_type_convert(json_type):
         return "float"
     elif json_type == "void":
         return "None"
+    elif json_type == "byte":
+        return "bytearray"
+    elif json_type == "java.lang.Object":
+        return "Object"
     return ""
 
 
@@ -67,9 +71,6 @@ def get_auth_session():
         "Accept": "application/json",
         "X-Xsrf-Header": "PingAccess"
     }
-
-    print(session)
-
     return session
 
 

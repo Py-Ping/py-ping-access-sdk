@@ -12,6 +12,10 @@ class Property:
         self.model_name = model_name
         self.name = property_name
         self.description = None
+
+        # weird exception
+        self.json_map_list_type = None
+        self.map_list_type = None
         self._process()
 
     def _process(self):
@@ -56,6 +60,18 @@ class Property:
                 else:
                     self.json_sub_type = items["type"]
                     self.sub_type = json_type_convert(items["type"])
+            else:
+                # if no type is defined, assume string type
+                self.json_sub_type = "string"
+                self.sub_type = "str"
+
+        elif type_class and type_class.startswith("List"):
+            self.json_type = "List"
+            self.type = "list"
+            self.json_sub_type = type_class.replace("List[", "").replace("]", "")
+            self.sub_type = self.json_sub_type
+            if json_type_convert(self.json_sub_type):
+                self.sub_type = json_type_convert(self.json_sub_type)
 
         elif type_class and type_class.startswith("Map"):
             self.json_type = "Map"
@@ -67,12 +83,32 @@ class Property:
                 key_label = json_type_convert(key_label)
             if json_type_convert(value_label):
                 value_label = json_type_convert(value_label)
+            if value_label.startswith("List"):
+                value_label_list_json_type = value_label.replace("List[", "").replace("]", "")
+                value_label_list_type = value_label_list_json_type
+                if json_type_convert(value_label_list_json_type):
+                    value_label_list_type = json_type_convert(value_label_list_json_type)
+                self.json_map_list_type = value_label_list_json_type
+                self.map_list_type = value_label_list_type
+                value_label = "list"
 
             self.sub_type = key_label, value_label
 
         elif type_class == "File":
             self.type = "file"
             self.json_type = "File"
+
+        elif type_class and type_class.startswith("java.util.Optional"):
+            self.json_type = "java.util.Optional"
+            self.type = "str"
+
+        elif type_class and type_class.startswith("java.util.Collection"):
+            self.json_type = "java.util.Collection"
+            self.type = "list"
+            self.json_sub_type = type_class.replace("java.util.Collection<", "").replace(">", "").split(".")[-1]
+            self.sub_type = self.json_sub_type
+            if json_type_convert(self.json_sub_type):
+                self.sub_type = json_type_convert(self.json_sub_type)
 
         elif type_class == "Set" and "items" in self.raw_property_dict:
             items = self.raw_property_dict["items"]
@@ -101,6 +137,9 @@ class Property:
         elif "$ref" in self.raw_property_dict and not json_type_convert(self.raw_property_dict["$ref"]):
             self.json_type = self.raw_property_dict["$ref"]
             self.type = self.raw_property_dict["$ref"]
+        elif "$ref" in self.raw_property_dict and self.raw_property_dict["$ref"] == "integer":
+            self.json_type = self.raw_property_dict["$ref"]
+            self.type = "int"
 
     def get_model_import(self):
         """
@@ -108,10 +147,15 @@ class Property:
         """
         if self.type == self.model_name or self.json_sub_type == self.model_name:
             return None
+        elif self.json_type in ("java.util.Optional", "java.util.Collection"):
+            return None
         elif self.type == "dict":
-            if not json_type_convert(self.json_sub_type[1]) and \
+            if self.json_map_list_type and not json_type_convert(self.json_map_list_type):
+                return self.json_map_list_type
+            elif not json_type_convert(self.json_sub_type[1]) and \
                self.json_sub_type[1] != self.model_name and \
-               self.json_sub_type[1] != "Object":
+               self.json_sub_type[1] != "Object" and \
+               not self.json_sub_type[1].startswith("List"):
                 return self.json_sub_type[1]
         elif self.type in ("list", "set"):
             if not json_type_convert(self.json_sub_type) and self.json_sub_type not in ("enum", "Object"):
@@ -156,7 +200,17 @@ class Property:
                 key_assign = f"{self.sub_type[0]}(x)"
             else:
                 key_assign = f"{self.sub_type[0]}(**x)"
-            if json_type_convert(self.json_sub_type[1]) and self.json_sub_type[1] != "void":
+
+            # list value type exception
+            if self.map_list_type and self.json_map_list_type:
+                if json_type_convert(self.json_map_list_type):
+                    val_assign = f"[{self.map_list_type}(z) for z in y]"
+                else:
+                    val_assign = f"[{self.map_list_type}(**z) for z in y]"
+
+            elif json_type_convert(self.json_sub_type[1]) and json_type_convert(self.json_sub_type[1]) == "Object":
+                val_assign = "y"
+            elif json_type_convert(self.json_sub_type[1]) and self.json_sub_type[1] != "void":
                 val_assign = f"{self.sub_type[1]}(y)"
             else:
                 val_assign = f"{self.sub_type[1]}(**y)"
@@ -179,7 +233,10 @@ class Property:
                 return f"{start_bracket}{self.sub_type}(**x) for x in v{end_bracket}"
 
         elif self.json_type == "enum":
-            return f'{self.type}[v]'
+            return f"{self.type}[v]"
+
+        elif self.json_type == "java.util.Optional":
+            return f"v"
 
         elif not json_type_convert(self.json_type):
             return f"{self.type}(**v)"
