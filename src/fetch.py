@@ -2,7 +2,6 @@ import json
 import os
 import requests
 import logging
-from requests.auth import HTTPBasicAuth
 from helpers import safe_name
 from property import Property
 from api import ApiEndpoint
@@ -79,9 +78,10 @@ class Fetch():
         print(api_path)
         if os.path.exists(api_path):
             response = self.read_json(file=api_path)
-            self.apis[safe_name(response.get("resourcePath", safe_api_name))] = ApiEndpoint(
-                api_name, response.get("apis", [])
-            )
+            if api_name != "override":
+                self.apis[safe_name(response.get("resourcePath", safe_api_name))] = ApiEndpoint(
+                    api_name, response.get("apis", [])
+                )
             self.models.update(response.get("models", {}))
         else:
             try:
@@ -112,7 +112,7 @@ class Fetch():
 
         # set the overridden definitions
         api_path = f"{self.project_path}/overrides.json"
-        self.get_api_schema(api_path, 'override', verify=False)
+        self.get_api_schema(api_path, "override", verify=False)
 
         self.processed_model = {}
         for model, details in self.models.items():

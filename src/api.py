@@ -17,6 +17,7 @@ class ApiEndpoint:
         self.response_codes = set()
         self.imports = set()
         self.operations = []
+        self.has_data_payload = False
         self._process()
 
     def _process(self):
@@ -30,7 +31,7 @@ class ApiEndpoint:
                         self.imports.add(param_obj.type)
 
                 op_response_codes = []
-                for response_code in op.get("responseMessages",[]):
+                for response_code in op.get("responseMessages", []):
                     op_code = {"code": response_code["code"], "message": response_code["message"]}
                     op_response_codes.append(op_code)
                     if response_code["code"] not in self.response_codes:
@@ -38,15 +39,23 @@ class ApiEndpoint:
 
                 if not json_type_convert(op["type"]) and op["type"] not in self.imports:
                     self.imports.add(op["type"])
-                self.operations.append(
-                    Operation(
-                        params, op_response_codes, op["type"],
-                        op["nickname"], op["summary"], op["method"], data["path"])
-                )
+                skip_op = False
+                for operation in self.operations:
+                    if op["nickname"] == operation.nickname and op["method"] in ("PUT", "POST") and \
+                       operation.method in ("PUT", "POST"):
+                        skip_op = True
+                if not skip_op:
+                    self.operations.append(
+                        Operation(
+                            params, op_response_codes, op["type"],
+                            op["nickname"], op["summary"], op["method"], data["path"])
+                    )
+                if op["method"] in ("PUT", "POST"):
+                    self.has_data_payload = True
 
 
 class Operation:
-    def __init__(self, parameters=[], response_codes=[], op_type=None, nickname='', summary='', method='', api_path=''):
+    def __init__(self, parameters=[], response_codes=[], op_type=None, nickname="", summary="", method="", api_path=""):
         self.parameters = parameters
         self.response_codes = response_codes
         self.json_type = op_type
@@ -55,7 +64,7 @@ class Operation:
             self.type = json_type_convert(op_type)
         self.is_primitive_type = bool(json_type_convert(op_type))
         self.nickname = nickname
-        self.summary = summary
+        self.summary = summary.strip()
         self.method = method
         self.api_path = api_path
 
@@ -73,6 +82,17 @@ class Operation:
         elif self.type == "None":
             return "dict"
         return f"Model{self.json_type}"
+
+    def has_payload(self):
+        if self.method not in ("PUT", "POST"):
+            return False
+        for parameter in self.parameters:
+            if not self.is_path_param(parameter.name):
+                return True
+        return False
+
+    def is_path_param(self, param_name):
+        return f"{{{param_name}}}" in self.api_path
 
 
 class Parameter:

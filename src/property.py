@@ -46,7 +46,7 @@ class Property:
         elif "type" in self.raw_property_dict and self.raw_property_dict["type"] == "array":
             self.json_type = "array"
             self.type = "list"
-            
+
             if "items" in self.raw_property_dict:
                 items = self.raw_property_dict["items"]
                 if "enum" in items:
@@ -147,7 +147,7 @@ class Property:
         """
         if self.type == self.model_name or self.json_sub_type == self.model_name:
             return None
-        elif self.json_type in ("java.util.Optional", "java.util.Collection"):
+        elif self.json_type == "java.util.Optional":
             return None
         elif self.type == "dict":
             if self.json_map_list_type and not json_type_convert(self.json_map_list_type):
@@ -236,7 +236,7 @@ class Property:
             return f"{self.type}[v]"
 
         elif self.json_type == "java.util.Optional":
-            return f"v"
+            return "v"
 
         elif not json_type_convert(self.json_type):
             return f"{self.type}(**v)"
