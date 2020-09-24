@@ -75,7 +75,7 @@ lint:
 .PHONY: lint
 
 lint-generated:
-	flake8 pingfedsdk --ignore E501
+	flake8 pingaccesssdk --ignore E501
 .PHONY: lint-generated
 
 example:

@@ -1,7 +1,6 @@
 import os
 import requests
 from time import sleep
-from requests.auth import HTTPBasicAuth
 
 
 def safe_name(unsafe_string, unsafe_char="/", sub_char="_"):
