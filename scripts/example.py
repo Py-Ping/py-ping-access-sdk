@@ -5,7 +5,8 @@ from docker_generate import Container
 
 from pingaccesssdk.apis.license import License
 from pingaccesssdk.apis.key_pairs import KeyPairs
-
+from pingaccesssdk.apis.acme import Acme
+from pingaccesssdk.apis.engines import Engines
 home = os.environ["HOME"]
 ping_user = os.environ["PING_IDENTITY_DEVOPS_USER"]
 ping_key = os.environ["PING_IDENTITY_DEVOPS_KEY"]
@@ -25,4 +26,10 @@ with Container(home, ping_user, ping_key) as container:
 
     keypairs = KeyPairs(endpoint, session)
     pprint(keypairs.keyAlgorithms())
-    pprint(keypairs.getKeyPairsCommand(1, 1, '', '', '', ''))
+    pprint(keypairs.getKeyPairsCommand(1, 10, '', '', '', ''))
+
+    acme = Acme(endpoint, session)
+    pprint(acme.getDefaultAcmeServerCommand())
+
+    engines = Engines(endpoint, session)
+    pprint(engines.getEnginesCommand(1, 10, '', '', '', ''))

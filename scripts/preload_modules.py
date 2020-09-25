@@ -44,7 +44,7 @@ working = 0
 broken = 0
 total_modules = 0
 
-for file in glob.glob("pingfedsdk/models/*.py"):
+for file in glob.glob("pingaccesssdk/models/*.py"):
     total_modules += 1
     module_name = file.replace(".py", "").replace("/", ".")
     try:
