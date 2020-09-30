@@ -40,7 +40,7 @@ class {{ safe_class_name(class_name) }}:
 {% if operation.has_payload() %}            payload = {% raw %}{{% endraw %}
 
 {% for parameter in operation.parameters %}{% if not operation.is_path_param(parameter.name) %}
-                "{{ parameter.name }}": {{ parameter.safe_name }},
+                "{{ parameter.name }}": {{ parameter.safe_name }}.to_dict(),
 {% endif %}{% endfor %}
             {% raw %}}{% endraw %}
 {% endif %}
