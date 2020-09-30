@@ -1,4 +1,5 @@
 from pingaccesssdk.model import Model
+from enum import Enum
 {% for folder, imports in details.get('imports').items() %}
 {% for imp in imports %}
 {% if folder == 'models' %}
@@ -86,7 +87,8 @@ class {{ class_name }}(Model):
                         else:
                             vals.append(x)
                     body[k] = vals
+                elif isinstance(v, Enum):
+                    body[k] = str(v).split('.')[-1]
                 else:
                     body[k] = v
         return body
-

@@ -7,6 +7,9 @@ from pingaccesssdk.apis.license import License
 from pingaccesssdk.apis.key_pairs import KeyPairs
 from pingaccesssdk.apis.acme import Acme
 from pingaccesssdk.apis.engines import Engines
+from pingaccesssdk.apis.auth import Auth
+from pingaccesssdk.models.admin_basic_web_session_view import AdminBasicWebSessionView
+
 home = os.environ["HOME"]
 ping_user = os.environ["PING_IDENTITY_DEVOPS_USER"]
 ping_key = os.environ["PING_IDENTITY_DEVOPS_KEY"]
@@ -33,3 +36,12 @@ with Container(home, ping_user, ping_key) as container:
 
     engines = Engines(endpoint, session)
     pprint(engines.getEnginesCommand(1, 10, '', '', '', ''))
+
+    auth = Auth(endpoint, session)
+    pprint(auth.getBasicAuthCommand())
+
+    response = auth.getAdminBasicWebSessionCommand()
+    print(type(response.to_dict()['cookieType']))
+    pprint(response.to_dict())
+
+    print(AdminBasicWebSessionView.from_dict(response.to_dict()))
