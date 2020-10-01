@@ -8,7 +8,13 @@ from pingaccesssdk.apis.key_pairs import KeyPairs
 from pingaccesssdk.apis.acme import Acme
 from pingaccesssdk.apis.engines import Engines
 from pingaccesssdk.apis.auth import Auth
+from pingaccesssdk.apis.virtualhosts import Virtualhosts
+from pingaccesssdk.apis.applications import Applications
+from pingaccesssdk.apis.sites import Sites
 from pingaccesssdk.models.admin_basic_web_session_view import AdminBasicWebSessionView
+from pingaccesssdk.models.virtual_host_view import VirtualHostView
+from pingaccesssdk.models.site_view import SiteView
+from pingaccesssdk.models.application_view import ApplicationView
 from pingaccesssdk.apis.agents import Agents
 from pingaccesssdk.apis.config import Config
 
@@ -56,6 +62,23 @@ with Container(home, ping_user, ping_key) as container:
     print(agents.getAgentsCommand(1, 1, '', '', '', ''))
     # def deleteKeyPairCommand(self, id: str) -> dict:
     # def getKeyPairCommand(self, id: str) -> ModelKeyPairView:
+
+    virtual_host_ids = []
+    virtual_host_view = VirtualHostView(host="test", port=443, agentResourceCacheTTL=900)
+    virtual_host = Virtualhosts(endpoint, session).addVirtualHostCommand(virtual_host_view)
+    virtual_host_ids.append(virtual_host.id)
+
+    targets = ["pf-access.test.internal:80"]
+    site_view = SiteView(name="PingFederate", targets=targets, secure=False)
+    site = Sites(endpoint, session).addSiteCommand(site_view)
+
+    application = Applications(endpoint, session)
+    application_view = ApplicationView(
+        agentId=0, contextRoot="/identity", defaultAuthType="API",
+        name="test", siteId=site.id, spaSupportEnabled="true",
+        virtualHostIds=virtual_host_ids, applicationType="Web", destination="Site"
+    )
+    print(application.addApplicationCommand(application_view))
 
     config = Config(endpoint, session)
     print(config.configExportCommand())
