@@ -43,6 +43,10 @@ class Property:
             self.json_type = "enum"
             self.type = type_class
 
+        elif type_class and self.raw_property_dict["$ref"] in ("Object", "java.lang.Object"):
+            self.json_type = "Object"
+            self.type = "dict"
+
         elif "type" in self.raw_property_dict and self.raw_property_dict["type"] == "array":
             self.json_type = "array"
             self.type = "list"
@@ -149,6 +153,8 @@ class Property:
             return None
         elif self.json_type == "java.util.Optional":
             return None
+        elif self.type == "dict" and self.json_type == "Object":
+            return None
         elif self.type == "dict":
             if self.json_map_list_type and not json_type_convert(self.json_map_list_type):
                 return self.json_map_list_type
@@ -196,6 +202,9 @@ class Property:
         """
 
         if self.type == "dict":
+            if self.json_type == "Object":
+                return "dict(v)"
+
             if json_type_convert(self.json_sub_type[0]) and self.json_sub_type[0] != "void":
                 key_assign = f"{self.sub_type[0]}(x)"
             else:
@@ -208,7 +217,7 @@ class Property:
                 else:
                     val_assign = f"[{self.map_list_type}(**z) for z in y]"
 
-            elif json_type_convert(self.json_sub_type[1]) and json_type_convert(self.json_sub_type[1]) == "Object":
+            elif json_type_convert(self.json_sub_type[1]) and json_type_convert(self.json_sub_type[1]) == "java.lang.Object":
                 val_assign = "y"
             elif json_type_convert(self.json_sub_type[1]) and self.json_sub_type[1] != "void":
                 val_assign = f"{self.sub_type[1]}(y)"
