@@ -79,6 +79,3 @@ with Container(home, ping_user, ping_key) as container:
         virtualHostIds=virtual_host_ids, applicationType="Web", destination="Site"
     )
     print(application.addApplicationCommand(application_view))
-
-    config = Config(endpoint, session)
-    print(config.configExportCommand())
