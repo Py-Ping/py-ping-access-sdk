@@ -35,10 +35,9 @@ class {{ safe_class_name(class_name) }}:
     def {{ operation.nickname }}(self{% for parameter in operation.parameters %}{% if parameter.required %}, {{ parameter.safe_name }}: {{ parameter.get_parameter_str() }}{% endif %}{% endfor %}{% for parameter in operation.parameters %}{% if not parameter.required %}, {{ parameter.safe_name }}:{{ parameter.get_parameter_str() }}=None{% endif %}{% endfor %}) -> {{ operation.get_return_type_str() }}:
         """ {{ operation.summary }}
         """
-
         try:
             response = self.session.{{ operation.method.lower() }}(
-{% if operation.has_payload() %}{% for parameter in operation.parameters %}{% if parameter.param_type == 'body' %}                data=dumps({{ parameter.safe_name }}.to_dict()),
+{% if operation.has_payload() %}{% for parameter in operation.parameters %}{% if parameter.param_type == 'body' %}                data=dumps({% raw %}{{% endraw %}x: y for x, y in {{ parameter.safe_name }}.to_dict().items() if y is not None{% raw %}}{% endraw %}),
 {% endif %}{% endfor %}{% endif %}
 {% if operation.method == 'POST' %}{% for parameter in operation.parameters %}{% if parameter.json_type == 'File' %}
                 files={'file': open({{ parameter.name }}, "rb")},
