@@ -51,8 +51,8 @@ def json_type_convert(json_type):
         return "None"
     elif json_type == "byte":
         return "bytearray"
-    elif json_type == "java.lang.Object":
-        return "Object"
+    elif json_type in ("Object", "java.lang.Object"):
+        return "dict"
     return ""
 
 

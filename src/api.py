@@ -98,6 +98,8 @@ class Operation:
 class Parameter:
     def __init__(self, param):
         self._raw_param = param
+        self.param_type = self._raw_param["paramType"]
+        self.required = self._raw_param["required"]
         self.json_type = self._raw_param["type"]
         self.type = self._raw_param["type"]
         if json_type_convert(self._raw_param["type"]):

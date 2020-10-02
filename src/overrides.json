@@ -68,17 +68,32 @@
                 "policy"
             ]
         },
-        "ExportEntities": {
-            "description": "Entities to export.",
-            "id": "ExportEntities",
+        "ExportData": {
+            "description": "A JSON backup file.",
+            "id": "ExportData",
             "properties": {
-                "entity": {
-                    "description": "TBD.",
+                "data": {
+                    "$ref": "Object",
+                    "description": "The entities being exported."
+                },
+                "encryptionKey": {
+                    "$ref": "JsonWebKey",
+                    "description": "The randomly-generated export encryption key to be included with the data."
+                },
+                "masterKeys": {
+                    "$ref": "MasterKeysView",
+                    "description": "The encrypted master keys."
+                },
+                "version": {
+                    "description": "The version of PingAccess that was exported.",
                     "type": "string"
                 }
             },
             "required": [
-                "entity"
+                "data",
+                "encryptionKey",
+                "masterKeys",
+                "version"
             ]
         }
     }
