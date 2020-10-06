@@ -2,6 +2,7 @@ import json
 import os
 import requests
 import logging
+import glob
 from helpers import safe_name
 from property import Property
 from api import ApiEndpoint
@@ -78,8 +79,8 @@ class Fetch():
         print(api_path)
         if os.path.exists(api_path):
             response = self.read_json(file=api_path)
-            if api_name != "override":
-                self.apis[safe_name(response.get("resourcePath", safe_api_name))] = ApiEndpoint(
+            if api_name != "/overrides":
+                self.apis[response.get("resourcePath", safe_api_name)] = ApiEndpoint(
                     api_name, response.get("apis", [])
                 )
             self.models.update(response.get("models", {}))
@@ -91,7 +92,6 @@ class Fetch():
                 self.logger.error(f"Failed to download swagger from: {self.base_path}{api_name} with error {err}")
             else:
                 r_json = response.json()
-
                 self.apis[r_json.get("resourcePath", safe_api_name)] = ApiEndpoint(api_name, r_json.get("apis", []))
                 self.models.update(r_json.get("models", {}))
                 self.logger.debug(f"Successfully downloaded Ping Swagger document: {self.base_path}{api_name}")
@@ -110,9 +110,11 @@ class Fetch():
             api_path = f"{self.project_path}/pingaccesssdk/source/apis/{safe_api_name}.json"
             self.get_api_schema(api_path, api.get("path"), verify=False)
 
-        # set the overridden definitions
-        api_path = f"{self.project_path}/overrides.json"
-        self.get_api_schema(api_path, "override", verify=False)
+        api_path = f"{self.project_path}/overrides/*.json"
+        for file_path in glob.glob(api_path):
+            file_name = file_path.split("/")[-1].split(".")[0]
+            # set the overridden definitions
+            self.get_api_schema(file_path, f'/{file_name}', verify=False)
 
         self.processed_model = {}
         for model, details in self.models.items():
