@@ -17,7 +17,13 @@ from pingaccesssdk.models.site_view import SiteView
 from pingaccesssdk.models.application_view import ApplicationView
 from pingaccesssdk.apis.agents import Agents
 from pingaccesssdk.apis.config import Config
-
+from pingaccesssdk.apis.users import Users
+from pingaccesssdk.models.user_password_view import UserPasswordView
+from pingaccesssdk.apis.web_sessions import WebSessions
+from pingaccesssdk.models.hidden_field_view import HiddenFieldView
+from pingaccesssdk.models.hidden_field_view import HiddenFieldView
+from pingaccesssdk.models.o_auth_client_credentials_view import OAuthClientCredentialsView
+from pingaccesssdk.models.web_session_view import WebSessionView
 
 home = os.environ["HOME"]
 ping_user = os.environ["PING_IDENTITY_DEVOPS_USER"]
@@ -31,6 +37,13 @@ with Container(home, ping_user, ping_key) as container:
     version = __import__("pingaccesssdk.apis.version", fromlist=[""])
     response = version.Version(endpoint, session).versionCommand()
     print(f"Ping Access, version: {response.version}")
+
+    users = Users(endpoint, session)
+
+    upv = UserPasswordView('2Access', '2AccessM0re')
+    pprint(users.updateUserPasswordCommand('1', upv))
+
+    session.auth = ("administrator", "2AccessM0re")
 
     license_obj = License(endpoint, session)
 
@@ -59,9 +72,7 @@ with Container(home, ping_user, ping_key) as container:
     print(AdminBasicWebSessionView.from_dict(response.to_dict()))
 
     agents = Agents(endpoint, session)
-    print(agents.getAgentsCommand(1, 1, '', '', '', ''))
-    # def deleteKeyPairCommand(self, id: str) -> dict:
-    # def getKeyPairCommand(self, id: str) -> ModelKeyPairView:
+    print(agents.getAgentsCommand(1, 1, "", "", "", ""))
 
     virtual_host_ids = []
     virtual_host_view = VirtualHostView(host="test", port=443, agentResourceCacheTTL=900)
@@ -79,3 +90,24 @@ with Container(home, ping_user, ping_key) as container:
         virtualHostIds=virtual_host_ids, applicationType="Web", destination="Site"
     )
     print(application.addApplicationCommand(application_view))
+
+    web_session = WebSessions(endpoint, session)
+    client_secret = HiddenFieldView(encryptedValue="secret", value="secret")
+    client_credentials = OAuthClientCredentialsView(clientId="esign-sgb-test",clientSecret=client_secret)
+    web_session_view = WebSessionView(
+        audience="esign-test",
+        clientCredentials=client_credentials,
+        failOnUnsupportedPreservationContentType=False,
+        name="Test",
+        webStorageType="SessionStorage",
+        requestPreservationType="POST",
+        sessionTimeoutInMinutes=3,
+        pfsessionStateCacheInSeconds=60,
+        sameSite="Lax",
+        idleTimeoutInMinutes=3,
+        pkceChallengeType="SHA256",
+        cookieType="Encrypted",
+        oidcLoginType="Code"
+    )
+
+    web_session.addWebSessionCommand(web_session_view)
