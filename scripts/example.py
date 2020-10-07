@@ -11,6 +11,7 @@ from pingaccesssdk.apis.auth import Auth
 from pingaccesssdk.apis.virtualhosts import Virtualhosts
 from pingaccesssdk.apis.applications import Applications
 from pingaccesssdk.apis.sites import Sites
+from pingaccesssdk.apis.https_listeners import HttpsListeners
 from pingaccesssdk.models.admin_basic_web_session_view import AdminBasicWebSessionView
 from pingaccesssdk.models.virtual_host_view import VirtualHostView
 from pingaccesssdk.models.site_view import SiteView
@@ -24,6 +25,7 @@ from pingaccesssdk.models.hidden_field_view import HiddenFieldView
 from pingaccesssdk.models.hidden_field_view import HiddenFieldView
 from pingaccesssdk.models.o_auth_client_credentials_view import OAuthClientCredentialsView
 from pingaccesssdk.models.web_session_view import WebSessionView
+
 
 home = os.environ["HOME"]
 ping_user = os.environ["PING_IDENTITY_DEVOPS_USER"]
@@ -111,3 +113,6 @@ with Container(home, ping_user, ping_key) as container:
     )
 
     web_session.addWebSessionCommand(web_session_view)
+
+    https_listeners = HttpsListeners(endpoint, session)
+    https_listeners.getHttpsListenersCommand(sortKey="", order="")
