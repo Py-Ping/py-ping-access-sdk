@@ -17,6 +17,7 @@ from pingaccesssdk.apis.config import Config
 from pingaccesssdk.apis.users import Users
 from pingaccesssdk.apis.web_sessions import WebSessions
 from pingaccesssdk.apis.token_provider import TokenProvider
+
 from pingaccesssdk.models.admin_basic_web_session_view import AdminBasicWebSessionView
 from pingaccesssdk.models.virtual_host_view import VirtualHostView
 from pingaccesssdk.models.site_view import SiteView
@@ -92,7 +93,9 @@ with Container(home, ping_user, ping_key) as container:
         name="test", siteId=site.id, spaSupportEnabled="true",
         virtualHostIds=virtual_host_ids, applicationType="Web", destination="Site"
     )
-    print(application.addApplicationCommand(application_view))
+    print("application:", application.addApplicationCommand(application_view))
+    print(application.getApplicationCommand('1'))
+    print(application.deleteApplicationCommand('1'))
 
     web_session = WebSessions(endpoint, session)
     client_secret = HiddenFieldView(encryptedValue="secret", value="secret")
@@ -113,8 +116,9 @@ with Container(home, ping_user, ping_key) as container:
         oidcLoginType="Code"
     )
 
-    web_session.addWebSessionCommand(web_session_view)
-
+    print("web session:", web_session.addWebSessionCommand(web_session_view))
+    print(web_session.getWebSessionCommand(1))
+    print(web_session.deleteWebSessionCommand('1'))
     https_listeners = HttpsListeners(endpoint, session)
     print(https_listeners.getHttpsListenersCommand(sortKey="", order=""))
 
