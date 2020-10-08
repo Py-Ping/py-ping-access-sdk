@@ -12,15 +12,16 @@ from pingaccesssdk.apis.virtualhosts import Virtualhosts
 from pingaccesssdk.apis.applications import Applications
 from pingaccesssdk.apis.sites import Sites
 from pingaccesssdk.apis.https_listeners import HttpsListeners
+from pingaccesssdk.apis.agents import Agents
+from pingaccesssdk.apis.config import Config
+from pingaccesssdk.apis.users import Users
+from pingaccesssdk.apis.web_sessions import WebSessions
+from pingaccesssdk.apis.token_provider import TokenProvider
 from pingaccesssdk.models.admin_basic_web_session_view import AdminBasicWebSessionView
 from pingaccesssdk.models.virtual_host_view import VirtualHostView
 from pingaccesssdk.models.site_view import SiteView
 from pingaccesssdk.models.application_view import ApplicationView
-from pingaccesssdk.apis.agents import Agents
-from pingaccesssdk.apis.config import Config
-from pingaccesssdk.apis.users import Users
 from pingaccesssdk.models.user_password_view import UserPasswordView
-from pingaccesssdk.apis.web_sessions import WebSessions
 from pingaccesssdk.models.hidden_field_view import HiddenFieldView
 from pingaccesssdk.models.hidden_field_view import HiddenFieldView
 from pingaccesssdk.models.o_auth_client_credentials_view import OAuthClientCredentialsView
@@ -115,4 +116,7 @@ with Container(home, ping_user, ping_key) as container:
     web_session.addWebSessionCommand(web_session_view)
 
     https_listeners = HttpsListeners(endpoint, session)
-    https_listeners.getHttpsListenersCommand(sortKey="", order="")
+    print(https_listeners.getHttpsListenersCommand(sortKey="", order=""))
+
+    token_provider = TokenProvider(endpoint, session)
+    print(token_provider.getTokenProviderSettingCommand())
