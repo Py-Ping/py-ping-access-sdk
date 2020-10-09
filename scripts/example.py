@@ -116,6 +116,9 @@ with Container(home, ping_user, ping_key) as container:
         oidcLoginType="Code"
     )
 
+    from pingaccesssdk.models.rule_view import RuleView
+    from pingaccesssdk.apis.rules import Rules
+
     print("web session:", web_session.addWebSessionCommand(web_session_view))
     print(web_session.getWebSessionCommand(1))
     print(web_session.deleteWebSessionCommand('1'))
@@ -124,3 +127,23 @@ with Container(home, ping_user, ping_key) as container:
 
     token_provider = TokenProvider(endpoint, session)
     print(token_provider.getTokenProviderSettingCommand())
+
+    config_file = open("scripts/addXframeOptionsHeader.groovy")
+    configuration = { 
+        "groovyScript": config_file.read(),
+        "errorResponseCode": 403,
+        "errorResponseTemplateFile": "oauth.error.json",
+        "errorResponseContentType": "application/json; charset=UTF-8" 
+    }
+    rule = RuleView(
+        className="com.pingidentity.pa.policy.OAuthPolicyInterceptor", 
+        configuration=configuration,
+        name="Add X-Frame-Options DENY header for API",
+        supportedDestinations={
+            "Site",
+            "Agent"
+        }
+    )
+    rules = Rules(endpoint, session)
+    rules.addRuleCommand(rule)
+    rules.getRulesCommand(page=1, numberPerPage=1, filter="", name="", sortKey="", order="")

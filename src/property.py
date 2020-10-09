@@ -217,7 +217,7 @@ class Property:
                 else:
                     val_assign = f"[{self.map_list_type}(**z) for z in y]"
 
-            elif json_type_convert(self.json_sub_type[1]) and json_type_convert(self.json_sub_type[1]) == "java.lang.Object":
+            elif json_type_convert(self.json_sub_type[1]) and self.json_sub_type[1] == "java.lang.Object":
                 val_assign = "y"
             elif json_type_convert(self.json_sub_type[1]) and self.json_sub_type[1] != "void":
                 val_assign = f"{self.sub_type[1]}(y)"
