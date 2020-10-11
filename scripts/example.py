@@ -27,6 +27,7 @@ from pingaccesssdk.models.hidden_field_view import HiddenFieldView
 from pingaccesssdk.models.hidden_field_view import HiddenFieldView
 from pingaccesssdk.models.o_auth_client_credentials_view import OAuthClientCredentialsView
 from pingaccesssdk.models.web_session_view import WebSessionView
+from pingaccesssdk.models.engine_view import EngineView
 
 
 home = os.environ["HOME"]
@@ -147,3 +148,14 @@ with Container(home, ping_user, ping_key) as container:
     rules = Rules(endpoint, session)
     rules.addRuleCommand(rule)
     rules.getRulesCommand(page=1, numberPerPage=1, filter="", name="", sortKey="", order="")
+
+    engines = Engines(endpoint, session)
+    engine_view = EngineView(name="test-engine")
+
+    engine = engines.addEngineCommand(engine_view)
+    config_file = engines.getEngineConfigFileCommand(engine.id)
+
+    file_name = "scripts/engine_config.zip"
+    zip_file = open(file_name, 'wb')
+    zip_file.write(config_file.content)
+    zip_file.close()
