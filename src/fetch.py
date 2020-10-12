@@ -84,13 +84,14 @@ class Fetch():
         elif os.path.exists(f"{override_path}.all.delta"):
             override = Override(f"{override_path}.all.delta", api_version)
             return override.apply_patch(api_data)
+        return api_data
 
     def get_api_schema(self, api_path, api_name, verify=False):
         safe_api_name = safe_name(api_name)
         print(api_path)
         if os.path.exists(api_path):
             response = self.read_json(file=api_path)
-            self.get_apply_override_patch(safe_api_name[1:], response["apiVersion"], response)
+            response = self.get_apply_override_patch(safe_api_name[1:], response["apiVersion"], response)
             if api_name != "/overrides":
                 self.apis[response.get("resourcePath", safe_api_name)] = ApiEndpoint(
                     api_name, response.get("apis", [])
@@ -104,7 +105,7 @@ class Fetch():
                 self.logger.error(f"Failed to download swagger from: {self.base_path}{api_name} with error {err}")
             else:
                 r_json = response.json()
-                self.get_apply_override_patch(safe_api_name[1:], r_json["apiVersion"], r_json)
+                r_json = self.get_apply_override_patch(safe_api_name[1:], r_json["apiVersion"], r_json)
 
                 self.apis[r_json.get("resourcePath", safe_api_name)] = ApiEndpoint(api_name, r_json.get("apis", []))
                 self.models.update(r_json.get("models", {}))
