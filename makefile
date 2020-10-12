@@ -81,3 +81,7 @@ lint-generated:
 example:
 	PYTHONPATH=$(shell pwd)/src:$(shell pwd) python3 scripts/example.py
 .PHONY: example
+
+generate-override-delta:
+	PYTHONPATH=$(shell pwd) python3 scripts/generate_override_delta.py $(OVERRIDE_FILE)
+.PHONY: module-load-test
