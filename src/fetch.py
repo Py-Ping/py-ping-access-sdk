@@ -9,8 +9,12 @@ from api import ApiEndpoint
 from overrides import Override
 
 
+def get_auth_session():
+
+    return session
+
 class Fetch():
-    def __init__(self, swagger_url, api_schema_key="apis"):
+    def __init__(self, swagger_url, api_schema_key="apis", verify=False):
         logging.basicConfig(
             format="%(asctime)s [%(levelname)s] (%(funcName)s) %(message)s", datefmt="%m/%d/%Y %I:%M:%S %p"
         )
@@ -19,6 +23,9 @@ class Fetch():
         self.logger.setLevel(
             int(os.environ.get("Logging", logging.INFO))
         )
+        self.session = requests.Session()
+        self.session.auth = ('Administrator', '2Access')
+        self.session.verify = verify
         self.api_schema_key = api_schema_key
         self.swagger_url = swagger_url
         self.base_path = None
@@ -27,13 +34,13 @@ class Fetch():
         self.apis = {}
         self.enums = {}
 
-    def get_source(self, verify=False):
+    def get_source(self):
         """
             Pull the API JSON from the remote swagger url
         """
 
         try:
-            response = requests.get(self.swagger_url, verify=verify, auth=('Administrator', '2Access'))
+            response = self.session.get(self.swagger_url)
         except Exception as err:
             err_str = f"Failed to download swagger from: {self.swagger_url} with error {err}"
             self.logger.error(err_str)
@@ -43,7 +50,7 @@ class Fetch():
             print(response)
             self.ping_data = response.json()
             self.base_path = self.ping_data.get('basePath', self.swagger_url)
-            self.write_json(data=self.ping_data, name="pf-admin-api", directory="../pingaccesssdk/source/")
+            self.write_json(data=self.ping_data, name="pa-admin-api", directory="../pingaccesssdk/source/")
             self.logger.debug(
                 json.dumps(self.ping_data, default=str, sort_keys=True, indent=4, separators=(",", ": "))
             )
@@ -75,7 +82,7 @@ class Fetch():
         except IOError:
             return False
 
-    def get_apply_override_patch(self, api_name, api_version, api_data):
+    def apply_override_patch(self, api_name, api_version, api_data):
         override_path = f"src/overrides/{api_name}"
         if api_version and os.path.exists(f"{override_path}.{api_version}.delta"):
             override_path = f"{override_path}.{api_version}.delta"
@@ -91,7 +98,7 @@ class Fetch():
         print(api_path)
         if os.path.exists(api_path):
             response = self.read_json(file=api_path)
-            response = self.get_apply_override_patch(safe_api_name[1:], response["apiVersion"], response)
+            response = self.apply_override_patch(safe_api_name[1:], response["apiVersion"], response)
             if api_name != "/overrides":
                 self.apis[response.get("resourcePath", safe_api_name)] = ApiEndpoint(
                     api_name, response.get("apis", [])
@@ -100,12 +107,12 @@ class Fetch():
         else:
             try:
                 self.logger.info(f"Attempting to retrieve {self.base_path}{api_name}")
-                response = requests.get(f"{self.base_path}{api_name}", verify=verify, auth=("Administrator", "2Access"))
+                response = self.session.get(f"{self.base_path}{api_name}")
             except Exception as err:
                 self.logger.error(f"Failed to download swagger from: {self.base_path}{api_name} with error {err}")
             else:
                 r_json = response.json()
-                r_json = self.get_apply_override_patch(safe_api_name[1:], r_json["apiVersion"], r_json)
+                r_json = self.apply_override_patch(safe_api_name[1:], r_json["apiVersion"], r_json)
 
                 self.apis[r_json.get("resourcePath", safe_api_name)] = ApiEndpoint(api_name, r_json.get("apis", []))
                 self.models.update(r_json.get("models", {}))
@@ -116,13 +123,15 @@ class Fetch():
 
     def get_api_schemas(self, api_schema_key="apis", verify=False):
         """
-            Iterate over each API in the schema file pf-admin-api and pull
+            Iterate over each API in the schema file pa-admin-api and pull
             down each paths content. Store in the api and model dictionaries
             and write to the repository
         """
         for api in self.ping_data.get(api_schema_key, {}):
             safe_api_name = safe_name(api.get("path"))
-            api_path = f"{self.project_path}/pingaccesssdk/source/apis/{safe_api_name}.json"
+            if safe_api_name.startswith("_"):
+                safe_api_name = safe_api_name[1:]
+            api_path = f"{self.project_path}/../pingaccesssdk/source/apis/{safe_api_name}.json"
             self.get_api_schema(api_path, api.get("path"), verify=False)
 
         api_path = f"{self.project_path}/overrides/*.json"
@@ -165,4 +174,4 @@ class Fetch():
 
 
 if __name__ == "__main__":
-    Fetch("https://localhost:9999/pf-admin-api/v1/api-docs").fetch()
+    Fetch("https://localhost:9000/pa-admin-api/v3/api-docs/pa/api-docs.json").fetch()
