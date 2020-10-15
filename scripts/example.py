@@ -13,7 +13,6 @@ from pingaccesssdk.apis.applications import Applications
 from pingaccesssdk.apis.sites import Sites
 from pingaccesssdk.apis.https_listeners import HttpsListeners
 from pingaccesssdk.apis.agents import Agents
-from pingaccesssdk.apis.config import Config
 from pingaccesssdk.apis.users import Users
 from pingaccesssdk.apis.web_sessions import WebSessions
 from pingaccesssdk.apis.token_provider import TokenProvider
@@ -23,7 +22,6 @@ from pingaccesssdk.models.virtual_host_view import VirtualHostView
 from pingaccesssdk.models.site_view import SiteView
 from pingaccesssdk.models.application_view import ApplicationView
 from pingaccesssdk.models.user_password_view import UserPasswordView
-from pingaccesssdk.models.hidden_field_view import HiddenFieldView
 from pingaccesssdk.models.hidden_field_view import HiddenFieldView
 from pingaccesssdk.models.o_auth_client_credentials_view import OAuthClientCredentialsView
 from pingaccesssdk.models.web_session_view import WebSessionView
@@ -100,7 +98,7 @@ with Container(home, ping_user, ping_key) as container:
 
     web_session = WebSessions(endpoint, session)
     client_secret = HiddenFieldView(encryptedValue="secret", value="secret")
-    client_credentials = OAuthClientCredentialsView(clientId="esign-sgb-test",clientSecret=client_secret)
+    client_credentials = OAuthClientCredentialsView(clientId="esign-sgb-test", clientSecret=client_secret)
     web_session_view = WebSessionView(
         audience="esign-test",
         clientCredentials=client_credentials,
@@ -130,14 +128,14 @@ with Container(home, ping_user, ping_key) as container:
     print(token_provider.getTokenProviderSettingCommand())
 
     config_file = open("scripts/addXframeOptionsHeader.groovy")
-    configuration = { 
+    configuration = {
         "groovyScript": config_file.read(),
         "errorResponseCode": 403,
         "errorResponseTemplateFile": "oauth.error.json",
-        "errorResponseContentType": "application/json; charset=UTF-8" 
+        "errorResponseContentType": "application/json; charset=UTF-8"
     }
     rule = RuleView(
-        className="com.pingidentity.pa.policy.OAuthPolicyInterceptor", 
+        className="com.pingidentity.pa.policy.OAuthPolicyInterceptor",
         configuration=configuration,
         name="Add X-Frame-Options DENY header for API",
         supportedDestinations={

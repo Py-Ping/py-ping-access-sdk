@@ -9,10 +9,6 @@ from api import ApiEndpoint
 from overrides import Override
 
 
-def get_auth_session():
-
-    return session
-
 class Fetch():
     def __init__(self, swagger_url, api_schema_key="apis", verify=False):
         logging.basicConfig(
