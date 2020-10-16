@@ -56,7 +56,8 @@ class ApiEndpoint:
 
 
 class Operation:
-    def __init__(self, parameters=[], response_codes=[], op_type=None, nickname="", summary="", method="", api_path="", produces=[]):
+    def __init__(self, parameters=[], response_codes=[], op_type=None,
+                 nickname="", summary="", method="", api_path="", produces=[]):
         self.parameters = parameters
         self.response_codes = response_codes
         self.json_type = op_type

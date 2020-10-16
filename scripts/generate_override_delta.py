@@ -2,7 +2,7 @@
 import sys
 import json
 import json_delta
-import os
+
 
 if len(sys.argv) < 2:
     print("Missing argument name of the JSON override file")
