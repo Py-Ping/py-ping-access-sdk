@@ -1,0 +1,1 @@
+[[["models", "SiteView", "properties", "id"], {"description": "When creating a new Site, this is the ID for the Site. If not specified, an ID will be automatically assigned. When updating an existing Site, this field is ignored and the ID is determined by the path parameter.", "format": "int32", "type": "integer"}]]

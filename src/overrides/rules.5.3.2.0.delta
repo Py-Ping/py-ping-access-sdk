@@ -1,0 +1,1 @@
+[[["models", "RuleView", "properties", "id"], {"description": "When creating a new Rule, this is the ID for the Rule. If not specified, an ID will be automatically assigned. When updating an existing Rule, this field is ignored and the ID is determined by the path parameter.", "format": "int32", "type": "integer"}]]
