@@ -158,10 +158,7 @@ class Property:
         elif self.type == "dict":
             if self.json_map_list_type and not json_type_convert(self.json_map_list_type):
                 return self.json_map_list_type
-            elif (not json_type_convert(self.json_sub_type[1]) and
-                  self.json_sub_type[1] != self.model_name and
-                  self.json_sub_type[1] != "Object" and
-                  not self.json_sub_type[1].startswith("List")):
+            elif (not json_type_convert(self.json_sub_type[1]) and self.json_sub_type[1] != self.model_name and self.json_sub_type[1] != "Object" and not self.json_sub_type[1].startswith("List")):
                 return self.json_sub_type[1]
         elif self.type in ("list", "set"):
             if not json_type_convert(self.json_sub_type) and self.json_sub_type not in ("enum", "Object"):
