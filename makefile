@@ -1,5 +1,5 @@
 # Makefile for building publishing container
-PROJECT = pingfedsdk
+PROJECT = pingaccesssdk
 VERSION = edge
 #AUTH = $(shell aws --profile build --region ap-southeast-2 secretsmanager get-secret-value --secret-id arn:aws:secretsmanager:ap-southeast-2:264748061542:secret:github/versent-builder-foTpJN | jq -r '.SecretString | fromjson | .OAuthKey')
 PWD = $(shell pwd)
@@ -12,6 +12,8 @@ CONTAINER_TAG = latest
 REGION = ap-southeast-2
 ACCOUNTID = 012345678901
 REGISTRY = $(ACCOUNTID).dkr.ecr.$(REGION).amazonaws.com
+
+include ./settings/defaults.conf
 
 genReqs:
 	pipenv lock -r > requirements.txt
@@ -50,7 +52,7 @@ buildRequirements:
 
 generate: ## run the SDK generator
 	$(info [+] Running SDK package generator...)
-	python3 pingfedsdk/generate.py
+	python3 pingaccesssdk/generate.py
 .PHONY: generate
 
 docker-generate: ## run the SDK generator
@@ -67,7 +69,7 @@ module-load-test:
 .PHONY: module-load-test
 
 coverage:
-	PYTHONPATH=$(shell pwd)/src/ coverage run --branch -m unittest discover -s tests/ && coverage report --omit=/usr/lib/python3/dist-packages/*,tests/*,pingfedsdk/*
+	PYTHONPATH=$(shell pwd)/src/ coverage run --branch -m unittest discover -s tests/ && coverage report --omit=/usr/lib/python3/dist-packages/*,tests/*,pingaccesssdk/*
 .PHONY: coverage
 
 lint:
@@ -85,3 +87,18 @@ example:
 generate-override-delta:
 	PYTHONPATH=$(shell pwd) python3 scripts/generate_override_delta.py $(OVERRIDE_FILE)
 .PHONY: module-load-test
+
+deploy-pipeline:   ## Deploy Ping Access SDK Pipeline
+	@aws cloudformation --profile versent --region ap-southeast-2 deploy \
+		--template-file cfn/py-ping-access-sdk-pipeline.yml \
+		--stack-name py-ping-access-sdk-pipeline \
+		--capabilities CAPABILITY_NAMED_IAM \
+		--no-fail-on-empty-changeset \
+		--parameter-overrides \
+			GitHubOrg=$(GIT_ORG) \
+			GitHubRepo=$(GIT_REPO) \
+			ProjectId=$(PROJECT_ID) \
+			PingDevopsUser=$(PING_IDENTITY_DEVOPS_USER) \
+			PingDevopsKey=$(PING_IDENTITY_DEVOPS_KEY) \
+		--tags Name='Ping Access SDK Pipeline'
+.PHONY: deploy-pipeline
