@@ -14,7 +14,18 @@ parser = argparse.ArgumentParser(description='PyLogger Generator')
 
 def add_args():
     parser.add_argument(
-        'version', type=str, choices=["5.3.2", "6.0.4", "6.1.0", "edge"],
+        'version', type=str, choices=[
+            "5.3.2",
+            "6.0.0",
+            "6.0.1",
+            "6.0.2",
+            "6.0.4",
+            "6.1.0",
+            "6.1.1",
+            "6.1.2",
+            "6.1.3",
+            "edge"
+        ],
         default="edge", help='Ping Access Version'
     )
 
@@ -41,6 +52,7 @@ class Container:
         self.home = home_path
         self.ping_user = user
         self.ping_key = pass_key
+        self.version = version
 
         self.container = None
 
@@ -54,7 +66,7 @@ class Container:
                 f"PING_IDENTITY_DEVOPS_KEY={self.ping_key}",
                 f"PING_IDENTITY_DEVOPS_HOME={self.home}/projects/devops",
                 "PING_IDENTITY_DEVOPS_REGISTRY=docker.io/pingidentity",
-                "PING_IDENTITY_DEVOPS_TAG=edge"
+                f"PING_IDENTITY_DEVOPS_TAG={self.version}"
             ],
             name="pingaccess",
             ports={"443/tcp": 443, "9000/tcp": 9000},

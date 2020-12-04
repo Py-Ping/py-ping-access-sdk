@@ -25,6 +25,10 @@ Parameters:
     Description: Secret ARN for Github OAuth Key
     Type: String
     Default: arn:aws:secretsmanager:ap-southeast-2:264748061542:secret:github/versent-builder-foTpJN
+  PingVersion:
+    Type: String
+    Description: Ping version
+    Default: edge
   CodeArtifactDomain:
     Description: CodeArtifact Domain
     Type: String
@@ -176,6 +180,8 @@ Resources:
             Value: !Ref ArtifactBucket
           - Name: ACCOUNT_ID
             Value: !Ref AWS::AccountId
+          - Name: VERSION
+            Value: !Ref PingVersion
       ServiceRole: !GetAtt CodeBuildRole.Arn
 
   CodeBuildRole:
