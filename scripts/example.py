@@ -10,22 +10,31 @@ from pingaccesssdk.apis.engines import Engines
 from pingaccesssdk.apis.auth import Auth
 from pingaccesssdk.apis.virtualhosts import Virtualhosts
 from pingaccesssdk.apis.applications import Applications
+from pingaccesssdk.apis.authentication_challenge_policies import AuthenticationChallengePolicies
 from pingaccesssdk.apis.sites import Sites
 from pingaccesssdk.apis.https_listeners import HttpsListeners
 from pingaccesssdk.apis.agents import Agents
 from pingaccesssdk.apis.users import Users
 from pingaccesssdk.apis.web_sessions import WebSessions
 from pingaccesssdk.apis.token_provider import TokenProvider
+from pingaccesssdk.apis.certificates import Certificates
+from pingaccesssdk.apis.rules import Rules
 
 from pingaccesssdk.models.admin_basic_web_session_view import AdminBasicWebSessionView
 from pingaccesssdk.models.virtual_host_view import VirtualHostView
 from pingaccesssdk.models.site_view import SiteView
 from pingaccesssdk.models.application_view import ApplicationView
+from pingaccesssdk.models.authentication_challenge_policy_view import AuthenticationChallengePolicyView
+from pingaccesssdk.models.challenge_response_view import ChallengeResponseView
+from pingaccesssdk.models.challenge_response_filter_view import ChallengeResponseFilterView
+from pingaccesssdk.models.challenge_response_generator_view import ChallengeResponseGeneratorView
 from pingaccesssdk.models.user_password_view import UserPasswordView
 from pingaccesssdk.models.hidden_field_view import HiddenFieldView
 from pingaccesssdk.models.o_auth_client_credentials_view import OAuthClientCredentialsView
 from pingaccesssdk.models.web_session_view import WebSessionView
 from pingaccesssdk.models.engine_view import EngineView
+from pingaccesssdk.models.x_5_0_9_file_import_doc_view import X509FileImportDocView
+from pingaccesssdk.models.rule_view import RuleView
 
 
 home = os.environ["HOME"]
@@ -86,11 +95,69 @@ with Container(home, ping_user, ping_key) as container:
     site_view = SiteView(name="PingFederate", targets=targets, secure=False)
     site = Sites(endpoint, session).addSiteCommand(site_view)
 
+    acp = AuthenticationChallengePolicies(endpoint, session)
+    acpv = AuthenticationChallengePolicyView(
+        challengeResponseChain=[],
+        defaultChallengeResponse=ChallengeResponseView(
+            filter=ChallengeResponseFilterView(
+                className="com.pingidentity.pa.acp.filters.AppendHeaderFieldsResponseFilter",
+                configuration={
+                    "name": "fields", "label": "Header Fields", "type": "TABLE", "advanced": False, "required": True,
+                    "help": {
+                        "title": "Response Header Fields",
+                        "content": "The HTTP response header fields to append to the authentication challenge response.",
+                        "url": "https://documentation.pingidentity.com/pingaccess/pa/"
+                    },
+                    "fields": [
+                        {
+                            "value": "label",
+                            "name": "name", "label": "Name", "type": "TEXT", "advanced": False, "required": True,
+                            "buttonGroup": "default", "deselectable": False
+                        },
+                        {
+                            "value": "name",
+                            "name": "value", "label": "Value", "type": "TEXT", "advanced": False, "required": True,
+                            "buttonGroup": "default", "deselectable": False
+                        }
+                    ],
+                    "buttonGroup": "default", "deselectable": False
+                }
+            ),
+            generator=ChallengeResponseGeneratorView(
+                className="com.pingidentity.pa.acp.generators.RedirectChallengeResponseGenerator",
+                configuration={
+                    "name": "responseCode", "label": "Response Code",
+                    "type": "SELECT", "advanced": False, "required": True,
+                    "url": "https://documentation.pingidentity.com/pingaccess/pa/",
+                    "responseCode": "302",
+                    "help": {
+                        "title": "Response Code",
+                        "content": "The response code to use for the redirect. \
+                                    Since the redirect is intended to be a temporary \
+                                    redirect to enable an authentication flow, \
+                                    only response codes that imply a temporary redirect may be used.",
+                        "url": "https://documentation.pingidentity.com/pingaccess/pa/"
+                    },
+                    "options": [
+                        { "value": "302", "label": "302 Found", "category": None },
+                        { "value": "307", "label": "307 Temporary Redirect", "category": None }
+                    ],
+                    "buttonGroup": "default",
+                    "deselectable": False,
+                    "default": "302"
+                }
+            )
+        ),
+        name="PolicyViewTest"
+    )
+    print(acp.addAuthenticationChallengePolicyCommand(acpv))
+
     application = Applications(endpoint, session)
     application_view = ApplicationView(
         agentId=0, contextRoot="/identity", defaultAuthType="API",
         name="test", siteId=site.id, spaSupportEnabled="true",
-        virtualHostIds=virtual_host_ids, applicationType="Web", destination="Site"
+        virtualHostIds=virtual_host_ids, applicationType="Web", destination="Site",
+        authenticationChallengePolicyId=acpv.id
     )
     print("application:", application.addApplicationCommand(application_view))
     print(application.getApplicationCommand('1'))
@@ -114,9 +181,6 @@ with Container(home, ping_user, ping_key) as container:
         cookieType="Encrypted",
         oidcLoginType="Code"
     )
-
-    from pingaccesssdk.models.rule_view import RuleView
-    from pingaccesssdk.apis.rules import Rules
 
     print("web session:", web_session.addWebSessionCommand(web_session_view))
     print(web_session.getWebSessionCommand(1))
@@ -157,3 +221,8 @@ with Container(home, ping_user, ping_key) as container:
     zip_file = open(file_name, 'wb')
     zip_file.write(config_file.content)
     zip_file.close()
+
+    file_data    = open("scripts/example/cert.pem").read()
+    certificate  = X509FileImportDocView(alias="test", fileData=file_data)
+    certificates = Certificates(endpoint, session)
+    import_cert  = certificates.importTrustedCert(certificate)
