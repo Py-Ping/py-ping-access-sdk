@@ -1,0 +1,15 @@
+from enum import Enum
+
+
+{% for enum_name, enum_list in details.items() %}{{ enum_name }} = Enum(
+    value="{{ enum_name }}",
+    names=[
+{% for enum_item in enum_list %}
+        ("{{ enum_item }}", {{ loop.index }}),
+{% endfor %}
+    ]
+)
+{% if not loop.last %}
+
+
+{% else %}{% endif %}{% endfor %}
