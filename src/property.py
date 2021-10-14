@@ -203,7 +203,7 @@ class Property:
 
         if self.type == "dict":
             if self.json_type == "Object":
-                return "dict(v)"
+                return "dict(v) if v is not None else dict()"
 
             if json_type_convert(self.json_sub_type[0]) and self.json_sub_type[0] != "void":
                 key_assign = f"{self.sub_type[0]}(x)"
@@ -215,14 +215,14 @@ class Property:
                 if json_type_convert(self.json_map_list_type):
                     val_assign = f"[{self.map_list_type}(z) for z in y]"
                 else:
-                    val_assign = f"[{self.map_list_type}(**z) for z in y]"
+                    val_assign = f"[{self.map_list_type}(**z) if z is not None else None for z in y]"
 
             elif json_type_convert(self.json_sub_type[1]) and self.json_sub_type[1] == "java.lang.Object":
                 val_assign = "y"
             elif json_type_convert(self.json_sub_type[1]) and self.json_sub_type[1] != "void":
                 val_assign = f"{self.sub_type[1]}(y)"
             else:
-                val_assign = f"{self.sub_type[1]}(**y)"
+                val_assign = f"{self.sub_type[1]}(**y) if y is not None else None"
             return f"{{{key_assign}: {val_assign} for x, y in v.items()}}"
 
         elif self.type in ("set", "list"):
@@ -239,7 +239,7 @@ class Property:
             elif self.json_sub_type == "Object":
                 return "v"
             else:
-                return f"{start_bracket}{self.sub_type}(**x) for x in v{end_bracket}"
+                return f"{start_bracket}{self.sub_type}(**x) if x is not None else None for x in v{end_bracket}"
 
         elif self.json_type == "enum":
             return f"{self.type}[v]"
@@ -248,7 +248,7 @@ class Property:
             return "v"
 
         elif not json_type_convert(self.json_type):
-            return f"{self.type}(**v)"
+            return f"{self.type}(**v) if v is not None else None"
 
         elif self.type == "None":
             return "None"
