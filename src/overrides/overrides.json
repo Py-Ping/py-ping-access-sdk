@@ -201,13 +201,19 @@
             "description": "A policy in Ping Access.",
             "id": "PolicyItem",
             "properties": {
-                "policy": {
-                    "description": "The actual list of resources.",
+                "id": {
+                    "description": "The policy ID.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "type": {
+                    "description": "The policy type.",
                     "type": "string"
                 }
             },
             "required": [
-                "policy"
+                "id",
+                "type"
             ]
         },
         "ExportData": {
