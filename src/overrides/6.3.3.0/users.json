@@ -1,0 +1,214 @@
+{
+    "apiVersion": "6.3.3.0",
+    "apis": [
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getUsersCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Page number to retrieve",
+                            "format": "int32",
+                            "name": "page",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Number of Users per page",
+                            "format": "int32",
+                            "name": "numberPerPage",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Search for Users with username matching filter text",
+                            "name": "filter",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Get Users by username",
+                            "name": "username",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "A comma separated list of User attributes (keys) to be used to sort the results",
+                            "name": "sortKey",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Order of the sorted results (ASC for ascending, DESC for descending)",
+                            "name": "order",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get all Users",
+                    "type": "UsersView"
+                }
+            ],
+            "path": "/users"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getUserCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of User to get",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get a User ",
+                    "type": "UserView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updateUserCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of User",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "User to update",
+                            "name": "user",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "UserView"
+                        }
+                    ],
+                    "summary": "Update a User",
+                    "type": "UserView"
+                }
+            ],
+            "path": "/users/{id}"
+        },
+        {
+            "operations": [
+                {
+                    "method": "PUT",
+                    "nickname": "updateUserPasswordCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of User",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "User password to update",
+                            "name": "user",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "UserPasswordView"
+                        }
+                    ],
+                    "summary": "Update a User's Password",
+                    "type": "void"
+                }
+            ],
+            "path": "/users/{id}/password"
+        }
+    ],
+    "basePath": "https://localhost:9000/pa-admin-api/v3",
+    "models": {
+        "UserPasswordView": {
+            "description": "Settings to update a password.",
+            "id": "UserPasswordView",
+            "properties": {
+                "currentPassword": {
+                    "description": "The current password.",
+                    "type": "string"
+                },
+                "newPassword": {
+                    "description": "The new password.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "currentPassword",
+                "newPassword"
+            ]
+        },
+        "UserView": {
+            "description": "A user.",
+            "id": "UserView",
+            "properties": {
+                "email": {
+                    "description": "(sortable) The Administrative account's email.",
+                    "type": "string"
+                },
+                "firstLogin": {
+                    "description": "(sortable) The Administrative account's first login indicator.",
+                    "type": "boolean"
+                },
+                "showTutorial": {
+                    "description": "(sortable) The Administrative account's show tutorial indicator.",
+                    "type": "boolean"
+                },
+                "slaAccepted": {
+                    "description": "(sortable) The Administrative account's sla acceptance indicator.",
+                    "type": "boolean"
+                },
+                "username": {
+                    "description": "(sortable) The Administrative users's username.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "username"
+            ]
+        },
+        "UsersView": {
+            "description": "A collection of users.",
+            "id": "UsersView",
+            "properties": {
+                "items": {
+                    "description": "The actual list of users.",
+                    "items": {
+                        "$ref": "UserView"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "items"
+            ]
+        }
+    },
+    "resourcePath": "/users",
+    "swaggerVersion": "1.2"
+}

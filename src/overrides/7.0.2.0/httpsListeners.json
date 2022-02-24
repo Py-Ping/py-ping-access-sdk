@@ -1,0 +1,142 @@
+{
+    "apiVersion": "7.0.2.0",
+    "apis": [
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getHttpsListenersCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "A comma separated list of HTTPS Listeners attributes (keys) to be used to sort the results",
+                            "name": "sortKey",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Order of the sorted results (ASC for ascending, DESC for descending)",
+                            "name": "order",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get all HTTPS Listeners",
+                    "type": "HttpsListenersView"
+                }
+            ],
+            "path": "/httpsListeners"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getHttpsListenerCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of HttpsListener to get",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get an HTTPS Listener",
+                    "type": "HttpsListenerView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updateHttpsListener",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of HttpsListener to update",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "HttpsListener to update",
+                            "name": "HttpsListeners",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "HttpsListenerView"
+                        }
+                    ],
+                    "summary": "Update an HTTPS Listener",
+                    "type": "HttpsListenerView"
+                }
+            ],
+            "path": "/httpsListeners/{id}"
+        }
+    ],
+    "basePath": "https://localhost:9000/pa-admin-api/v3",
+    "models": {
+        "HttpsListenerView": {
+            "description": "An HTTPS listener.",
+            "id": "HttpsListenerView",
+            "properties": {
+                "id": {
+                    "description": "The ID of the HTTPS listener.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "keyPairId": {
+                    "description": "The ID of the default key pair used by the HTTPS listener.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "(sortable) The name of the HTTPS listener.",
+                    "type": "string"
+                },
+                "restartRequired": {
+                    "description": "Indicates whether an admin or engine restart is required to update the HTTPS listener. Cannot be True for the ENGINE listener.",
+                    "type": "boolean"
+                },
+                "useServerCipherSuiteOrder": {
+                    "description": "(sortable) Enable server cipher suite ordering for the HTTPS listener.",
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "keyPairId",
+                "name",
+                "restartRequired",
+                "useServerCipherSuiteOrder"
+            ]
+        },
+        "HttpsListenersView": {
+            "description": "A collection of HTTPS listeners.",
+            "id": "HttpsListenersView",
+            "properties": {
+                "id": {
+                    "description": "The ID of the HTTPS listener.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "items": {
+                    "description": "An array of HTTPS listeners.",
+                    "items": {
+                        "$ref": "HttpsListenerView"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "items"
+            ]
+        }
+    },
+    "resourcePath": "/httpsListeners",
+    "swaggerVersion": "1.2"
+}

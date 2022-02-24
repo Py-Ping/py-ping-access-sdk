@@ -1,6 +1,7 @@
 import os
 import requests
 from time import sleep
+from requests.auth import HTTPBasicAuth
 
 
 def safe_name(unsafe_string, unsafe_char="/", sub_char="_"):
@@ -65,10 +66,10 @@ def get_auth_session():
     )
 
     session = requests.Session()
-    session.auth = (ping_user, ping_pass)
+    session.auth = HTTPBasicAuth(ping_user, ping_pass)
     session.headers = {
         "Accept": "application/json",
-        "X-Xsrf-Header": "PingAccess"
+        "X-XSRF-Header": "PingAccess"
     }
     return session
 
