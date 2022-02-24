@@ -19,11 +19,8 @@ class Override:
 
         self.current_version = current_version
         self.override_patch = json.loads(open(file_path).read())
-        self.file = file_path.split("/")[-1].split(".")[0]
-        self.patch_version = ".".join(file_path.split("/")[-1].split(".")[1:-1])
 
     def apply_patch(self, api_json):
-        if self.current_version == "all" or "apiVersion" in api_json and \
-           api_json["apiVersion"] == self.current_version:
+        if "apiVersion" in api_json and ".".join(api_json["apiVersion"].split(".")[0:2]) in api_json["apiVersion"]:
             return json_delta.patch(api_json, self.override_patch)
         raise IncorrectVersion

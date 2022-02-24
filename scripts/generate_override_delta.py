@@ -17,8 +17,8 @@ if len(sys.argv) >= 3:
 
 fetched_api_path = f"pingaccesssdk/source/apis/{override_file}"
 
-override_path = f"src/overrides/{override_file}"
-delta_dest_path = f"src/overrides/{override_file.split('.')[0]}.{version}.delta"
+override_path = f"src/overrides/{version}/{override_file}"
+delta_dest_path = f"src/overrides/{version}/{override_file.split('.')[0]}.delta"
 
 api_dict = json.loads(open(fetched_api_path).read())
 override_dict = json.loads(open(override_path).read())
