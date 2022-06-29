@@ -24,6 +24,7 @@ class Fetch():
         self.session.verify = verify
         self.api_schema_key = api_schema_key
         self.swagger_url = swagger_url
+        self.version = None
         self.base_path = None
         self.ping_data = {}
         self.models = {}
@@ -50,6 +51,8 @@ class Fetch():
             self.logger.debug(
                 json.dumps(self.ping_data, default=str, sort_keys=True, indent=4, separators=(",", ": "))
             )
+            response = self.session.get(f"{self.base_path}/version")
+            self.version = response.json()['apiVersion']
 
     def write_json(self, data, name, directory=None):
         """
@@ -79,22 +82,18 @@ class Fetch():
             return False
 
     def apply_override_patch(self, api_name, api_version, api_data):
-        override_path = f"src/overrides/{api_name}"
-        if api_version and os.path.exists(f"{override_path}.{api_version}.delta"):
-            override_path = f"{override_path}.{api_version}.delta"
+        override_path = f"src/overrides/{api_version}/{api_name}"
+        if api_version and os.path.exists(f"{override_path}.delta"):
+            override_path = f"{override_path}.delta"
             override = Override(override_path, api_version)
-            return override.apply_patch(api_data)
-        elif os.path.exists(f"{override_path}.all.delta"):
-            override = Override(f"{override_path}.all.delta", api_version)
             return override.apply_patch(api_data)
         return api_data
 
     def get_api_schema(self, api_path, api_name, verify=False):
         safe_api_name = safe_name(api_name)
-        print(api_path)
         if os.path.exists(api_path):
             response = self.read_json(file=api_path)
-            response = self.apply_override_patch(safe_api_name[1:], response["apiVersion"], response)
+            response = self.apply_override_patch(safe_api_name[1:], self.version, response)
             if api_name != "/overrides":
                 self.apis[response.get("resourcePath", safe_api_name)] = ApiEndpoint(
                     api_name, response.get("apis", [])
@@ -123,18 +122,15 @@ class Fetch():
             down each paths content. Store in the api and model dictionaries
             and write to the repository
         """
+        self.ping_data.get("apis").append({'path': '/overrides'})
         for api in self.ping_data.get(api_schema_key, {}):
             safe_api_name = safe_name(api.get("path"))
             if safe_api_name.startswith("_"):
                 safe_api_name = safe_api_name[1:]
             api_path = f"{self.project_path}/../pingaccesssdk/source/apis/{safe_api_name}.json"
+            if safe_api_name == "overrides":
+                api_path = f"{self.project_path}/overrides/{self.version}/overrides.json"
             self.get_api_schema(api_path, api.get("path"), verify=False)
-
-        api_path = f"{self.project_path}/overrides/*.json"
-        for file_path in glob.glob(api_path):
-            file_name = file_path.split("/")[-1].split(".")[0]
-            # set the overridden definitions
-            self.get_api_schema(file_path, f'/{file_name}', verify=False)
 
         self.processed_model = {}
         for model, details in self.models.items():

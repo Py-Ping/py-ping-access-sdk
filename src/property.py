@@ -239,7 +239,7 @@ class Property:
             elif self.json_sub_type == "Object":
                 return "v"
             else:
-                return f"{start_bracket}{self.sub_type}(**x) if x is not None else None for x in v{end_bracket}"
+                return f"{start_bracket}{self.sub_type}(**x) if x is not None else None for x in v or []{end_bracket}"
 
         elif self.json_type == "enum":
             return f"{self.type}[v]"
