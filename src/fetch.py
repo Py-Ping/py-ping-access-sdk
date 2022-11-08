@@ -17,10 +17,16 @@ class Fetch():
         self.project_path = os.path.dirname(os.path.realpath(__file__))
         self.logger = logging.getLogger("PingSDK.Fetch")
         self.logger.setLevel(
-            int(os.environ.get("Logging", logging.INFO))
+            int(os.environ.get("Logging", logging.DEBUG))
         )
         self.session = requests.Session()
-        self.session.auth = ('Administrator', '2Access')
+        username = os.environ.get(
+            "PING_ACCESS_ADMIN_USERNAME", "Administrator"
+        )
+        password = os.environ.get(
+            "PING_ACCESS_ADMIN_PASSWORD", "2Access"
+        )
+        self.session.auth = (username, password)
         self.session.verify = verify
         self.api_schema_key = api_schema_key
         self.swagger_url = swagger_url
@@ -37,14 +43,14 @@ class Fetch():
         """
 
         try:
-            response = self.session.get(self.swagger_url)
+            response = self.session.get(self.swagger_url, headers ={'X-XSRF-Header': '9999999'})
         except Exception as err:
             err_str = f"Failed to download swagger from: {self.swagger_url} with error {err}"
             self.logger.error(err_str)
             raise ConnectionError(err_str)
         else:
             self.logger.info(f"Successfully downloaded Ping Swagger document: {self.swagger_url}")
-            print(response)
+            print(response.json())
             self.ping_data = response.json()
             self.base_path = self.ping_data.get('basePath', self.swagger_url)
             self.write_json(data=self.ping_data, name="pa-admin-api", directory="../pingaccesssdk/source/")
@@ -125,11 +131,12 @@ class Fetch():
         self.ping_data.get("apis").append({'path': '/overrides'})
         for api in self.ping_data.get(api_schema_key, {}):
             safe_api_name = safe_name(api.get("path"))
-            if safe_api_name.startswith("_"):
+            if safe_api_name.startswith("_") and '_overrides' not in safe_api_name:
                 safe_api_name = safe_api_name[1:]
             api_path = f"{self.project_path}/../pingaccesssdk/source/apis/{safe_api_name}.json"
-            if safe_api_name == "overrides":
+            if safe_api_name == "_overrides":
                 api_path = f"{self.project_path}/overrides/{self.version}/overrides.json"
+                print(f"API PATH = {api_path}")
             self.get_api_schema(api_path, api.get("path"), verify=False)
 
         self.processed_model = {}

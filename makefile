@@ -1,5 +1,5 @@
 # Makefile for building publishing container
-PROJECT = pingfedsdk
+PROJECT = pingaccesssdk
 VERSION = edge
 #AUTH = $(shell aws --profile build --region ap-southeast-2 secretsmanager get-secret-value --secret-id arn:aws:secretsmanager:ap-southeast-2:264748061542:secret:github/versent-builder-foTpJN | jq -r '.SecretString | fromjson | .OAuthKey')
 PWD = $(shell pwd)
@@ -50,7 +50,7 @@ buildRequirements:
 
 generate: ## run the SDK generator
 	$(info [+] Running SDK package generator...)
-	python3 pingfedsdk/generate.py
+	python3 src/generate.py
 .PHONY: generate
 
 docker-generate: ## run the SDK generator

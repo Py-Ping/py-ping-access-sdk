@@ -130,4 +130,7 @@ class Generate():
 
 
 if __name__ == "__main__":
-    Generate("https://localhost:9000/pa-admin-api/v3/api-docs").generate()
+    swagger_url = os.environ.get(
+        "PING_ACCESS_SWAGGER_URL", "https://localhost:9000/pa-admin-api/v3/api-docs/pa/api-docs.json"
+    )
+    Generate(swagger_url=swagger_url).generate()

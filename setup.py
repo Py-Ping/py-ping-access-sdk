@@ -14,7 +14,7 @@ requires = [
 
 
 setup(
-    name=f"pingfedsdk-{read_contents('PINGVERSION')}",
+    name=f"pingaccesssdk-{read_contents('PINGVERSION')}",
     version=read_contents("VERSION"),
     description=read_contents("DESCRIPTION"),
     classifiers=[
@@ -32,9 +32,9 @@ setup(
     author="ProServ",
     author_email="support@versent.com.au",
     license="proprietary",
-    url="https://github.com/Versent/py-ping-fed-sdk",
-    py_modules=["pingfedsdk"],
-    package_dir={"": "pingfedsdk"},
+    url="https://github.com/Versent/py-ping-access-sdk",
+    py_modules=["pingaccesssdk"],
+    package_dir={"": "pingaccesssdk"},
     install_requires=requires,
     zip_safe=False,
 )
