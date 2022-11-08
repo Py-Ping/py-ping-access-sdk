@@ -23,14 +23,28 @@ PING_IDENTITY_DEVOPS_TAG
 
 
 # Installation
-
 ```bash
 # git clone this repo - something you've probably already done
-pip install .
+pipenv install .
 # OR python setup.py install
 ```
 
 # Regenerate SDK
+
+Set the swagger url for the SDK generator, if not set it will default to `localhost`. 
+
+```bash
+export PING_ACCESS_SWAGGER_URL=https://<pa_hostname>:<pa_admin_port>/pa-admin-api/v3/api-docs/pa/api-docs.json
+```
+
+The Ping Access instance being targeted by the `swagger_url` is assumed to be a newly deployed 
+instance with default credentials. To use alternative credentials set the below environment 
+variables.
+
+```bash
+export PING_ACCESS_ADMIN_USERNAME=<Administrator>
+export PING_ACCESS_ADMIN_PASSWORD=<2Access>
+```
 
 To regenerate the APIs and models of the SDK
 
@@ -38,7 +52,7 @@ To regenerate the APIs and models of the SDK
 make generate
 ```
 
-This requires an available Ping Access admin server instance with a set of credentials for access, to do this against a dockerised version of Ping Access run the following:
+To do this against a dockerised version of Ping Access run the following:
 
 ```bash
 make docker-generate
