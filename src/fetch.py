@@ -17,7 +17,7 @@ class Fetch():
         self.project_path = os.path.dirname(os.path.realpath(__file__))
         self.logger = logging.getLogger("PingSDK.Fetch")
         self.logger.setLevel(
-            int(os.environ.get("Logging", logging.DEBUG))
+            int(os.environ.get("Logging", logging.INFO))
         )
         self.session = requests.Session()
         username = os.environ.get(
