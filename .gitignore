@@ -157,3 +157,7 @@ dmypy.json
 .pytype/
 
 # End of https://www.toptal.com/developers/gitignore/api/python
+
+# IntelliJ
+py-ping-access-sdk.iml
+.idea
