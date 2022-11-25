@@ -104,5 +104,7 @@ To regenerate the documents, after the generation of the SDK has been performed 
 
 ```bash
 cd docs
-make html
+pipenv run sphinx-apidoc -f --implicit-namespaces -o ./source ./../pingaccesssdk
+pipenv run make html
 ```
+**You will not be able to generate the documents until AFTER you have generated the sdk**
