@@ -14,7 +14,7 @@ parser = argparse.ArgumentParser(description='PyLogger Generator')
 
 def add_args():
     parser.add_argument(
-        'version', type=str, choices=["6.3.3-edge", "7.0.2-edge", "7.0.3-edge", "edge"],
+        'version', type=str, choices=["6.3.3-edge", "7.0.3-edge", "edge"],
         default="edge", help='Ping Access Version'
     )
 
