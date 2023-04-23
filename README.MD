@@ -13,13 +13,13 @@ To work with the SDK generator there are two ways you can work with the licensed
 ```
 PING_IDENTITY_DEVOPS_USER
 PING_IDENTITY_DEVOPS_KEY
-PING_IDENTITY_DEVOPS_REGISTRY
-PING_IDENTITY_DEVOPS_TAG
 ```
 
 `PING_IDENTITY_DEVOPS_USER` and `PING_IDENTITY_DEVOPS_KEY` are available upon request [here](https://bit.ly/ping-devops-request).
 
 2. If you have a license for the product put it in the root of the project directory with the name `pingaccess.lic`. This will then be mounted into the container used for SDK generation and will allow the product to be worked with.
+3. If you use the PingAccess image docker older than three months, you must provide a valid license file.
+4. Specify the docker
 
 
 # Installation
@@ -54,7 +54,12 @@ make generate
 
 To do this against a dockerised version of Ping Access run the following:
 
+1. Specify the docker image tag to VERSION variable in makefile
+2. Run the following commands
+
 ```bash
+export PING_IDENTITY_DEVOPS_USER=<Ping Identity DevOps User>
+export PING_IDENTITY_DEVOPS_KEY=<Ping Identity DevOps Key>
 make docker-generate
 ```
 
