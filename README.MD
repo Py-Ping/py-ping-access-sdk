@@ -19,7 +19,7 @@ PING_IDENTITY_DEVOPS_KEY
 
 2. If you have a license for the product put it in the root of the project directory with the name `pingaccess.lic`. This will then be mounted into the container used for SDK generation and will allow the product to be worked with.
 3. If you use the PingAccess image docker older than three months, you must provide a valid license file.
-4. Specify the docker
+4. Specify the docker image tag to VERSION variable in makefile
 
 
 # Installation
