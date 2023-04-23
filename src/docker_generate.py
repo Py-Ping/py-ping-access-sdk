@@ -66,7 +66,7 @@ class Container:
             self.logger.info("Found product license, using pingaccess.lic")
             run_args["volumes"] = {
                 license_path: {
-                    "bind": "/opt/in/instance/server/default/conf/pingaccess.lic",
+                    "bind": "/opt/out/instance/conf/pingaccess.lic",
                     "mode": "rw"
                 }
             }
