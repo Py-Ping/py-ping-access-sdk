@@ -14,7 +14,7 @@ parser = argparse.ArgumentParser(description='PyLogger Generator')
 
 def add_args():
     parser.add_argument(
-        'version', type=str, choices=["6.3.3-edge", "7.0.2-edge", "7.0.3-edge", "edge"],
+        'version', type=str, choices=["6.3.3-edge", "7.0.3-edge", "edge"],
         default="edge", help='Ping Access Version'
     )
 
@@ -66,7 +66,7 @@ class Container:
             self.logger.info("Found product license, using pingaccess.lic")
             run_args["volumes"] = {
                 license_path: {
-                    "bind": "/opt/in/instance/server/default/conf/pingaccess.lic",
+                    "bind": "/opt/out/instance/conf/pingaccess.lic",
                     "mode": "rw"
                 }
             }
