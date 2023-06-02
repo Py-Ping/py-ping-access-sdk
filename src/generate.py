@@ -57,7 +57,7 @@ class Generate():
 
         for api, details in self.fetch_data.get("apis").items():
             template = self.render_file(
-                "apis", name=safe_class_name(api), details=details
+                "apis", name=safe_class_name(api), details=details, exceptions=exception_types
             )
             self.write_template(
                 content=template,
@@ -83,7 +83,7 @@ class Generate():
             folder="../pingaccesssdk/"
         )
 
-    def render_file(self, template, name, details, template_directory="templates"):
+    def render_file(self, template, name, details, template_directory="templates", exceptions=None):
         """
             Given the name of the jinja2 template to work from, the name of the
             class being generated inside of the file, the data to fill in to the
@@ -106,7 +106,7 @@ class Generate():
         )
         jinjatemplate = jinjaenvironment.get_template(f"./{template}.j2")
 
-        rendered_template = jinjatemplate.render(class_name=name, details=details)
+        rendered_template = jinjatemplate.render(class_name=name, details=details, exceptions=exceptions)
 
         return rendered_template
 

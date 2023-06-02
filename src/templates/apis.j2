@@ -7,13 +7,8 @@ from json import dumps
 {% endif %}
 from requests import Session
 from requests.exceptions import HTTPError
-{% for response_code in details.response_codes %}
-{% if get_exception_by_code(response_code) and response_code not in (204, 403) %}
-from pingaccesssdk.exceptions import {{ get_exception_by_code(response_code) }}
-{% endif %}
-{% endfor %}
-{% if 'ApiResult' not in details.imports and 422 in details.response_codes %}
-from pingaccesssdk.models.api_result import ApiResult as ModelApiResult
+{% if exceptions != None %}
+from pingaccesssdk.exceptions import {{ ", ".join(exceptions) }}
 {% endif %}
 {% for imp in details.imports %}
 from pingaccesssdk.models.{{ safe_module_name(imp) }} import {{ imp }} as Model{{ imp }}
@@ -45,6 +40,12 @@ class {{ safe_class_name(class_name) }}:
                 url=self._build_uri({% if has_substitution(operation.api_path) %}f{% endif %}"{{ operation.api_path }}"),
                 headers={"Content-Type": "application/json"}
             )
+            if response.status_code == 400:
+                raise BadRequest
+            if response.status_code == 404:
+                raise NotFound
+            if response.status_code == 422:
+                raise ValidationError
         except HTTPError as http_err:
             print(traceback.format_exc())
             self.logger.error(f"HTTP error occurred: {http_err}")
@@ -53,6 +54,18 @@ class {{ safe_class_name(class_name) }}:
             print(traceback.format_exc())
             self.logger.error(f"Error occurred: {err}")
             raise err
+        except BadRequest as bad_request:
+            print(traceback.format_exc())
+            self.logger.error(f"Not found: {bad_request}")
+            raise bad_request
+        except NotFound as not_found:
+            print(traceback.format_exc())
+            self.logger.error(f"Not found: {not_found}")
+            raise not_found
+        except ValidationError as validation_error:
+            print(traceback.format_exc())
+            self.logger.error(f"Not found: {validation_error}")
+            raise validation_error
         else:
             print(response)
 {% for response_code in operation.response_codes %}
