@@ -1,4 +1,5 @@
 
+.DS_Store
 source/*.json
 source/*/*.json
 pingaccesssdk/apis/*
