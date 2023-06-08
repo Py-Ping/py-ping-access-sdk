@@ -37,7 +37,7 @@ class {{ safe_class_name(class_name) }}:
         """
         try:
             response = self.session.{{ operation.method.lower() }}(
-{% if operation.has_payload() %}{% for parameter in operation.parameters %}{% if parameter.param_type == 'body' %}                data=dumps({{ parameter.safe_name }}.to_dict(True)),
+{% if operation.has_payload() %}{% for parameter in operation.parameters %}{% if parameter.param_type == 'body' %}                data=dumps({{ parameter.safe_name }}.to_dict({{ parameter.safe_name }})),
 {% endif %}{% endfor %}{% endif %}
 {% if operation.method == 'POST' %}{% for parameter in operation.parameters %}{% if parameter.json_type == 'File' %}
                 files={'file': open({{ parameter.name }}, "rb")},
