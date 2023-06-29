@@ -1,0 +1,236 @@
+{
+    "apiVersion": "7.1.3.0",
+    "apis": [
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getThirdPartyServicesCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Page number to retrieve",
+                            "format": "int32",
+                            "name": "page",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Number of Third-Party Services per page",
+                            "format": "int32",
+                            "name": "numberPerPage",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Search for Third-Party Services with name matching filter text",
+                            "name": "filter",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Get a Third-Party Service by name (case-sensitive)",
+                            "name": "name",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "A comma separated list of Third-Party Service attributes (keys) to be used to sort the results",
+                            "name": "sortKey",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Order of the sorted results (ASC for ascending, DESC for descending)",
+                            "name": "order",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get all Third-Party Services",
+                    "type": "ThirdPartyServicesView"
+                },
+                {
+                    "method": "POST",
+                    "nickname": "addThirdPartyServiceCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Third-party service to add",
+                            "name": "ThirdPartyService",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "ThirdPartyServiceView"
+                        }
+                    ],
+                    "summary": "Create a Third-Party Service",
+                    "type": "ThirdPartyServiceView"
+                }
+            ],
+            "path": "/thirdPartyServices"
+        },
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "deleteThirdPartyServiceCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Third-Party Service to delete",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Delete a Third-Party Service",
+                    "type": "void"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "getThirdPartyServiceCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Third-Party Service to get",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get a Third-Party Service",
+                    "type": "ThirdPartyServiceView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updateThirdPartyServiceCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Third-Party Service to update",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Third-Party Service to update",
+                            "name": "ThirdPartyService",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "ThirdPartyServiceView"
+                        }
+                    ],
+                    "summary": "Update a Third-Party Service",
+                    "type": "ThirdPartyServiceView"
+                }
+            ],
+            "path": "/thirdPartyServices/{id}"
+        }
+    ],
+    "basePath": "https://localhost:9000/pa-admin-api/v3",
+    "models": {
+        "ThirdPartyServiceView": {
+            "description": "A third-party service.",
+            "id": "ThirdPartyServiceView",
+            "properties": {
+                "availabilityProfileId": {
+                    "description": "The ID of the availability profile associated with the third-party service.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "expectedHostname": {
+                    "description": "(sortable) The name of the host expected in the third-party service's certificate.",
+                    "type": "string"
+                },
+                "hostValue": {
+                    "description": "(sortable) The Host header field value in the requests sent to a Third-Party Services. When set, PingAccess will use the hostValue as the Host header field value. Otherwise, the target value will be used.",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "When creating a new ThirdPartyService, this is the ID for the ThirdPartyService. If not specified, an ID will be automatically assigned. When updating an existing ThirdPartyService, this field is ignored and the ID is determined by the path parameter.",
+                    "type": "string"
+                },
+                "loadBalancingStrategyId": {
+                    "description": "The ID of the load balancing strategy associated with the third-party service.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "maxConnections": {
+                    "description": "(sortable) The maximum number of HTTP persistent connections you want PingAccess to have open and maintain for the third-party service. -1 indicates unlimited connections.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "(sortable) The name of the third-party service.",
+                    "type": "string"
+                },
+                "secure": {
+                    "description": "(sortable) This field is true if the third-party service expects HTTPS connections.",
+                    "type": "boolean"
+                },
+                "skipHostnameVerification": {
+                    "description": "(sortable) This field is true if the hostname verification of the third-party service's certificate should be skipped.",
+                    "type": "boolean"
+                },
+                "targets": {
+                    "description": "The {hostname}:{port} pairs for the hosts that make up the third-party service.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "trustedCertificateGroupId": {
+                    "description": "The ID of the trusted certificate group associated with the third-party service.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "useProxy": {
+                    "description": "(sortable) True if a proxy should be used for HTTP or HTTPS requests.",
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "name",
+                "targets"
+            ]
+        },
+        "ThirdPartyServicesView": {
+            "description": "A collection of third-party service items.",
+            "id": "ThirdPartyServicesView",
+            "properties": {
+                "items": {
+                    "description": "The actual list of third-party services.",
+                    "items": {
+                        "$ref": "ThirdPartyServiceView"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "items"
+            ]
+        }
+    },
+    "resourcePath": "/thirdPartyServices",
+    "swaggerVersion": "1.2"
+}

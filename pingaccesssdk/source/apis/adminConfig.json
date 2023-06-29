@@ -1,0 +1,294 @@
+{
+    "apiVersion": "7.1.3.0",
+    "apis": [
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "deleteAdminConfigurationCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Resets the Admin Config to default values",
+                    "type": "void"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "getAdminConfigurationCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get the Admin Config",
+                    "type": "AdminConfigurationView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updateAdminConfigurationCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Updated admin configuration",
+                            "name": "AdminConfiguration",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "AdminConfigurationView"
+                        }
+                    ],
+                    "summary": "Update the Admin Config",
+                    "type": "AdminConfigurationView"
+                }
+            ],
+            "path": "/adminConfig"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getReplicaAdminsCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get list of ReplicaAdmins",
+                    "type": "ReplicaAdminsView"
+                },
+                {
+                    "method": "POST",
+                    "nickname": "addReplicaAdminCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "AdminReplica to create",
+                            "name": "replicaAdmin",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "ReplicaAdminView"
+                        }
+                    ],
+                    "summary": "Add a ReplicaAdmin",
+                    "type": "ReplicaAdminView"
+                }
+            ],
+            "path": "/adminConfig/replicaAdmins"
+        },
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "deleteReplicaAdminCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of the replicaAdmin to delete",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Delete a ReplicaAdmin",
+                    "type": "void"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "getReplicaAdminCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of replicaAdmin to get",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get a ReplicaAdmin",
+                    "type": "ReplicaAdminView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updateAdminReplicaCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of ReplicaAdmin to get",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "ReplicaAdmin to update",
+                            "name": "replicaAdmin",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "ReplicaAdminView"
+                        }
+                    ],
+                    "summary": "Update a ReplicaAdmin",
+                    "type": "ReplicaAdminView"
+                }
+            ],
+            "path": "/adminConfig/replicaAdmins/{id}"
+        },
+        {
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "getAdminReplicaFileCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of replicaAdmin to get configuration for",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get configuration file for a given ReplicaAdmin",
+                    "type": "void"
+                }
+            ],
+            "path": "/adminConfig/replicaAdmins/{id}/config"
+        }
+    ],
+    "basePath": "https://localhost:9000/pa-admin-api/v3",
+    "models": {
+        "AdminConfigurationView": {
+            "description": "An admin configuration.",
+            "id": "AdminConfigurationView",
+            "properties": {
+                "hostPort": {
+                    "description": "The primary host and port of the administrative console.",
+                    "type": "string"
+                },
+                "httpProxyId": {
+                    "description": "The ID of the proxy to use for HTTP requests or zero if none.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "httpsProxyId": {
+                    "description": "The ID of the proxy to use for HTTPS requests or zero if none.",
+                    "format": "int32",
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "hostPort"
+            ]
+        },
+        "Hash": {
+            "id": "Hash",
+            "properties": {
+                "algorithm": {
+                    "$ref": "HashAlgorithm",
+                    "enum": [
+                        "MD5",
+                        "SHA1",
+                        "SHA256",
+                        "SHA384",
+                        "SHA512"
+                    ]
+                },
+                "hexValue": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "algorithm",
+                "hexValue"
+            ]
+        },
+        "PublicKeyView": {
+            "description": "A public key.",
+            "id": "PublicKeyView",
+            "properties": {
+                "created": {
+                    "$ref": "Instant",
+                    "description": "A timestamp when the key was created."
+                },
+                "jwk": {
+                    "$ref": "JsonNode",
+                    "description": "The JSON of the public key."
+                }
+            },
+            "required": [
+                "jwk"
+            ]
+        },
+        "ReplicaAdminView": {
+            "description": "A replica admin.",
+            "id": "ReplicaAdminView",
+            "properties": {
+                "certificateHash": {
+                    "$ref": "Hash",
+                    "description": "The certificate hash."
+                },
+                "configReplicationEnabled": {
+                    "description": "Set to true when configuration replication for the replica admin is enabled. False when configuration replication is suspended.",
+                    "type": "boolean"
+                },
+                "description": {
+                    "description": "The description of the replica admin.",
+                    "type": "string"
+                },
+                "hostPort": {
+                    "description": "The host and port of the replica admin.",
+                    "type": "string"
+                },
+                "httpProxyId": {
+                    "description": "The ID of the proxy to use for HTTP requests or zero if none.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "httpsProxyId": {
+                    "description": "The ID of the proxy to use for HTTPS requests or zero if none.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "keys": {
+                    "description": "An array of public keys associated with the replica admin.",
+                    "items": {
+                        "$ref": "PublicKeyView"
+                    },
+                    "type": "array"
+                },
+                "name": {
+                    "description": "The name of the replica admin.",
+                    "type": "string"
+                },
+                "selectedCertificateId": {
+                    "description": "The ID of the certificate the replica admin will use to contact PingAccess via SSL/TLS.",
+                    "format": "int32",
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "hostPort",
+                "name"
+            ]
+        },
+        "ReplicaAdminsView": {
+            "description": "A list of replica admins.",
+            "id": "ReplicaAdminsView",
+            "properties": {
+                "items": {
+                    "description": "An array of replica admin values.",
+                    "items": {
+                        "$ref": "ReplicaAdminView"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "items"
+            ]
+        }
+    },
+    "resourcePath": "/adminConfig",
+    "swaggerVersion": "1.2"
+}

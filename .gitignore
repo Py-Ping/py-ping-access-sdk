@@ -2,13 +2,6 @@
 .DS_Store
 source/*.json
 source/*/*.json
-pingaccesssdk/apis/*
-pingaccesssdk/models/*
-pingaccesssdk/source/*
-pingaccesssdk/enums.py
-pingaccesssdk/exceptions.py
-pingaccesssdk/model.py
-pingaccesssdk/.coverage
 docs/build/*
 requirements.txt
 docs/source/apis/apis.rst
@@ -16,7 +9,6 @@ docs/source/models/models.rst
 tests/apis/*
 tests/models/*
 tests/enums.py
-PINGVERSION
 
 # Created by https://www.toptal.com/developers/gitignore/api/python
 # Edit at https://www.toptal.com/developers/gitignore?templates=python

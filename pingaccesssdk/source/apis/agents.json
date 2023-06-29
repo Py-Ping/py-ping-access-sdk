@@ -1,0 +1,572 @@
+{
+    "apiVersion": "7.1.3.0",
+    "apis": [
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getAgentsCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Page number to retrieve",
+                            "format": "int32",
+                            "name": "page",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Number of Agents per page",
+                            "format": "int32",
+                            "name": "numberPerPage",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Search for Agents with name matching filter text",
+                            "name": "filter",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Get Agents by name",
+                            "name": "name",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "A comma separated list of Agent attributes (keys) to be used to sort the results",
+                            "name": "sortKey",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Order of the sorted results (ASC for ascending, DESC for descending)",
+                            "name": "order",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get all Agents",
+                    "type": "AgentsView"
+                },
+                {
+                    "method": "POST",
+                    "nickname": "addAgentCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Agent to add",
+                            "name": "Agent",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "AgentView"
+                        }
+                    ],
+                    "summary": "Add an Agent",
+                    "type": "AgentView"
+                }
+            ],
+            "path": "/agents"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getAgentCertificatesCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Page number to retrieve",
+                            "format": "int32",
+                            "name": "page",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Number of Agent Certificates per page",
+                            "format": "int32",
+                            "name": "numberPerPage",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Search for Agent Certificates with alias matching filter text",
+                            "name": "filter",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Get Agent Certificates by alias",
+                            "name": "alias",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "A comma separated list of Agent Certificate attributes (keys) to be used to sort the results",
+                            "name": "sortKey",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Order of the sorted results (ASC for ascending, DESC for descending)",
+                            "name": "order",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get all Agent Certificates",
+                    "type": "AgentCertificatesView"
+                }
+            ],
+            "path": "/agents/certificates"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getAgentCertificateCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Certificate to get",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get an Agent Certificate",
+                    "type": "AgentCertificateView"
+                }
+            ],
+            "path": "/agents/certificates/{id}"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getAgentFileCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Agent",
+                            "name": "agentId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Shared Secret",
+                            "name": "sharedSecretId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get a configuration file for an Agent",
+                    "type": "void"
+                }
+            ],
+            "path": "/agents/{agentId}/config/{sharedSecretId}"
+        },
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "deleteAgentCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of the Agent to delete",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Delete an Agent",
+                    "type": "void"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "getAgentCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Agent to get",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get an Agent",
+                    "type": "AgentView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updateAgentCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Agent",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Agent to update",
+                            "name": "Agent",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "AgentView"
+                        }
+                    ],
+                    "summary": "Update an Agent",
+                    "type": "AgentView"
+                }
+            ],
+            "path": "/agents/{id}"
+        }
+    ],
+    "basePath": "https://localhost:9000/pa-admin-api/v3",
+    "models": {
+        "AgentCertificateView": {
+            "description": "An agent certificate.",
+            "id": "AgentCertificateView",
+            "properties": {
+                "alias": {
+                    "description": "(sortable) The alias for the agent certificate.",
+                    "type": "string"
+                },
+                "chainCertificate": {
+                    "description": "A flag indicating whether the agent certificate is a chain certificate.",
+                    "type": "boolean"
+                },
+                "expires": {
+                    "$ref": "integer",
+                    "description": "(sortable) The date at which the agent certificate expires as the number of milliseconds since January 1, 1970, 00:00:00 GMT."
+                },
+                "id": {
+                    "description": "The id for the agent certificate.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "issuerDn": {
+                    "description": "(sortable) The issuer DN for the agent certificate.",
+                    "type": "string"
+                },
+                "keyPair": {
+                    "description": "A flag indicating whether the agent certificate is a key pair.",
+                    "type": "boolean"
+                },
+                "md5sum": {
+                    "description": "The MD5 checksum of the agent certificate. The value will be set to \"\" when in FIPS mode.",
+                    "type": "string"
+                },
+                "serialNumber": {
+                    "description": "(sortable) The Serial Number for the agent certificate.",
+                    "type": "string"
+                },
+                "sha1sum": {
+                    "description": "The SHA1 checksum of the agent certificate.",
+                    "type": "string"
+                },
+                "sha256sum": {
+                    "description": "The SHA256 checksum of the agent certificate.",
+                    "type": "string"
+                },
+                "signatureAlgorithm": {
+                    "description": "(sortable) The Signature Algorithm used by the agent certificate.",
+                    "type": "string"
+                },
+                "status": {
+                    "$ref": "CertStatus",
+                    "description": "A high-level status for the agent certificate.",
+                    "enum": [
+                        "Valid",
+                        "Expired",
+                        "Not yet valid",
+                        "Revoked",
+                        "Undetermined revocation status",
+                        "No path to trust anchor",
+                        "Invalid"
+                    ]
+                },
+                "subjectAlternativeNames": {
+                    "description": "A collection of subject alternative names for the agent certificate.",
+                    "items": {
+                        "$ref": "GeneralName"
+                    },
+                    "type": "array"
+                },
+                "subjectCn": {
+                    "description": "(sortable) The common name (CN) identifying the certificate.",
+                    "type": "string"
+                },
+                "subjectDn": {
+                    "description": "(sortable) The Subject DN for the agent certificate.",
+                    "type": "string"
+                },
+                "trustedCertificate": {
+                    "description": "A flag indicating whether the agent certificate is a trusted certificate.",
+                    "type": "boolean"
+                },
+                "validFrom": {
+                    "$ref": "integer",
+                    "description": "(sortable) The date at which the agent certificate is valid from as the number of milliseconds since January 1, 1970, 00:00:00 GMT."
+                }
+            },
+            "required": [
+                "alias",
+                "chainCertificate",
+                "issuerDn",
+                "keyPair",
+                "md5sum",
+                "serialNumber",
+                "sha1sum",
+                "sha256sum",
+                "signatureAlgorithm",
+                "status",
+                "subjectDn",
+                "trustedCertificate"
+            ]
+        },
+        "AgentCertificatesView": {
+            "description": "A collection of agent certificates.",
+            "id": "AgentCertificatesView",
+            "properties": {
+                "items": {
+                    "description": "The actual list of agent certificates.",
+                    "items": {
+                        "$ref": "AgentCertificateView"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "items"
+            ]
+        },
+        "AgentView": {
+            "description": "An agent.",
+            "id": "AgentView",
+            "properties": {
+                "certificateHash": {
+                    "$ref": "Hash",
+                    "description": "The certificate hash."
+                },
+                "description": {
+                    "description": "(sortable) A description of the agent.",
+                    "type": "string"
+                },
+                "failedRetryTimeout": {
+                    "description": "The number of seconds to wait before an agent should retry an unavailable policy server.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "failoverHosts": {
+                    "description": "A list of hostname:port strings for the backup PingAccess policy servers.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "hostname": {
+                    "description": "(sortable) The hostname where the agent is listening.",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "When creating a new Agent, this is the ID for the Agent. If not specified, an ID will be automatically assigned. When updating an existing Agent, this field is ignored and the ID is determined by the path parameter.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "ipSource": {
+                    "$ref": "IpMultiValueSourceView",
+                    "description": "Overrides the default IP source settings."
+                },
+                "maxRetries": {
+                    "description": "The max number of times an agent request will be attempted before failing over to a backup policy server and marking the current policy server as unavailable.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "(sortable) The name of the agent.",
+                    "type": "string"
+                },
+                "overrideIpSource": {
+                    "description": "(sortable) Indicates whether the default IP source is overridden for this agent.",
+                    "type": "boolean"
+                },
+                "port": {
+                    "description": "(sortable) The port the agent is listening on.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "selectedCertificateId": {
+                    "description": "The ID of the certificate the agent will use to contact PingAccess via SSL/TLS.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "sharedSecretIds": {
+                    "description": "An array of shared secret ids associated with this agent.",
+                    "items": {
+                        "type": "int"
+                    },
+                    "type": "array"
+                },
+                "unknownResourceMode": {
+                    "$ref": "UnknownResourceMode",
+                    "description": "Specifies how requests for unknown resources should be handled. This mode is optional. If not set, the default agent mode will be used.",
+                    "enum": [
+                        "DENY",
+                        "PASSTHROUGH"
+                    ]
+                }
+            },
+            "required": [
+                "hostname",
+                "name",
+                "port",
+                "sharedSecretIds"
+            ]
+        },
+        "AgentsView": {
+            "description": "A collection of agents.",
+            "id": "AgentsView",
+            "properties": {
+                "items": {
+                    "description": "The actual list of agents.",
+                    "items": {
+                        "$ref": "AgentView"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "items"
+            ]
+        },
+        "GeneralName": {
+            "id": "GeneralName",
+            "properties": {
+                "name": {
+                    "$ref": "GeneralNameEnum",
+                    "enum": [
+                        "otherName",
+                        "rfc822Name",
+                        "dNSName",
+                        "x400Address",
+                        "directoryName",
+                        "ediPartyName",
+                        "uniformResourceIdentifier",
+                        "iPAddress",
+                        "registeredID"
+                    ]
+                },
+                "value": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name",
+                "value"
+            ]
+        },
+        "Hash": {
+            "id": "Hash",
+            "properties": {
+                "algorithm": {
+                    "$ref": "HashAlgorithm",
+                    "enum": [
+                        "MD5",
+                        "SHA1",
+                        "SHA256",
+                        "SHA384",
+                        "SHA512"
+                    ]
+                },
+                "hexValue": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "algorithm",
+                "hexValue"
+            ]
+        },
+        "IpMultiValueSourceView": {
+            "description": "Configuration for the IP source.",
+            "id": "IpMultiValueSourceView",
+            "properties": {
+                "fallbackToLastHopIp": {
+                    "description": "Indicator if the upstream IP address should be used as the client address if none of the expected headers is returned.",
+                    "type": "boolean"
+                },
+                "headerNameList": {
+                    "description": "An array of header names used to identify the source IP address.",
+                    "type": "array"
+                },
+                "listValueLocation": {
+                    "$ref": "ListValueLocation",
+                    "description": "The location in a matching header value list to use as the source.",
+                    "enum": [
+                        "FIRST",
+                        "LAST"
+                    ]
+                }
+            },
+            "required": [
+                "headerNameList",
+                "listValueLocation"
+            ]
+        },
+        "List": {
+            "id": "List",
+            "properties": {
+                "empty": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "empty"
+            ]
+        }
+    },
+    "resourcePath": "/agents",
+    "swaggerVersion": "1.2"
+}

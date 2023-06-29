@@ -1,0 +1,679 @@
+{
+    "apiVersion": "7.1.3.0",
+    "apis": [
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getAvailabilityProfilesCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Page number to retrieve",
+                            "format": "int32",
+                            "name": "page",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Number of Availability Profiles per page",
+                            "format": "int32",
+                            "name": "numberPerPage",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Search for Availability Profile with name matching filter text",
+                            "name": "filter",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Get a specific Availability Profile by name (case-sensitive)",
+                            "name": "name",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "A comma separated list of Availability Profile attributes (keys) to be used to sort the results",
+                            "name": "sortKey",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Order of the sorted results (ASC for ascending, DESC for descending)",
+                            "name": "order",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get all Availability Profiles",
+                    "type": "AvailabilityProfilesView"
+                },
+                {
+                    "method": "POST",
+                    "nickname": "addAvailabilityProfileCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Availability Profile to add",
+                            "name": "AvailabilityProfile",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "AvailabilityProfileView"
+                        }
+                    ],
+                    "summary": "Create an Availability Profile",
+                    "type": "AvailabilityProfileView"
+                }
+            ],
+            "path": "/highAvailability/availabilityProfiles"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getAvailabilityProfileDescriptorsCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get descriptors for all Availability Profiles",
+                    "type": "DescriptorsView"
+                }
+            ],
+            "path": "/highAvailability/availabilityProfiles/descriptors"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getAvailabilityProfileDescriptorCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Availability Profile descriptor to retrieve",
+                            "name": "availabilityProfileType",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get a descriptor for an Availability Profile",
+                    "type": "DescriptorView"
+                }
+            ],
+            "path": "/highAvailability/availabilityProfiles/descriptors/{availabilityProfileType}"
+        },
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "deleteAvailabilityProfileCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of the Availability Profile to delete",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Delete an Availability Profile",
+                    "type": "void"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "getAvailabilityProfileCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Availability Profile to get",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get an Availability Profile",
+                    "type": "AvailabilityProfileView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updateAvailabilityProfileCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Availability Profile to update",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Availability Profile to update",
+                            "name": "AvailabilityProfile",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "AvailabilityProfileView"
+                        }
+                    ],
+                    "summary": "Update an Availability Profile",
+                    "type": "AvailabilityProfileView"
+                }
+            ],
+            "path": "/highAvailability/availabilityProfiles/{id}"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getLoadBalancingStrategiesCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Page number to retrieve",
+                            "format": "int32",
+                            "name": "page",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Number of Load Balancing Strategies per page",
+                            "format": "int32",
+                            "name": "numberPerPage",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Search for Load Balancing Strategies with name matching filter text",
+                            "name": "filter",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Get a specific Load Balancing Strategy by name (case-sensitive)",
+                            "name": "name",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "A comma separated list of Load Balancing Strategy attributes (keys) to be used to sort the results",
+                            "name": "sortKey",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Order of the sorted results (ASC for ascending, DESC for descending)",
+                            "name": "order",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get all Load Balancing Strategies",
+                    "type": "LoadBalancingStrategiesView"
+                },
+                {
+                    "method": "POST",
+                    "nickname": "addLoadBalancingStrategyCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Load Balancing Strategy to add",
+                            "name": "LoadBalancingStrategy",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "LoadBalancingStrategyView"
+                        }
+                    ],
+                    "summary": "Create a Load Balancing Strategy",
+                    "type": "LoadBalancingStrategyView"
+                }
+            ],
+            "path": "/highAvailability/loadBalancingStrategies"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getLoadBalancingStrategyDescriptorsCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get descriptors for all Load Balancing Strategies",
+                    "type": "DescriptorsView"
+                }
+            ],
+            "path": "/highAvailability/loadBalancingStrategies/descriptors"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getLoadBalancingStrategyDescriptorCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Load Balancing Strategy descriptor to retrieve",
+                            "name": "loadBalancingStrategyType",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get a descriptor for a Load Balancing Strategy",
+                    "type": "DescriptorView"
+                }
+            ],
+            "path": "/highAvailability/loadBalancingStrategies/descriptors/{loadBalancingStrategyType}"
+        },
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "deleteLoadBalancingStrategyCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of the load balancing strategy to delete",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Delete a Load Balancing Strategy",
+                    "type": "void"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "getLoadBalancingStrategyCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Load Balancing Strategy to get",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get a Load Balancing Strategy",
+                    "type": "LoadBalancingStrategyView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updateLoadBalancingStrategyCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Load Balancing Strategy to update",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Load Balancing Strategy to update",
+                            "name": "LoadBalancingStrategy",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "LoadBalancingStrategyView"
+                        }
+                    ],
+                    "summary": "Update a Load Balancing Strategy",
+                    "type": "LoadBalancingStrategyView"
+                }
+            ],
+            "path": "/highAvailability/loadBalancingStrategies/{id}"
+        }
+    ],
+    "basePath": "https://localhost:9000/pa-admin-api/v3",
+    "models": {
+        "AvailabilityProfileView": {
+            "description": "An availability profile.",
+            "id": "AvailabilityProfileView",
+            "properties": {
+                "className": {
+                    "description": "(sortable) The class name of the availability profile.",
+                    "type": "string"
+                },
+                "configuration": {
+                    "$ref": "Map[string,java.lang.Object]",
+                    "description": "The availability profile's configuration data."
+                },
+                "id": {
+                    "description": "When creating a new AvailabilityProfile, this is the ID for the AvailabilityProfile. If not specified, an ID will be automatically assigned. When updating an existing AvailabilityProfile, this field is ignored and the ID is determined by the path parameter.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "(sortable) The name of the availability profile.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "className",
+                "configuration",
+                "name"
+            ]
+        },
+        "AvailabilityProfilesView": {
+            "description": "A collection of availability profiles.",
+            "id": "AvailabilityProfilesView",
+            "properties": {
+                "items": {
+                    "description": "An array of availability profiles.",
+                    "items": {
+                        "$ref": "AvailabilityProfileView"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "items"
+            ]
+        },
+        "ConfigurationDependentFieldOption": {
+            "description": "Configuration of the dependent field option.",
+            "id": "ConfigurationDependentFieldOption",
+            "properties": {
+                "options": {
+                    "description": "The dependent field options.",
+                    "items": {
+                        "$ref": "ConfigurationOption"
+                    },
+                    "type": "array"
+                },
+                "value": {
+                    "description": "The dependent field option value.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "options",
+                "value"
+            ]
+        },
+        "ConfigurationField": {
+            "description": "Details for configuration in the administrator console.",
+            "id": "ConfigurationField",
+            "properties": {
+                "advanced": {
+                    "description": "Indicates that the configuration field is an advanced field or not.",
+                    "type": "boolean"
+                },
+                "buttonGroup": {
+                    "description": "The name of group radio buttons that cooperate in a single selection.",
+                    "type": "string"
+                },
+                "default": {
+                    "description": "The default value of the configuration field.",
+                    "type": "string"
+                },
+                "deselectable": {
+                    "description": "Indicates that a radio button is able to be deselected.",
+                    "type": "boolean"
+                },
+                "fields": {
+                    "description": "The list of configuration fields that the current configuration field is the parent of.",
+                    "items": {
+                        "$ref": "ConfigurationField"
+                    },
+                    "type": "array"
+                },
+                "help": {
+                    "$ref": "Help",
+                    "description": "The help attributes of the configuration field."
+                },
+                "label": {
+                    "description": "The label of the configuration field.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "The name of the configuration field.",
+                    "type": "string"
+                },
+                "options": {
+                    "$ref": "java.util.Collection<com.pingidentity.pa.sdk.ui.ConfigurationOption>",
+                    "description": "The available options for the select based configuration fields."
+                },
+                "parentField": {
+                    "$ref": "ConfigurationParentField",
+                    "description": "The parent field attributes."
+                },
+                "required": {
+                    "description": "Indicates that the configuration field value is required or not.",
+                    "type": "boolean"
+                },
+                "type": {
+                    "$ref": "ConfigurationType",
+                    "description": "The type of the configuration field.",
+                    "enum": [
+                        "TEXT",
+                        "TEXTAREA",
+                        "TIME",
+                        "SELECT",
+                        "GROOVY",
+                        "CONCEALED",
+                        "LIST",
+                        "TABLE",
+                        "CHECKBOX",
+                        "AUTOCOMPLETEOPEN",
+                        "AUTOCOMPLETECLOSED",
+                        "COMPOSITE",
+                        "RADIO_BUTTON"
+                    ]
+                }
+            },
+            "required": [
+                "advanced",
+                "buttonGroup",
+                "default",
+                "deselectable",
+                "fields",
+                "help",
+                "label",
+                "name",
+                "options",
+                "parentField",
+                "required",
+                "type"
+            ]
+        },
+        "ConfigurationOption": {
+            "description": "The configuration option attributes.",
+            "id": "ConfigurationOption",
+            "properties": {
+                "category": {
+                    "$ref": "java.util.Optional<java.lang.String>",
+                    "description": "The configuration option category."
+                },
+                "label": {
+                    "description": "The configuration option label.",
+                    "type": "string"
+                },
+                "value": {
+                    "description": "The configuration option value.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "category",
+                "label",
+                "value"
+            ]
+        },
+        "ConfigurationParentField": {
+            "description": "Configuration of the parent field.",
+            "id": "ConfigurationParentField",
+            "properties": {
+                "dependentFieldOptions": {
+                    "description": "The dependent field options attributes.",
+                    "items": {
+                        "$ref": "ConfigurationDependentFieldOption"
+                    },
+                    "type": "array"
+                },
+                "fieldName": {
+                    "description": "The configuration parent field name.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "dependentFieldOptions",
+                "fieldName"
+            ]
+        },
+        "DescriptorView": {
+            "description": "A descriptor.",
+            "id": "DescriptorView",
+            "properties": {
+                "className": {
+                    "description": "The name of the implementation class.",
+                    "type": "string"
+                },
+                "configurationFields": {
+                    "description": "The list of configuration fields for the class.",
+                    "items": {
+                        "$ref": "ConfigurationField"
+                    },
+                    "type": "array"
+                },
+                "label": {
+                    "description": "The label for the entity.",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "The type for the entity.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "className",
+                "configurationFields",
+                "label",
+                "type"
+            ]
+        },
+        "DescriptorsView": {
+            "description": "A list of descriptors.",
+            "id": "DescriptorsView",
+            "properties": {
+                "items": {
+                    "description": "The actual list of descriptors.",
+                    "items": {
+                        "$ref": "DescriptorView"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "items"
+            ]
+        },
+        "Help": {
+            "description": "Configuration of the help context of a configuration field.",
+            "id": "Help",
+            "properties": {
+                "content": {
+                    "description": "The help content of the configuration field.",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "The help title of the configuration field.",
+                    "type": "string"
+                },
+                "url": {
+                    "description": "The help URL for the configuration field.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "content",
+                "title",
+                "url"
+            ]
+        },
+        "LoadBalancingStrategiesView": {
+            "description": "A collection of load balancing strategies.",
+            "id": "LoadBalancingStrategiesView",
+            "properties": {
+                "items": {
+                    "description": "An array of load balancing strategies.",
+                    "items": {
+                        "$ref": "LoadBalancingStrategyView"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "items"
+            ]
+        },
+        "LoadBalancingStrategyView": {
+            "description": "A load balancing strategy.",
+            "id": "LoadBalancingStrategyView",
+            "properties": {
+                "className": {
+                    "description": "(sortable) The class name of the load balancing strategy.",
+                    "type": "string"
+                },
+                "configuration": {
+                    "$ref": "Map[string,java.lang.Object]",
+                    "description": "The load balancing strategy's configuration data."
+                },
+                "id": {
+                    "description": "When creating a new LoadBalancingStrategy, this is the ID for the LoadBalancingStrategy. If not specified, an ID will be automatically assigned. When updating an existing LoadBalancingStrategy, this field is ignored and the ID is determined by the path parameter.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "(sortable) The name of the load balancing strategy.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "className",
+                "configuration",
+                "name"
+            ]
+        }
+    },
+    "resourcePath": "/highAvailability",
+    "swaggerVersion": "1.2"
+}

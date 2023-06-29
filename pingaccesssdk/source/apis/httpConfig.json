@@ -1,0 +1,246 @@
+{
+    "apiVersion": "7.1.3.0",
+    "apis": [
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "deleteHttpMonitoringCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Resets the HTTP monitoring auditLevel to default value",
+                    "type": "void"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "getHttpMonitoringCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get the HTTP monitoring auditLevel",
+                    "type": "HttpMonitoringView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updateHttpMonitoringCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Http Monitoring",
+                            "name": "Monitoring",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "HttpMonitoringView"
+                        }
+                    ],
+                    "summary": "Update the HTTP monitoring auditLevel",
+                    "type": "HttpMonitoringView"
+                }
+            ],
+            "path": "/httpConfig/monitoring"
+        },
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "deleteHostSourceCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Resets the HTTP request Host Source type to default values",
+                    "type": "void"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "getHostSourceCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get the HTTP request Host Source type",
+                    "type": "HostMultiValueSourceView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updateHostSourceCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Host source type to update",
+                            "name": "HttpConfiguration",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "HostMultiValueSourceView"
+                        }
+                    ],
+                    "summary": "Update the HTTP request Host Source type",
+                    "type": "HostMultiValueSourceView"
+                }
+            ],
+            "path": "/httpConfig/request/hostSource"
+        },
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "deleteIpSourceCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Resets the HTTP request IP Source type to default values",
+                    "type": "void"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "getIpSourceCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get the HTTP request IP Source type",
+                    "type": "IpMultiValueSourceView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updateIpSourceCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "IP source type to update",
+                            "name": "HttpConfiguration",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "IpMultiValueSourceView"
+                        }
+                    ],
+                    "summary": "Update the HTTP request IP Source type",
+                    "type": "IpMultiValueSourceView"
+                }
+            ],
+            "path": "/httpConfig/request/ipSource"
+        },
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "deleteProtoSourceCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Resets the HTTP request Protocol Source type to default values",
+                    "type": "void"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "getProtoSourceCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get the HTTP request Protocol Source type",
+                    "type": "ProtocolSourceView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updateProtocolSourceCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Protocol source type to update",
+                            "name": "HttpConfiguration",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "ProtocolSourceView"
+                        }
+                    ],
+                    "summary": "Update the HTTP request Protocol Source type",
+                    "type": "ProtocolSourceView"
+                }
+            ],
+            "path": "/httpConfig/request/protocolSource"
+        }
+    ],
+    "basePath": "https://localhost:9000/pa-admin-api/v3",
+    "models": {
+        "HostMultiValueSourceView": {
+            "description": "Configuration for the host source.",
+            "id": "HostMultiValueSourceView",
+            "properties": {
+                "headerNameList": {
+                    "description": "An array of header names used to identify the host source name.",
+                    "type": "array"
+                },
+                "listValueLocation": {
+                    "$ref": "ListValueLocation",
+                    "description": "The location in a matching header value list to use as the source.",
+                    "enum": [
+                        "FIRST",
+                        "LAST"
+                    ]
+                }
+            },
+            "required": [
+                "headerNameList",
+                "listValueLocation"
+            ]
+        },
+        "HttpMonitoringView": {
+            "id": "HttpMonitoringView",
+            "properties": {
+                "auditLevel": {
+                    "$ref": "AuditLevel",
+                    "enum": [
+                        "ON",
+                        "OFF"
+                    ]
+                }
+            }
+        },
+        "IpMultiValueSourceView": {
+            "description": "Configuration for the IP source.",
+            "id": "IpMultiValueSourceView",
+            "properties": {
+                "fallbackToLastHopIp": {
+                    "description": "Indicator if the upstream IP address should be used as the client address if none of the expected headers is returned.",
+                    "type": "boolean"
+                },
+                "headerNameList": {
+                    "description": "An array of header names used to identify the source IP address.",
+                    "type": "array"
+                },
+                "listValueLocation": {
+                    "$ref": "ListValueLocation",
+                    "description": "The location in a matching header value list to use as the source.",
+                    "enum": [
+                        "FIRST",
+                        "LAST"
+                    ]
+                }
+            },
+            "required": [
+                "headerNameList",
+                "listValueLocation"
+            ]
+        },
+        "List": {
+            "id": "List",
+            "properties": {
+                "empty": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "empty"
+            ]
+        },
+        "ProtocolSourceView": {
+            "description": "Configuration for the protocol source.",
+            "id": "ProtocolSourceView",
+            "properties": {
+                "headerName": {
+                    "description": "The header name used to identify the protocol source name.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "headerName"
+            ]
+        }
+    },
+    "resourcePath": "/httpConfig",
+    "swaggerVersion": "1.2"
+}

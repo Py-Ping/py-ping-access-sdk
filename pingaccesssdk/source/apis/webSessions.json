@@ -1,0 +1,360 @@
+{
+    "apiVersion": "7.1.3.0",
+    "apis": [
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getWebSessionsCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Page number to retrieve",
+                            "format": "int32",
+                            "name": "page",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Number of Web Sessions per page",
+                            "format": "int32",
+                            "name": "numberPerPage",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Search for Web Sessions with name matching filter text",
+                            "name": "filter",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Get a Web Sessions by name",
+                            "name": "name",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "A comma separated list of Web Session attributes (keys) to be used to sort the results",
+                            "name": "sortKey",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Order of the sorted results (ASC for ascending, DESC for descending)",
+                            "name": "order",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get all WebSessions",
+                    "type": "WebSessionsView"
+                },
+                {
+                    "method": "POST",
+                    "nickname": "addWebSessionCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "WebSession to add",
+                            "name": "WebSessions",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "WebSessionView"
+                        }
+                    ],
+                    "summary": "Create a WebSession",
+                    "type": "WebSessionView"
+                }
+            ],
+            "path": "/webSessions"
+        },
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "deleteWebSessionCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of WebSession to delete",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Delete a WebSession",
+                    "type": "void"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "getWebSessionCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of WebSession to get",
+                            "format": "int32",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "integer"
+                        }
+                    ],
+                    "summary": "Get a WebSession",
+                    "type": "WebSessionView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updateWebSessionCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of WebSession to update",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "WebSession to update",
+                            "name": "WebSessions",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "WebSessionView"
+                        }
+                    ],
+                    "summary": "Update a WebSession",
+                    "type": "WebSessionView"
+                }
+            ],
+            "path": "/webSessions/{id}"
+        }
+    ],
+    "basePath": "https://localhost:9000/pa-admin-api/v3",
+    "models": {
+        "HiddenFieldView": {
+            "description": "A hidden field.",
+            "id": "HiddenFieldView",
+            "properties": {
+                "encryptedValue": {
+                    "description": "The encrypted value of the field, as originally returned by the API.",
+                    "type": "string"
+                },
+                "value": {
+                    "description": "The value of the field. This field takes precedence over the encryptedValue field, if both are specified.",
+                    "type": "string"
+                }
+            }
+        },
+        "OAuthClientCredentialsView": {
+            "description": "OAuth client credentials.",
+            "id": "OAuthClientCredentialsView",
+            "properties": {
+                "clientId": {
+                    "description": "Specify the client ID.",
+                    "type": "string"
+                },
+                "clientSecret": {
+                    "$ref": "HiddenFieldView",
+                    "description": "Specify the client secret."
+                },
+                "credentialsType": {
+                    "$ref": "CredentialsType",
+                    "description": "Specify the credential type.",
+                    "enum": [
+                        "SECRET",
+                        "CERTIFICATE",
+                        "PRIVATE_KEY_JWT"
+                    ]
+                },
+                "keyPairId": {
+                    "description": "Specify the ID of a key pair to use for mutual TLS.",
+                    "format": "int32",
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "clientId"
+            ]
+        },
+        "WebSessionView": {
+            "description": "A web session.",
+            "id": "WebSessionView",
+            "properties": {
+                "audience": {
+                    "description": "(sortable) Enter a unique identifier between 1 and 32 characters that defines who the PA Token is applicable to.",
+                    "type": "string"
+                },
+                "cacheUserAttributes": {
+                    "description": "(sortable) Specify if PingAccess should cache user attribute information for use in policy decisions. When disabled, this data is encoded and stored in the session cookie.",
+                    "type": "boolean"
+                },
+                "clientCredentials": {
+                    "$ref": "OAuthClientCredentialsView",
+                    "description": "Specify the client credentials."
+                },
+                "cookieDomain": {
+                    "description": "(sortable) The domain where the cookie is stored--for example, corp.yourcompany.com.",
+                    "type": "string"
+                },
+                "cookieType": {
+                    "$ref": "WebSessionCookieType",
+                    "description": "(sortable) Specify an Encrypted JWT or a Signed JWT web session cookie. Default is Encrypted.",
+                    "enum": [
+                        "Encrypted",
+                        "Signed"
+                    ]
+                },
+                "enableRefreshUser": {
+                    "description": "(sortable) Specify if you want to have PingAccess periodically refresh user data from PingFederate for use in policy decisions.",
+                    "type": "boolean"
+                },
+                "failOnUnsupportedPreservationContentType": {
+                    "description": "(sortable) Specify if PingAccess should produce a 415 HTTP response when it receives an unauthenticated POST request with a content type unsupported by request preservation. The only content type supported by request preservation is application/x-www-form-urlencoded. When disabled, PingAccess will challenge an unauthenticated POST request using an unsupported content type with the same challenge response sent to an unauthenticated GET request. The default is false.",
+                    "type": "boolean"
+                },
+                "httpOnlyCookie": {
+                    "description": "(sortable) Enable the HttpOnly flag on cookies that contain the PA Token.",
+                    "type": "boolean"
+                },
+                "id": {
+                    "description": "When creating a new WebSession, this is the ID for the WebSession. If not specified, an ID will be automatically assigned. When updating an existing WebSession, this field is ignored and the ID is determined by the path parameter.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "idleTimeoutInMinutes": {
+                    "description": "(sortable) The length of time you want the PingAccess Token to remain active when no activity is detected.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "(sortable) The name of the web session.",
+                    "type": "string"
+                },
+                "oidcLoginType": {
+                    "$ref": "OidcLoginType",
+                    "description": "(sortable) The web session token type.",
+                    "enum": [
+                        "Code",
+                        "POST",
+                        "x_post"
+                    ]
+                },
+                "pfsessionStateCacheInSeconds": {
+                    "description": "(sortable) Specify the number of seconds to cache PingFederate Session State information.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "pkceChallengeType": {
+                    "$ref": "PkceChallengeTypeView",
+                    "description": "(sortable) Specify the code_challenge_method to use for PKCE during the Code login flow. OFF signifies to not use PKCE.",
+                    "enum": [
+                        "SHA256",
+                        "OFF"
+                    ]
+                },
+                "refreshUserInfoClaimsInterval": {
+                    "description": "(sortable) Specify the maximum number of seconds to cache user attribute information when the Refresh User is enabled.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "requestPreservationType": {
+                    "$ref": "RequestPreservationType",
+                    "description": "(sortable) Specify the types of request data to be preserved if the user is redirected to an authentication page when submitting information to a protected resource.",
+                    "enum": [
+                        "None",
+                        "POST",
+                        "All"
+                    ]
+                },
+                "requestProfile": {
+                    "description": "Specifies whether the default scopes ('profile', 'email', 'address', and 'phone') should be specified in the access request. (DEPRECATED - to be removed in a future release; please use 'scopes' instead)",
+                    "type": "boolean"
+                },
+                "sameSite": {
+                    "$ref": "SameSiteTypeView",
+                    "description": "(sortable) Specify the SameSite attribute to be used when setting the PingAccess Cookie. Default is None which allows the cookie to be used in a third-party context. If the cookie is not used in a third-party context then Lax is recommended.",
+                    "enum": [
+                        "Disabled",
+                        "Lax",
+                        "None"
+                    ]
+                },
+                "scopes": {
+                    "description": "The list of scopes to be specified in the access request. If not specified, the default scopes ('profile', 'email', 'address', and 'phone') will be used. The openid scope is implied and does not need to be specified in this list.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "secureCookie": {
+                    "description": "(sortable) Specify whether the PingAccess Cookie must be sent using only HTTPS connections.",
+                    "type": "boolean"
+                },
+                "sendRequestedUrlToProvider": {
+                    "description": "(sortable) Specify if you want to send the requested URL as part of the authentication request to the OpenID Connect Provider.",
+                    "type": "boolean"
+                },
+                "sessionTimeoutInMinutes": {
+                    "description": "(sortable) The length of time you want the PA Token to remain active. Once the PA Token expires, an authenticated user must re-authenticate.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "validateSessionIsAlive": {
+                    "description": "(sortable) Specify if PingAccess should validate sessions with the configured PingFederate instance during request processing.",
+                    "type": "boolean"
+                },
+                "webStorageType": {
+                    "$ref": "WebStorageType",
+                    "description": "(sortable) Specify the type of web storage to use for request preservation data.  Default is SessionStorage.",
+                    "enum": [
+                        "SessionStorage",
+                        "LocalStorage"
+                    ]
+                }
+            },
+            "required": [
+                "audience",
+                "clientCredentials",
+                "failOnUnsupportedPreservationContentType",
+                "name"
+            ]
+        },
+        "WebSessionsView": {
+            "description": "A collection of web sessions.",
+            "id": "WebSessionsView",
+            "properties": {
+                "items": {
+                    "description": "The actual list of web sessions.",
+                    "items": {
+                        "$ref": "WebSessionView"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "items"
+            ]
+        }
+    },
+    "resourcePath": "/webSessions",
+    "swaggerVersion": "1.2"
+}

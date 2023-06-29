@@ -1,0 +1,910 @@
+{
+    "apiVersion": "7.1.3.0",
+    "apis": [
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getKeyPairsCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Page number to retrieve",
+                            "format": "int32",
+                            "name": "page",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Number of Key Pairs per page",
+                            "format": "int32",
+                            "name": "numberPerPage",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Search for Key Pairs with alias matching filter text",
+                            "name": "filter",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Get a Key Pair by alias",
+                            "name": "alias",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "A comma separated list of Key Pair attributes (keys) to be used to sort the results",
+                            "name": "sortKey",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Order of the sorted results (ASC for ascending, DESC for descending)",
+                            "name": "order",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get all Key Pairs",
+                    "type": "KeyPairsView"
+                }
+            ],
+            "path": "/keyPairs"
+        },
+        {
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "generateKeyPairCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Configuration for the new Key Pair",
+                            "name": "NewKeyPairConfigView",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "NewKeyPairConfigView"
+                        }
+                    ],
+                    "summary": "Generate a Key Pair",
+                    "type": "KeyPairView"
+                }
+            ],
+            "path": "/keyPairs/generate"
+        },
+        {
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "importKeyPairCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Key Pair to import",
+                            "name": "KeyPairFile",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "PKCS12FileImportDocView"
+                        }
+                    ],
+                    "summary": "Import a Key Pair from either a PKCS12 or PEM file",
+                    "type": "KeyPairView"
+                }
+            ],
+            "path": "/keyPairs/import"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "keyAlgorithms",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get the key algorithms supported by Key Pair generation",
+                    "type": "KeyAlgorithmsView"
+                }
+            ],
+            "path": "/keyPairs/keyAlgorithms"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getKeypairsCreatableGeneralNamesCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get the valid General Names for creating Subject Alternative Names",
+                    "type": "SanTypes"
+                }
+            ],
+            "path": "/keyPairs/subjectAlternativeTypes"
+        },
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "deleteKeyPairCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of the Key Pair to delete",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Delete a Key Pair",
+                    "type": "void"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "getKeyPairCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Key Pair to get",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get a Key Pair",
+                    "type": "KeyPairView"
+                },
+                {
+                    "method": "PATCH",
+                    "nickname": "patchKeyPairCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Key Pair to update",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "A list of base64-encoded Chain Certificates",
+                            "name": "addChainCertificates",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "ChainCertificatesDocView"
+                        }
+                    ],
+                    "summary": "Update the chainCertificates of a Key Pair",
+                    "type": "KeyPairView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updateKeyPairCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Key Pair to update",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "PKCS12 file containing the Key Pair",
+                            "name": "PKCS12File",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "PKCS12FileImportDocView"
+                        }
+                    ],
+                    "summary": "Update a Key Pair",
+                    "type": "KeyPairView"
+                }
+            ],
+            "path": "/keyPairs/{id}"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "exportKeyPairCert",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of the Key Pair Certificate to export",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Export only the Certificate from a Key Pair",
+                    "type": "void"
+                }
+            ],
+            "path": "/keyPairs/{id}/certificate"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "generateCsrCommand",
+                    "notes": "Generates a Certificate Signing Request for the Key Pair. The content type of a valid response is application/pkcs10.",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of the Key Pair to sign",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Generate a Certificate Signing Request for a Key Pair",
+                    "type": "void"
+                },
+                {
+                    "method": "POST",
+                    "nickname": "importCSRResponseCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of the Key Pair to update",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "The Certificate Signing Request (CSR) response",
+                            "name": "CSRResponse",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "CSRResponseImportDocView"
+                        }
+                    ],
+                    "summary": "Import a Certificate Signing Request response",
+                    "type": "KeyPairView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "importCSRResponseCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of the Key Pair to update",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "The Certificate Signing Request (CSR) response",
+                            "name": "CSRResponse",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "CSRResponseImportDocView"
+                        }
+                    ],
+                    "summary": "Import a Certificate Signing Request response",
+                    "type": "KeyPairView"
+                }
+            ],
+            "path": "/keyPairs/{id}/csr"
+        },
+        {
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "exportKeyPairPemCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of the Key Pair to export",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Parameters for the export",
+                            "name": "ExportParameters",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "ExportParameters"
+                        }
+                    ],
+                    "summary": "Export a Key Pair in the PEM file format",
+                    "type": "void"
+                }
+            ],
+            "path": "/keyPairs/{id}/pem"
+        },
+        {
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "exportKeyPairPkcs12Command",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of the Key Pair to export",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Parameters for the export",
+                            "name": "ExportParameters",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "ExportParameters"
+                        }
+                    ],
+                    "summary": "Export a Key Pair in the PKCS12 file format",
+                    "type": "void"
+                }
+            ],
+            "path": "/keyPairs/{id}/pkcs12"
+        },
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "deleteChainCertificateCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Key Pair",
+                            "name": "keyPairId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of the Chain Certificate to delete",
+                            "name": "chainCertificateId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Delete a Chain Certificate",
+                    "type": "void"
+                }
+            ],
+            "path": "/keyPairs/{keyPairId}/chainCertificates/{chainCertificateId}"
+        }
+    ],
+    "basePath": "https://localhost:9000/pa-admin-api/v3",
+    "models": {
+        "CSRResponseImportDocView": {
+            "description": "A CSR response.",
+            "id": "CSRResponseImportDocView",
+            "properties": {
+                "chainCertificates": {
+                    "description": "A list of base64-encoded certificates to add to the key pair certificate chain.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "fileData": {
+                    "description": "The CSR response data.",
+                    "type": "string"
+                },
+                "hsmProviderId": {
+                    "description": "The HSM Provider ID. The default value is 0 indicating an HSM is not used for this key pair.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "trustedCertGroupId": {
+                    "description": "The ID of the trusted certificate group associated with the CSR response.",
+                    "format": "int32",
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "chainCertificates",
+                "fileData",
+                "hsmProviderId",
+                "trustedCertGroupId"
+            ]
+        },
+        "ChainCertificateView": {
+            "description": "A chain certificate.",
+            "id": "ChainCertificateView",
+            "properties": {
+                "alias": {
+                    "description": "(sortable) The Alias for the chain certificate.",
+                    "type": "string"
+                },
+                "expires": {
+                    "$ref": "integer",
+                    "description": "(sortable) The date at which the chain certificate expires as the number of milliseconds since January 1, 1970, 00:00:00 GMT."
+                },
+                "id": {
+                    "description": "The Id for the chain certificate.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "issuerDn": {
+                    "description": "(sortable) The Issuer DN for the chain certificate.",
+                    "type": "string"
+                },
+                "md5sum": {
+                    "description": "The MD5 checksum of the chain certificate. The value will be set to \"\" when in FIPS mode.",
+                    "type": "string"
+                },
+                "serialNumber": {
+                    "description": "(sortable) The Serial Number for the chain certificate.",
+                    "type": "string"
+                },
+                "sha1sum": {
+                    "description": "The SHA1 checksum of the chain certificate.",
+                    "type": "string"
+                },
+                "sha256sum": {
+                    "description": "The SHA256 checksum of the chain certificate.",
+                    "type": "string"
+                },
+                "signatureAlgorithm": {
+                    "description": "(sortable) The Signature Algorithm used by the chain certificate.",
+                    "type": "string"
+                },
+                "status": {
+                    "$ref": "CertStatus",
+                    "description": "A high-level status for the chain certificate.",
+                    "enum": [
+                        "Valid",
+                        "Expired",
+                        "Not yet valid",
+                        "Revoked",
+                        "Undetermined revocation status",
+                        "No path to trust anchor",
+                        "Invalid"
+                    ]
+                },
+                "subjectAlternativeNames": {
+                    "description": "A collection of subject alternative names for the certificate.",
+                    "items": {
+                        "$ref": "GeneralName"
+                    },
+                    "type": "array"
+                },
+                "subjectCn": {
+                    "description": "(sortable) The common name (CN) identifying the certificate.",
+                    "type": "string"
+                },
+                "subjectDn": {
+                    "description": "(sortable) The Subject DN for the chain certificate.",
+                    "type": "string"
+                },
+                "validFrom": {
+                    "$ref": "integer",
+                    "description": "(sortable) The date at which the chain certificate is valid from as the number of milliseconds since January 1, 1970, 00:00:00 GMT."
+                }
+            },
+            "required": [
+                "alias",
+                "issuerDn",
+                "md5sum",
+                "serialNumber",
+                "sha1sum",
+                "sha256sum",
+                "signatureAlgorithm",
+                "status",
+                "subjectDn"
+            ]
+        },
+        "ChainCertificatesDocView": {
+            "id": "ChainCertificatesDocView",
+            "properties": {
+                "addChainCertificates": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "addChainCertificates"
+            ]
+        },
+        "ExportParameters": {
+            "description": "The export parameters for a key pair. In the exported PEM file, the private key is protected with PBES2 encryption and AES.",
+            "id": "ExportParameters",
+            "properties": {
+                "password": {
+                    "$ref": "HiddenFieldView",
+                    "description": "The password used to protect the exported key pair. In FIPS mode, the password must be at least 14 characters."
+                }
+            },
+            "required": [
+                "password"
+            ]
+        },
+        "GeneralName": {
+            "id": "GeneralName",
+            "properties": {
+                "name": {
+                    "$ref": "GeneralNameEnum",
+                    "enum": [
+                        "otherName",
+                        "rfc822Name",
+                        "dNSName",
+                        "x400Address",
+                        "directoryName",
+                        "ediPartyName",
+                        "uniformResourceIdentifier",
+                        "iPAddress",
+                        "registeredID"
+                    ]
+                },
+                "value": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name",
+                "value"
+            ]
+        },
+        "HiddenFieldView": {
+            "description": "A hidden field.",
+            "id": "HiddenFieldView",
+            "properties": {
+                "encryptedValue": {
+                    "description": "The encrypted value of the field, as originally returned by the API.",
+                    "type": "string"
+                },
+                "value": {
+                    "description": "The value of the field. This field takes precedence over the encryptedValue field, if both are specified.",
+                    "type": "string"
+                }
+            }
+        },
+        "KeyAlgorithm": {
+            "description": "A key algorithm.",
+            "id": "KeyAlgorithm",
+            "properties": {
+                "defaultKeySize": {
+                    "description": "The default key size value to use.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "defaultSignatureAlgorithm": {
+                    "description": "The default signature algorithm to use.",
+                    "type": "string"
+                },
+                "keySizes": {
+                    "description": "The list of available key sizes.",
+                    "items": {
+                        "type": "int"
+                    },
+                    "type": "array"
+                },
+                "name": {
+                    "description": "The algorithm name.",
+                    "type": "string"
+                },
+                "signatureAlgorithms": {
+                    "description": "The list of available signature algorithms.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "defaultKeySize",
+                "defaultSignatureAlgorithm",
+                "keySizes",
+                "name",
+                "signatureAlgorithms"
+            ]
+        },
+        "KeyAlgorithmsView": {
+            "description": "A collection of key algorithms.",
+            "id": "KeyAlgorithmsView",
+            "properties": {
+                "items": {
+                    "description": "The actual list of key algorithms.",
+                    "items": {
+                        "$ref": "KeyAlgorithm"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "items"
+            ]
+        },
+        "KeyPairView": {
+            "description": "A key pair.",
+            "id": "KeyPairView",
+            "properties": {
+                "alias": {
+                    "description": "(sortable) The Alias for the key pair.",
+                    "type": "string"
+                },
+                "chainCertificates": {
+                    "description": "The complete list of certificates in the key pair certificate chain.",
+                    "items": {
+                        "$ref": "ChainCertificateView"
+                    },
+                    "type": "array"
+                },
+                "csrPending": {
+                    "description": "(sortable) True if a CSR is generated for this key pair.",
+                    "type": "boolean"
+                },
+                "expires": {
+                    "$ref": "integer",
+                    "description": "(sortable) The date at which the key pair expires as the number of milliseconds since January 1, 1970, 00:00:00 GMT."
+                },
+                "hsmProviderId": {
+                    "description": "The HSM Provider ID.  The default value is 0 indicating an HSM is not used for this KeyPair.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "The Id for the key pair.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "issuerDn": {
+                    "description": "(sortable) The Issuer DN for the key pair.",
+                    "type": "string"
+                },
+                "md5sum": {
+                    "description": "The MD5 checksum of the key pair. The value will be set to \"\" when in FIPS mode.",
+                    "type": "string"
+                },
+                "serialNumber": {
+                    "description": "(sortable) The Serial Number for the key pair.",
+                    "type": "string"
+                },
+                "sha1sum": {
+                    "description": "The SHA1 checksum of the key pair.",
+                    "type": "string"
+                },
+                "sha256sum": {
+                    "description": "The SHA256 checksum of the key pair.",
+                    "type": "string"
+                },
+                "signatureAlgorithm": {
+                    "description": "(sortable) The Signature Algorithm used by the key pair.",
+                    "type": "string"
+                },
+                "status": {
+                    "$ref": "CertStatus",
+                    "description": "A high-level status for the key pair.",
+                    "enum": [
+                        "Valid",
+                        "Expired",
+                        "Not yet valid",
+                        "Revoked",
+                        "Undetermined revocation status",
+                        "No path to trust anchor",
+                        "Invalid"
+                    ]
+                },
+                "subjectAlternativeNames": {
+                    "description": "A collection of subject alternative names for the certificate.",
+                    "items": {
+                        "$ref": "GeneralName"
+                    },
+                    "type": "array"
+                },
+                "subjectCn": {
+                    "description": "(sortable) The common name (CN) identifying the certificate.",
+                    "type": "string"
+                },
+                "subjectDn": {
+                    "description": "(sortable) The Subject DN for the key pair.",
+                    "type": "string"
+                },
+                "validFrom": {
+                    "$ref": "integer",
+                    "description": "(sortable) The date at which the key pair is valid from as the number of milliseconds since January 1, 1970, 00:00:00 GMT."
+                }
+            },
+            "required": [
+                "alias",
+                "csrPending",
+                "issuerDn",
+                "md5sum",
+                "serialNumber",
+                "sha1sum",
+                "sha256sum",
+                "signatureAlgorithm",
+                "status",
+                "subjectDn"
+            ]
+        },
+        "KeyPairsView": {
+            "description": "A collection of key pairs.",
+            "id": "KeyPairsView",
+            "properties": {
+                "items": {
+                    "description": "The actual list of key pairs.",
+                    "items": {
+                        "$ref": "KeyPairView"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "items"
+            ]
+        },
+        "NewKeyPairConfigView": {
+            "description": "A new key pair.",
+            "id": "NewKeyPairConfigView",
+            "properties": {
+                "alias": {
+                    "description": "A unique alias name to identify the key pair. Special characters and spaces are allowed.",
+                    "type": "string"
+                },
+                "city": {
+                    "description": "The city or other primary location (L) where the company operates.",
+                    "type": "string"
+                },
+                "commonName": {
+                    "description": "The common name (CN) identifying the certificate.",
+                    "type": "string"
+                },
+                "country": {
+                    "description": "The country (C) where the company is based, using two capital letters.",
+                    "type": "string"
+                },
+                "hsmProviderId": {
+                    "description": "The HSM Provider ID. The default value is 0 indicating an HSM is not used for this key pair.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "The ID for the key pair. If not specified, an ID will be automatically assigned.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "keyAlgorithm": {
+                    "description": "The key algorithm to use to generate a key.",
+                    "type": "string"
+                },
+                "keySize": {
+                    "description": "The number of bits used in the key.  Choices depend on selected key algorithm.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "organization": {
+                    "description": "The organization (O) or company name creating the certificate.",
+                    "type": "string"
+                },
+                "organizationUnit": {
+                    "description": "The specific unit within the organization (OU).",
+                    "type": "string"
+                },
+                "signatureAlgorithm": {
+                    "description": "The Signature Algorithm to use for the key.",
+                    "type": "string"
+                },
+                "state": {
+                    "description": "The state (ST) or other political unit encompassing the location.",
+                    "type": "string"
+                },
+                "subjectAlternativeNames": {
+                    "description": "Any additional DNS names or IP addresses that are valid for this certificate.",
+                    "items": {
+                        "$ref": "GeneralName"
+                    },
+                    "type": "array"
+                },
+                "validDays": {
+                    "description": "The number of days the certificate is valid.",
+                    "format": "int32",
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "alias",
+                "city",
+                "commonName",
+                "country",
+                "hsmProviderId",
+                "keyAlgorithm",
+                "keySize",
+                "organization",
+                "organizationUnit",
+                "state",
+                "validDays"
+            ]
+        },
+        "PKCS12FileImportDocView": {
+            "description": "A PKCS#12 or PEM file import.",
+            "id": "PKCS12FileImportDocView",
+            "properties": {
+                "alias": {
+                    "description": "A unique alias name to identify the key pair. Special characters and spaces are allowed.",
+                    "type": "string"
+                },
+                "chainCertificates": {
+                    "description": "An array of chain certificates.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "fileData": {
+                    "description": "Base-64 encoded PKCS12 or PEM file data. In BCFIPS mode, only PEM with PBES2 and AES or Triple DES encryption is accepted and 128-bit salt is required.",
+                    "type": "string"
+                },
+                "hsmProviderId": {
+                    "description": "The HSM Provider ID. The default value is 0 indicating an HSM is not used for this key pair.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "password": {
+                    "$ref": "HiddenFieldView",
+                    "description": "The password used to protect the private key. In FIPS mode, the password must be at least 14 characters."
+                }
+            },
+            "required": [
+                "alias",
+                "chainCertificates",
+                "fileData",
+                "hsmProviderId",
+                "password"
+            ]
+        },
+        "SanTypes": {
+            "description": "A collection of available general names.",
+            "id": "SanTypes",
+            "properties": {
+                "items": {
+                    "$ref": "List[SanType]",
+                    "description": "The actual list of available general names."
+                }
+            },
+            "required": [
+                "items"
+            ]
+        }
+    },
+    "resourcePath": "/keyPairs",
+    "swaggerVersion": "1.2"
+}

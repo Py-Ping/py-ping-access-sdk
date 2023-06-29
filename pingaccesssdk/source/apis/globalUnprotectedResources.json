@@ -1,0 +1,209 @@
+{
+    "apiVersion": "7.1.3.0",
+    "apis": [
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getGlobalUnprotectedResourcesCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Page number to retrieve",
+                            "format": "int32",
+                            "name": "page",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Number of Global Unprotected Resources per page",
+                            "format": "int32",
+                            "name": "numberPerPage",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Search for Global Unprotected Resources with name matching filter text",
+                            "name": "filter",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Get Global Unprotected Resources by name",
+                            "name": "name",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "A comma separated list of Global Unprotected Resource attributes (keys) to be used to sort the results",
+                            "name": "sortKey",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Order of the sorted results (ASC for ascending, DESC for descending)",
+                            "name": "order",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get all Global Unprotected Resources",
+                    "type": "GlobalUnprotectedResourcesView"
+                },
+                {
+                    "method": "POST",
+                    "nickname": "addGlobalUnprotectedResourceCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Global Unprotected Resource to add",
+                            "name": "Global Unprotected Resource",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "GlobalUnprotectedResourceView"
+                        }
+                    ],
+                    "summary": "Add a Global Unprotected Resource",
+                    "type": "GlobalUnprotectedResourceView"
+                }
+            ],
+            "path": "/globalUnprotectedResources"
+        },
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "deleteGlobalUnprotectedResourceCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Global Unprotected Resource to delete",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Delete a Global Unprotected Resource",
+                    "type": "void"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "getGlobalUnprotectedResourceCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Global Unprotected Resource to get",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get a Global Unprotected Resource",
+                    "type": "GlobalUnprotectedResourceView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updateGlobalUnprotectedResourceCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Global Unprotected Resource to update",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Global Unprotected Resource to update",
+                            "name": "Global Unprotected Resource",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "GlobalUnprotectedResourceView"
+                        }
+                    ],
+                    "summary": "Update a Global Unprotected Resource",
+                    "type": "GlobalUnprotectedResourceView"
+                }
+            ],
+            "path": "/globalUnprotectedResources/{id}"
+        }
+    ],
+    "basePath": "https://localhost:9000/pa-admin-api/v3",
+    "models": {
+        "GlobalUnprotectedResourceView": {
+            "description": "A global unprotected resource.",
+            "id": "GlobalUnprotectedResourceView",
+            "properties": {
+                "auditLevel": {
+                    "$ref": "AuditLevel",
+                    "description": "(sortable) Indicates if audit logging is enabled for the global unprotected resource.",
+                    "enum": [
+                        "ON",
+                        "OFF"
+                    ]
+                },
+                "description": {
+                    "description": "(sortable) A description of the global unprotected resource.",
+                    "type": "string"
+                },
+                "enabled": {
+                    "description": "(sortable) True if the global resource is enabled.",
+                    "type": "boolean"
+                },
+                "id": {
+                    "description": "When creating a new GlobalUnprotectedResource, this is the ID for the GlobalUnprotectedResource. If not specified, an ID will be automatically assigned. When updating an existing GlobalUnprotectedResource, this field is ignored and the ID is determined by the path parameter.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "(sortable) The name of the global unprotected resource.",
+                    "type": "string"
+                },
+                "wildcardPath": {
+                    "description": "A path for the global unprotected resource.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name",
+                "wildcardPath"
+            ]
+        },
+        "GlobalUnprotectedResourcesView": {
+            "description": "A collection of global unprotected resource items.",
+            "id": "GlobalUnprotectedResourcesView",
+            "properties": {
+                "items": {
+                    "description": "The list of global unprotected resources.",
+                    "items": {
+                        "$ref": "GlobalUnprotectedResourceView"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "items"
+            ]
+        }
+    },
+    "resourcePath": "/globalUnprotectedResources",
+    "swaggerVersion": "1.2"
+}

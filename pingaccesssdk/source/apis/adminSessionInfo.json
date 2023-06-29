@@ -1,0 +1,245 @@
+{
+    "apiVersion": "7.1.3.0",
+    "apis": [
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "adminSessionDeleteCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Invalidate the Admin session information",
+                    "type": "void"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "adminSessionInfoCommand",
+                    "notes": "Return the session info. Admin UI session idle time is reset to indicate activity.",
+                    "parameters": [],
+                    "summary": "Return the Admin session information",
+                    "type": "SessionInfo"
+                }
+            ],
+            "path": "/adminSessionInfo"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "adminSessionInfoCheckCommand",
+                    "notes": "Return the session info. Admin UI session idle time is not reset.",
+                    "parameters": [],
+                    "summary": "Return the Admin session information without affecting session expiration",
+                    "type": "SessionInfo"
+                }
+            ],
+            "path": "/adminSessionInfo/checkOnly"
+        }
+    ],
+    "basePath": "https://localhost:9000/pa-admin-api/v3",
+    "models": {
+        "ApiErrorView": {
+            "description": "An API error used by the PingAccess Administrative UI.",
+            "id": "ApiErrorView",
+            "properties": {
+                "flash": {
+                    "description": "The flash message displayed in the UI.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "form": {
+                    "$ref": "Map[string,List[string]]",
+                    "description": "The specific errors related to the current form."
+                }
+            },
+            "required": [
+                "flash",
+                "form"
+            ]
+        },
+        "ConfigStatusView": {
+            "description": "An import or export configuration.",
+            "id": "ConfigStatusView",
+            "properties": {
+                "apiErrorView": {
+                    "$ref": "ApiErrorView",
+                    "description": "The API error for import or export, if there is an error. When failFast=false this will collect all API errors encountered from the import configuration."
+                },
+                "currentEntity": {
+                    "$ref": "JsonNode",
+                    "description": "The current entity being imported or exported."
+                },
+                "id": {
+                    "description": "The id of the configuration workflow.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "status": {
+                    "description": "The status of the configuration import or export.",
+                    "type": "string"
+                },
+                "totalEntities": {
+                    "description": "The total number of entities being imported or exported.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "warnings": {
+                    "$ref": "Set",
+                    "description": "The API warnings for import or export, if there are any warnings.",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "required": [
+                "warnings"
+            ]
+        },
+        "ConfigStatusesView": {
+            "description": "A collection of import or export configuration workflows.",
+            "id": "ConfigStatusesView",
+            "properties": {
+                "items": {
+                    "description": "An array of import or export configuration workflows.",
+                    "items": {
+                        "$ref": "ConfigStatusView"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "items"
+            ]
+        },
+        "SessionInfo": {
+            "description": "A session.",
+            "id": "SessionInfo",
+            "properties": {
+                "accessControlDirectives": {
+                    "$ref": "Set",
+                    "description": "The set of access control directives.",
+                    "items": {
+                        "$ref": "AdminAccessControlDirective",
+                        "enum": [
+                            "DENY_POLICY_CONFIGURATION",
+                            "DENY_APPLICATION_CREATION",
+                            "DENY_API_APPLICATION_CREATION",
+                            "DENY_AUTH_REQ_CREATION",
+                            "DENY_PING_FEDERATE_CONFIGURATION",
+                            "DENY_THIRD_PARTY_OAUTH_CONFIGURATION",
+                            "DENY_XPOST_WEBSESSION_CONFIGURATION",
+                            "DENY_POST_WEBSESSION_CONFIGURATION",
+                            "REQUIRE_AAD_TOKEN_PROVIDER_ISSUER",
+                            "DENY_API_AUTHENTICATION_CONFIGURATION",
+                            "DENY_CUSTOM_SITE_AUTHENTICATOR_CREATION",
+                            "DENY_CUSTOM_LOAD_BALANCING_STRATEGY_CREATION",
+                            "DENY_CUSTOM_AVAILABILITY_PROFILE_CREATION",
+                            "DENY_CUSTOM_IDENTITY_MAPPING_CREATION",
+                            "DENY_ADMIN_AUTHENTICATION_CONFIGURATION",
+                            "DENY_ENVIRONMENT_CONFIGURATION",
+                            "DENY_USERS_CONFIGURATION",
+                            "DENY_WRITE_ACCESS",
+                            "DENY_BULK_CONFIG_ACCESS"
+                        ]
+                    }
+                },
+                "configurationExports": {
+                    "$ref": "ConfigStatusesView",
+                    "description": "The configuration export workflows."
+                },
+                "configurationImports": {
+                    "$ref": "ConfigStatusesView",
+                    "description": "The configuration import workflows."
+                },
+                "exp": {
+                    "description": "Time at which session will expire due to inactivity.",
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "expWarn": {
+                    "description": "Length of time before a timeout at which warning should appear.",
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "fipsMode": {
+                    "description": "Indicates whether FIPS mode is enabled or not.",
+                    "type": "boolean"
+                },
+                "flash": {
+                    "description": "The Warning message.",
+                    "type": "string"
+                },
+                "iat": {
+                    "description": "Time at which session was created.",
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "maxFileUploadSize": {
+                    "description": "The maximum file upload size in bytes.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "pollIntervalSeconds": {
+                    "description": "Session poll interval configuration in seconds.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "roles": {
+                    "$ref": "Set",
+                    "description": "The user's roles.",
+                    "items": {
+                        "$ref": "Role",
+                        "enum": [
+                            "ADMINISTRATOR",
+                            "AUDITOR",
+                            "PLATFORM_ADMIN"
+                        ]
+                    }
+                },
+                "sesTimeout": {
+                    "description": "Maximum length of time that a session is allowed to live, regardless of user activity, -1 indicates disabled.",
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "showWarning": {
+                    "description": "Indicates that a warning needs to be shown or not.",
+                    "type": "boolean"
+                },
+                "sniEnabled": {
+                    "description": "Indicates that SNI is enabled or not.",
+                    "type": "boolean"
+                },
+                "sub": {
+                    "description": "The Session's subject.",
+                    "type": "string"
+                },
+                "useSlo": {
+                    "description": "Indicates whether single log out (SLO) is enabled or not.",
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "accessControlDirectives",
+                "configurationExports",
+                "configurationImports",
+                "exp",
+                "expWarn",
+                "fipsMode",
+                "flash",
+                "iat",
+                "maxFileUploadSize",
+                "pollIntervalSeconds",
+                "roles",
+                "sesTimeout",
+                "showWarning",
+                "sniEnabled",
+                "sub",
+                "useSlo"
+            ]
+        }
+    },
+    "resourcePath": "/adminSessionInfo",
+    "swaggerVersion": "1.2"
+}

@@ -1,0 +1,21 @@
+{
+    "apiVersion": "7.1.3.0",
+    "apis": [
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "backupCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Create a local database backup",
+                    "type": "void"
+                }
+            ],
+            "path": "/backup"
+        }
+    ],
+    "basePath": "https://localhost:9000/pa-admin-api/v3",
+    "resourcePath": "/backup",
+    "swaggerVersion": "1.2"
+}

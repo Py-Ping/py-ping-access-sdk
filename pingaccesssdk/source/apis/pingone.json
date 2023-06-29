@@ -1,0 +1,274 @@
+{
+    "apiVersion": "7.1.3.0",
+    "apis": [
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "deletePingOne4CCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Resets the PingOne For Customers configuration to default values",
+                    "type": "void"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "getPingOne4CCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get the PingOne For Customers configuration",
+                    "type": "PingOne4CView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updatePingOne4CCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "PingOne For Customers configuration",
+                            "name": "PingOneForCustomers",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "PingOne4CView"
+                        }
+                    ],
+                    "summary": "Update the PingOne For Customers configuration",
+                    "type": "PingOne4CView"
+                }
+            ],
+            "path": "/pingone/customers"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getPingOne4CMetadataCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get the PingOne for Customers metadata",
+                    "type": "OIDCProviderMetadata"
+                }
+            ],
+            "path": "/pingone/customers/metadata"
+        }
+    ],
+    "basePath": "https://localhost:9000/pa-admin-api/v3",
+    "models": {
+        "OIDCProviderMetadata": {
+            "description": "The OpenID Connect provider's metadata.",
+            "id": "OIDCProviderMetadata",
+            "properties": {
+                "authorization_endpoint": {
+                    "description": "URL of the OpenID Connect provider's authorization endpoint.",
+                    "type": "string"
+                },
+                "backchannel_authentication_endpoint": {
+                    "description": "the endpoint used to initiate an out-of-band authentication.",
+                    "type": "string"
+                },
+                "claim_types_supported": {
+                    "description": "JSON array containing a list of the claim types that the OpenID Connect provider supports.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "claims_parameter_supported": {
+                    "description": "boolean value specifying whether the OpenID Connect provider supports use of the claims parameter, with true indicating support.",
+                    "type": "boolean"
+                },
+                "claims_supported": {
+                    "description": "JSON array containing a list of the claim names of the claims that the OpenID Connect provider MAY be able to supply values for.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "code_challenge_methods_supported": {
+                    "description": "Proof Key for Code Exchange (PKCE) code challenge methods supported by this OpenID Connect provider.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "end_session_endpoint": {
+                    "description": "URL at the OpenID Connect provider to which a relying party can perform a redirect to request that the end-user be logged out at the OpenID Connect provider.",
+                    "type": "string"
+                },
+                "grant_types_supported": {
+                    "description": "JSON array containing a list of the OAuth 2.0 grant type values that this OpenID Connect provider supports.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "id_token_signing_alg_values_supported": {
+                    "description": "JSON array containing a list of the JWS signing algorithms supported by the OpenID Connect provider for the id token to encode the claims in a JWT.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "introspection_endpoint": {
+                    "description": "URL of the OpenID Connect provider's OAuth 2.0 introspection endpoint.",
+                    "type": "string"
+                },
+                "issuer": {
+                    "description": "OpenID Connect provider's issuer identifier URL.",
+                    "type": "string"
+                },
+                "jwks_uri": {
+                    "description": "URL of the OpenID Connect provider's JWK Set document.",
+                    "type": "string"
+                },
+                "mtls_endpoint_aliases": {
+                    "$ref": "Map[string,string]",
+                    "description": "a map of alternative authorization server endpoints. The key is an authorization server endpoint, and the value is a preferred URL for the endpoint."
+                },
+                "ping_end_session_endpoint": {
+                    "description": "PingFederate logout endpoint. (Not applicable if PingFederate is not the OpenID Connect provider)",
+                    "type": "string"
+                },
+                "ping_revoked_sris_endpoint": {
+                    "description": "PingFederate session revocation endpoint. (Not applicable if PingFederate is not the OpenID Connect provider)",
+                    "type": "string"
+                },
+                "request_object_signing_alg_values_supported": {
+                    "description": "JSON array containing a list of the JWS signing algorithms supported by the OpenID Connect provider for request objects.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "request_parameter_supported": {
+                    "description": "boolean value specifying whether the OpenID Connect provider supports use of the request parameter, with true indicating support.",
+                    "type": "boolean"
+                },
+                "request_uri_parameter_supported": {
+                    "description": "boolean value specifying whether the OpenID Connect provider supports use of the request_uri parameter, with true indicating support.",
+                    "type": "boolean"
+                },
+                "response_modes_supported": {
+                    "description": "JSON array containing a list of the OAuth 2.0 \"response_mode\" values that this OpenID Connect provider supports.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "response_types_supported": {
+                    "description": "JSON array containing a list of the OAuth 2.0 \"response_type\" values that this OpenID Connect provider supports.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "revocation_endpoint": {
+                    "description": "URL of the OpenID Connect provider's OAuth 2.0 revocation endpoint.",
+                    "type": "string"
+                },
+                "scopes_supported": {
+                    "description": "JSON array containing a list of the OAuth 2.0 \"scope\" values that this OpenID Connect provider supports.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "subject_types_supported": {
+                    "description": "JSON array containing a list of the Subject Identifier types that this OpenID Connect provider supports.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "token_endpoint": {
+                    "description": "URL of the OpenID Connect provider's token endpoint.",
+                    "type": "string"
+                },
+                "token_endpoint_auth_methods_supported": {
+                    "description": "JSON array containing a list of client authentication methods supported by this token endpoint.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "token_endpoint_auth_signing_alg_values_supported": {
+                    "description": "JSON array containing a list of client authentication signing algorithms supported by this token endpoint.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "userinfo_endpoint": {
+                    "description": "URL of the OpenID Connect provider's userInfo endpoint.",
+                    "type": "string"
+                },
+                "userinfo_signing_alg_values_supported": {
+                    "description": "JSON array containing a list of the JWS signing algorithms supported by the userInfo endpoint to encode the claims in a JWT.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "authorization_endpoint",
+                "backchannel_authentication_endpoint",
+                "claim_types_supported",
+                "claims_parameter_supported",
+                "claims_supported",
+                "code_challenge_methods_supported",
+                "end_session_endpoint",
+                "grant_types_supported",
+                "id_token_signing_alg_values_supported",
+                "introspection_endpoint",
+                "issuer",
+                "jwks_uri",
+                "mtls_endpoint_aliases",
+                "ping_end_session_endpoint",
+                "ping_revoked_sris_endpoint",
+                "request_object_signing_alg_values_supported",
+                "request_parameter_supported",
+                "request_uri_parameter_supported",
+                "response_modes_supported",
+                "response_types_supported",
+                "revocation_endpoint",
+                "scopes_supported",
+                "subject_types_supported",
+                "token_endpoint",
+                "token_endpoint_auth_methods_supported",
+                "token_endpoint_auth_signing_alg_values_supported",
+                "userinfo_endpoint",
+                "userinfo_signing_alg_values_supported"
+            ]
+        },
+        "PingOne4CView": {
+            "description": "The PingOne for Customers OIDC provider configuration.",
+            "id": "PingOne4CView",
+            "properties": {
+                "description": {
+                    "description": "The description of the PingOne for Customers OIDC provider.",
+                    "type": "string"
+                },
+                "issuer": {
+                    "description": "The issuer url of the PingOne for Customers OIDC provider.",
+                    "type": "string"
+                },
+                "trustedCertificateGroupId": {
+                    "description": "The group of certificates to use when authenticating to PingOne for Customers OIDC provider.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "useProxy": {
+                    "description": "True if a proxy should be used for HTTPS requests.",
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "issuer"
+            ]
+        }
+    },
+    "resourcePath": "/pingone",
+    "swaggerVersion": "1.2"
+}

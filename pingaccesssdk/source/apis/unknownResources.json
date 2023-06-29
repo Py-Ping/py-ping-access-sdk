@@ -1,0 +1,101 @@
+{
+    "apiVersion": "7.1.3.0",
+    "apis": [
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "delete",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Resets the global settings for unknown resources to default values",
+                    "type": "void"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "get",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Retrieves the global settings for unknown resources",
+                    "type": "UnknownResourceSettingsView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "update",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "The new settings",
+                            "name": "settings",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "UnknownResourceSettingsView"
+                        }
+                    ],
+                    "summary": "Updates the global settings for unknown resources",
+                    "type": "UnknownResourceSettingsView"
+                }
+            ],
+            "path": "/unknownResources/settings"
+        }
+    ],
+    "basePath": "https://localhost:9000/pa-admin-api/v3",
+    "models": {
+        "UnknownResourceSettingsView": {
+            "description": "Global settings for unknown resources.",
+            "id": "UnknownResourceSettingsView",
+            "properties": {
+                "agentDefaultCacheTTL": {
+                    "description": "The default agent resource cache TTL (in seconds) to be used for unknown resources when a request cannot be mapped to a known virtual host.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "agentDefaultMode": {
+                    "$ref": "UnknownResourceMode",
+                    "description": "The default agent mode, which determines whether agent requests for unknown resources should generate an error response or be allowed to pass through unfiltered. This default setting may be overridden by individual agents.",
+                    "enum": [
+                        "DENY",
+                        "PASSTHROUGH"
+                    ]
+                },
+                "auditLevel": {
+                    "$ref": "AuditLevel",
+                    "description": "Indicates if audit logging is enabled for unknown resources.",
+                    "enum": [
+                        "ON",
+                        "OFF"
+                    ]
+                },
+                "errorContentType": {
+                    "$ref": "ContentType",
+                    "description": "The content type of the error response",
+                    "enum": [
+                        "JSON",
+                        "HTML",
+                        "TEXT",
+                        "XML"
+                    ]
+                },
+                "errorStatusCode": {
+                    "description": "The HTTP error response status code",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "errorTemplateFile": {
+                    "description": "The name of the velocity template file to use for generating the error response body",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "agentDefaultCacheTTL",
+                "agentDefaultMode",
+                "errorContentType",
+                "errorStatusCode",
+                "errorTemplateFile"
+            ]
+        }
+    },
+    "resourcePath": "/unknownResources",
+    "swaggerVersion": "1.2"
+}

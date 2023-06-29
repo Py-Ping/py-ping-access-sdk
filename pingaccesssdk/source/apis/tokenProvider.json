@@ -1,0 +1,67 @@
+{
+    "apiVersion": "7.1.3.0",
+    "apis": [
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "deleteTokenProviderSettingCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Resets the Token Provider settings to default values",
+                    "type": "void"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "getTokenProviderSettingCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get the Token Provider settings",
+                    "type": "TokenProviderSettingView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updateTokenProviderSettingCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Token Provider Setting",
+                            "name": "TokenProviderSettings",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "TokenProviderSettingView"
+                        }
+                    ],
+                    "summary": "Update the Token Provider setting",
+                    "type": "TokenProviderSettingView"
+                }
+            ],
+            "path": "/tokenProvider/settings"
+        }
+    ],
+    "basePath": "https://localhost:9000/pa-admin-api/v3",
+    "models": {
+        "TokenProviderSettingView": {
+            "description": "Settings for a token provider.",
+            "id": "TokenProviderSettingView",
+            "properties": {
+                "type": {
+                    "$ref": "TokenProviderTypeView",
+                    "description": "The type of token provider in use.",
+                    "enum": [
+                        "PingFederate",
+                        "Common",
+                        "PingOneForCustomers"
+                    ]
+                },
+                "useThirdParty": {
+                    "description": "This field is true if third-party Token Provider is enabled, and false if PingFederate is enabled. (DEPRECATED - to be removed in a future release; please use 'type' instead)",
+                    "type": "boolean"
+                }
+            }
+        }
+    },
+    "resourcePath": "/tokenProvider",
+    "swaggerVersion": "1.2"
+}

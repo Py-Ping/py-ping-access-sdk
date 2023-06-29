@@ -1,0 +1,1394 @@
+{
+    "apiVersion": "7.1.3.0",
+    "apis": [
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getApplicationsCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Page number to retrieve",
+                            "format": "int32",
+                            "name": "page",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Search for Applications with Site",
+                            "format": "int32",
+                            "name": "siteId",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Number of Applications per page",
+                            "format": "int32",
+                            "name": "numberPerPage",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Search for Applications with Agent",
+                            "format": "int32",
+                            "name": "agentId",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Search for Applications with Sideband Client",
+                            "format": "int32",
+                            "name": "sidebandClientId",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Search for Applications with Virtual Host",
+                            "format": "int32",
+                            "name": "virtualHostId",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Search for Applications with Rule attached to an Application or one of its Resources",
+                            "format": "int32",
+                            "name": "ruleId",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Search for Applications with Rule Set attached to an Application or one of its Resources",
+                            "format": "int32",
+                            "name": "rulesetId",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Search for Applications with name matching filter text",
+                            "name": "filter",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Get an Application by name",
+                            "name": "name",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "A comma separated list of Application attributes (keys) to be used to sort the results",
+                            "name": "sortKey",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Order of the sorted results (ASC for ascending, DESC for descending)",
+                            "name": "order",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get all Applications",
+                    "type": "ApplicationsView"
+                },
+                {
+                    "method": "POST",
+                    "nickname": "addApplicationCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Application to add",
+                            "name": "Application",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "ApplicationView"
+                        }
+                    ],
+                    "summary": "Add an Application",
+                    "type": "ApplicationView"
+                }
+            ],
+            "path": "/applications"
+        },
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "deleteReservedApplicationCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Resets the Reserved Application configuration to default values",
+                    "type": "void"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "getReservedApplicationCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get Reserved Application configuration",
+                    "type": "ReservedApplicationView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updateReservedApplicationCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Reserved Application configuration",
+                            "name": "/applications/reserved",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "ReservedApplicationView"
+                        }
+                    ],
+                    "summary": "Update Reserved Application configuration",
+                    "type": "ReservedApplicationView"
+                }
+            ],
+            "path": "/applications/reserved"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getResourcesCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Page number to retrieve",
+                            "format": "int32",
+                            "name": "page",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Number of Resources per page",
+                            "format": "int32",
+                            "name": "numberPerPage",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Get Resources with Rule",
+                            "format": "int32",
+                            "name": "ruleId",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Get Resources with Rule Set",
+                            "format": "int32",
+                            "name": "rulesetId",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Get Resources by name",
+                            "name": "name",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Search for Resources with name matching filter text",
+                            "name": "filter",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "A comma separated list of Resource attributes (keys) to be used to sort the results",
+                            "name": "sortKey",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Order of the sorted results (ASC for ascending, DESC for descending)",
+                            "name": "order",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get all Resources",
+                    "type": "ResourcesView"
+                }
+            ],
+            "path": "/applications/resources"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getApplicationsResourcesMethodsCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get Application Resource Methods",
+                    "type": "MethodsView"
+                }
+            ],
+            "path": "/applications/resources/methods"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getApplicationResourceResponseGeneratorDescriptorsCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get descriptors for all Application Resource Response Generators",
+                    "type": "DescriptorsView"
+                }
+            ],
+            "path": "/applications/resources/responseGenerators/descriptors"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getApplicationResourceResponseGeneratorDescriptorCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Response Generator descriptor to retrieve",
+                            "name": "responseGeneratorType",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get descriptor for a Response Generator type",
+                    "type": "DescriptorView"
+                }
+            ],
+            "path": "/applications/resources/responseGenerators/descriptors/{responseGeneratorType}"
+        },
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "deleteApplicationResourceCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Application",
+                            "name": "applicationId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of the Resource to delete",
+                            "name": "resourceId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Delete an Application Resource",
+                    "type": "void"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "getApplicationResourceCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Application",
+                            "name": "applicationId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of the Resource to get",
+                            "name": "resourceId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get an Application Resource",
+                    "type": "ResourceView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updateApplicationResourceCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Application",
+                            "name": "applicationId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Resource to update",
+                            "name": "resourceId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Resource to update",
+                            "name": "Resource",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "ResourceView"
+                        }
+                    ],
+                    "summary": "Update an Application Resource",
+                    "type": "ResourceView"
+                }
+            ],
+            "path": "/applications/{applicationId}/resources/{resourceId}"
+        },
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "deleteApplicationCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Application to delete",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Delete an Application",
+                    "type": "void"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "getApplicationCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Application to get",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get an Application",
+                    "type": "ApplicationView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updateApplicationCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Application to update",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Application to update",
+                            "name": "Application",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "ApplicationView"
+                        }
+                    ],
+                    "summary": "Update an Application",
+                    "type": "ApplicationView"
+                }
+            ],
+            "path": "/applications/{id}"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getResourceMatchingEvaluationOrderCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Application to compute resource ordering for",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get the resource path ordering for an Application",
+                    "type": "ResourceMatchingEvaluationOrderView"
+                }
+            ],
+            "path": "/applications/{id}/resourceMatchingEvaluationOrder"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getApplicationResourcesCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Page number to retrieve",
+                            "format": "int32",
+                            "name": "page",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Number of Resources per page",
+                            "format": "int32",
+                            "name": "numberPerPage",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Application to get Resources for",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Get a Resource by name and application Id",
+                            "name": "name",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Search for Resources with name matching filter text",
+                            "name": "filter",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "A comma separated list of Resource attributes (keys) to be used to sort the results",
+                            "name": "sortKey",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Order of the sorted results (ASC for ascending, DESC for descending)",
+                            "name": "order",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get Resources for an Application",
+                    "type": "ResourcesView"
+                },
+                {
+                    "method": "POST",
+                    "nickname": "addApplicationResourceCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Application to add Resource to",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Resource to add",
+                            "name": "Resource",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "ResourceView"
+                        }
+                    ],
+                    "summary": "Add Resource to an Application",
+                    "type": "ResourceView"
+                }
+            ],
+            "path": "/applications/{id}/resources"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getResourceAutoOrderCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Application to compute resource ordering for",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Computes an automatic, intelligent resource ordering for an Application.",
+                    "type": "ResourceOrderView"
+                }
+            ],
+            "path": "/applications/{id}/resources/autoOrder"
+        }
+    ],
+    "basePath": "https://localhost:9000/pa-admin-api/v3",
+    "models": {
+        "ApplicationView": {
+            "description": "An application.",
+            "id": "ApplicationView",
+            "properties": {
+                "accessValidatorId": {
+                    "description": "The ID of the access token validator for local token validation, 1 if the application is protected remotely by an Authorization Server, or zero if unprotected. Only applies to applications of type API.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "agentCacheInvalidatedExpiration": {
+                    "description": "(DEPRECATED - to be removed in a future release; this field is no longer used when processing requests for an application.)",
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "agentCacheInvalidatedResponseDuration": {
+                    "description": "(DEPRECATED - to be removed in a future release; this field is no longer used when processing requests for an application.)",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "agentId": {
+                    "description": "The ID of the agent associated with the application or zero if none.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "allowEmptyPathSegments": {
+                    "description": "When true, PingAccess will not remove empty path segments from the request URL before matching a request against the resources in this application. Defaults to false.",
+                    "type": "boolean"
+                },
+                "applicationType": {
+                    "$ref": "ApplicationTypeView",
+                    "description": "(sortable) The type of application.",
+                    "enum": [
+                        "Web",
+                        "API",
+                        "Dynamic"
+                    ]
+                },
+                "authenticationChallengePolicyId": {
+                    "description": "The UUID of the authentication challenge policy associated with the application.",
+                    "type": "string"
+                },
+                "caseSensitivePath": {
+                    "description": "(sortable) True if the path is case sensitive.",
+                    "type": "boolean"
+                },
+                "contextRoot": {
+                    "description": "(sortable) The context root of the application.",
+                    "type": "string"
+                },
+                "defaultAuthType": {
+                    "$ref": "DefaultAuthTypeView",
+                    "description": "For Web + API applications (dynamic) defaultAuthType selects the processing mode when a request: does not have a token (web session, OAuth bearer) or has both tokens.  This setting applies to all resources in the application except where overridden with defaultAuthTypeOverride. ",
+                    "enum": [
+                        "Web",
+                        "API"
+                    ]
+                },
+                "description": {
+                    "description": "(sortable) A description of the application.",
+                    "type": "string"
+                },
+                "destination": {
+                    "$ref": "DestinationView",
+                    "description": "(sortable) The application destination type.",
+                    "enum": [
+                        "Site",
+                        "Agent",
+                        "Sideband"
+                    ]
+                },
+                "enabled": {
+                    "description": "(sortable) True if the application is enabled.",
+                    "type": "boolean"
+                },
+                "fallbackPostEncoding": {
+                    "description": "(sortable) Specify the name of an encoding to use when preserving POST parameters and the parameters are found to not be UTF-8 encoded.",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "When creating a new Application, this is the ID for the Application. If not specified, an ID will be automatically assigned. When updating an existing Application, this field is ignored and the ID is determined by the path parameter.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "identityMappingIds": {
+                    "$ref": "Map[string,int]",
+                    "description": "A map of Identity Mappings associated with the application. The key is 'Web' or 'API' and the value is an Identity Mapping ID."
+                },
+                "issuer": {
+                    "description": "Branded URL at the OpenID Connect provider to redirect unauthenticated requests to. When specified, this overrides the global token provider's issuer field.",
+                    "type": "string"
+                },
+                "lastModified": {
+                    "description": "The last modified time of the configuration for this application, its resources and associated policy, as the number of milliseconds since January 1, 1970, 00:00:00 GMT. This field is read-only.",
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "manualOrderingEnabled": {
+                    "description": "Enable explicit, manual ordering of application resources and permit regex path patterns.",
+                    "type": "boolean"
+                },
+                "name": {
+                    "description": "(sortable) The application name.",
+                    "type": "string"
+                },
+                "policy": {
+                    "$ref": "Map[string,List[PolicyItem]]",
+                    "description": "A map of policy items associated with the application.  The key is 'Web' or 'API' and the value is a list of PolicyItems."
+                },
+                "realm": {
+                    "description": "(sortable) The OAuth realm associated with the application.",
+                    "type": "string"
+                },
+                "requireHTTPS": {
+                    "description": "(sortable) True if the application requires HTTPS connections.",
+                    "type": "boolean"
+                },
+                "resourceOrder": {
+                    "description": "The explicit resource order defined when manual ordering is enabled. Each existing resource ID must be represented. (Required when 'manualOrderingEnabled' is true.)",
+                    "items": {
+                        "type": "int"
+                    },
+                    "type": "array"
+                },
+                "sidebandClientId": {
+                    "description": "The ID of the sideband client associated with the application or null if none.",
+                    "type": "string"
+                },
+                "siteId": {
+                    "description": "The ID of the site associated with the application or zero if none.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "spaSupportEnabled": {
+                    "description": "Enable SPA support.",
+                    "type": "boolean"
+                },
+                "virtualHostIds": {
+                    "description": "An array of virtual host IDs associated with the application.",
+                    "items": {
+                        "type": "int"
+                    },
+                    "type": "array"
+                },
+                "webSessionId": {
+                    "description": "The ID of the web session associated with the application or zero if none.",
+                    "format": "int32",
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "agentId",
+                "authenticationChallengePolicyId",
+                "contextRoot",
+                "defaultAuthType",
+                "name",
+                "sidebandClientId",
+                "siteId",
+                "spaSupportEnabled",
+                "virtualHostIds"
+            ]
+        },
+        "ApplicationsView": {
+            "description": "A collection of applications.",
+            "id": "ApplicationsView",
+            "properties": {
+                "items": {
+                    "description": "An array of applications.",
+                    "items": {
+                        "$ref": "ApplicationView"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "items"
+            ]
+        },
+        "ConfigurationDependentFieldOption": {
+            "description": "Configuration of the dependent field option.",
+            "id": "ConfigurationDependentFieldOption",
+            "properties": {
+                "options": {
+                    "description": "The dependent field options.",
+                    "items": {
+                        "$ref": "ConfigurationOption"
+                    },
+                    "type": "array"
+                },
+                "value": {
+                    "description": "The dependent field option value.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "options",
+                "value"
+            ]
+        },
+        "ConfigurationField": {
+            "description": "Details for configuration in the administrator console.",
+            "id": "ConfigurationField",
+            "properties": {
+                "advanced": {
+                    "description": "Indicates that the configuration field is an advanced field or not.",
+                    "type": "boolean"
+                },
+                "buttonGroup": {
+                    "description": "The name of group radio buttons that cooperate in a single selection.",
+                    "type": "string"
+                },
+                "default": {
+                    "description": "The default value of the configuration field.",
+                    "type": "string"
+                },
+                "deselectable": {
+                    "description": "Indicates that a radio button is able to be deselected.",
+                    "type": "boolean"
+                },
+                "fields": {
+                    "description": "The list of configuration fields that the current configuration field is the parent of.",
+                    "items": {
+                        "$ref": "ConfigurationField"
+                    },
+                    "type": "array"
+                },
+                "help": {
+                    "$ref": "Help",
+                    "description": "The help attributes of the configuration field."
+                },
+                "label": {
+                    "description": "The label of the configuration field.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "The name of the configuration field.",
+                    "type": "string"
+                },
+                "options": {
+                    "$ref": "java.util.Collection<com.pingidentity.pa.sdk.ui.ConfigurationOption>",
+                    "description": "The available options for the select based configuration fields."
+                },
+                "parentField": {
+                    "$ref": "ConfigurationParentField",
+                    "description": "The parent field attributes."
+                },
+                "required": {
+                    "description": "Indicates that the configuration field value is required or not.",
+                    "type": "boolean"
+                },
+                "type": {
+                    "$ref": "ConfigurationType",
+                    "description": "The type of the configuration field.",
+                    "enum": [
+                        "TEXT",
+                        "TEXTAREA",
+                        "TIME",
+                        "SELECT",
+                        "GROOVY",
+                        "CONCEALED",
+                        "LIST",
+                        "TABLE",
+                        "CHECKBOX",
+                        "AUTOCOMPLETEOPEN",
+                        "AUTOCOMPLETECLOSED",
+                        "COMPOSITE",
+                        "RADIO_BUTTON"
+                    ]
+                }
+            },
+            "required": [
+                "advanced",
+                "buttonGroup",
+                "default",
+                "deselectable",
+                "fields",
+                "help",
+                "label",
+                "name",
+                "options",
+                "parentField",
+                "required",
+                "type"
+            ]
+        },
+        "ConfigurationOption": {
+            "description": "The configuration option attributes.",
+            "id": "ConfigurationOption",
+            "properties": {
+                "category": {
+                    "$ref": "java.util.Optional<java.lang.String>",
+                    "description": "The configuration option category."
+                },
+                "label": {
+                    "description": "The configuration option label.",
+                    "type": "string"
+                },
+                "value": {
+                    "description": "The configuration option value.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "category",
+                "label",
+                "value"
+            ]
+        },
+        "ConfigurationParentField": {
+            "description": "Configuration of the parent field.",
+            "id": "ConfigurationParentField",
+            "properties": {
+                "dependentFieldOptions": {
+                    "description": "The dependent field options attributes.",
+                    "items": {
+                        "$ref": "ConfigurationDependentFieldOption"
+                    },
+                    "type": "array"
+                },
+                "fieldName": {
+                    "description": "The configuration parent field name.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "dependentFieldOptions",
+                "fieldName"
+            ]
+        },
+        "DescriptorView": {
+            "description": "A descriptor.",
+            "id": "DescriptorView",
+            "properties": {
+                "className": {
+                    "description": "The name of the implementation class.",
+                    "type": "string"
+                },
+                "configurationFields": {
+                    "description": "The list of configuration fields for the class.",
+                    "items": {
+                        "$ref": "ConfigurationField"
+                    },
+                    "type": "array"
+                },
+                "label": {
+                    "description": "The label for the entity.",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "The type for the entity.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "className",
+                "configurationFields",
+                "label",
+                "type"
+            ]
+        },
+        "DescriptorsView": {
+            "description": "A list of descriptors.",
+            "id": "DescriptorsView",
+            "properties": {
+                "items": {
+                    "description": "The actual list of descriptors.",
+                    "items": {
+                        "$ref": "DescriptorView"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "items"
+            ]
+        },
+        "Help": {
+            "description": "Configuration of the help context of a configuration field.",
+            "id": "Help",
+            "properties": {
+                "content": {
+                    "description": "The help content of the configuration field.",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "The help title of the configuration field.",
+                    "type": "string"
+                },
+                "url": {
+                    "description": "The help URL for the configuration field.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "content",
+                "title",
+                "url"
+            ]
+        },
+        "LinkView": {
+            "description": "A reference to the associated resource.",
+            "id": "LinkView",
+            "properties": {
+                "id": {
+                    "description": "The id of the associated resource. When both id and location are specified, id takes precedence and location is ignored.",
+                    "type": "string"
+                },
+                "location": {
+                    "description": "An absolute path to the associated resource.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id",
+                "location"
+            ]
+        },
+        "MethodView": {
+            "description": "HTTP Method",
+            "id": "MethodView",
+            "properties": {
+                "name": {
+                    "description": "HTTP Method name",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name"
+            ]
+        },
+        "MethodsView": {
+            "id": "MethodsView",
+            "properties": {
+                "items": {
+                    "items": {
+                        "$ref": "MethodView"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "items"
+            ]
+        },
+        "PathPatternView": {
+            "description": "A pattern for matching request URI paths.",
+            "id": "PathPatternView",
+            "properties": {
+                "pattern": {
+                    "description": "The path-matching pattern, relative to the Application context root (interpreted according to the pattern 'type').",
+                    "type": "string"
+                },
+                "type": {
+                    "$ref": "PathPatternType",
+                    "description": "The pattern syntax type.",
+                    "enum": [
+                        "WILDCARD",
+                        "REGEX"
+                    ]
+                }
+            },
+            "required": [
+                "pattern",
+                "type"
+            ]
+        },
+        "QueryParamConfigView": {
+            "description": "Query parameter configuration settings to match requests to URLs with query parameters.",
+            "id": "QueryParamConfigView",
+            "properties": {
+                "matchesNoParams": {
+                    "description": "Enable this setting to match requests to URLs without query parameters in addition URLs with query parameters.",
+                    "type": "boolean"
+                },
+                "params": {
+                    "description": "The query parameter name/value pairs.",
+                    "items": {
+                        "$ref": "QueryParamPairView"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "matchesNoParams",
+                "params"
+            ]
+        },
+        "QueryParamNameView": {
+            "id": "QueryParamNameView",
+            "properties": {
+                "pattern": {
+                    "description": "The string value of the query parameter name.",
+                    "type": "string"
+                },
+                "type": {
+                    "$ref": "QueryParamPatternType",
+                    "description": "The type of matching that will be applied to query parameter name.",
+                    "enum": [
+                        "EXACT"
+                    ]
+                }
+            },
+            "required": [
+                "pattern",
+                "type"
+            ]
+        },
+        "QueryParamPairView": {
+            "id": "QueryParamPairView",
+            "properties": {
+                "name": {
+                    "$ref": "QueryParamNameView",
+                    "description": "The query parameter name."
+                },
+                "value": {
+                    "$ref": "QueryParamValueView",
+                    "description": "The query parameter value."
+                }
+            },
+            "required": [
+                "name",
+                "value"
+            ]
+        },
+        "QueryParamValueView": {
+            "id": "QueryParamValueView",
+            "properties": {
+                "matchAny": {
+                    "description": "Matching any value. Ignoring the specified value.",
+                    "type": "boolean"
+                },
+                "pattern": {
+                    "description": "The string value of the query parameter value.",
+                    "type": "string"
+                },
+                "type": {
+                    "$ref": "QueryParamPatternType",
+                    "description": "The type of matching that will be applied to the query parameter value.",
+                    "enum": [
+                        "EXACT"
+                    ]
+                }
+            },
+            "required": [
+                "matchAny",
+                "pattern",
+                "type"
+            ]
+        },
+        "ReservedApplicationView": {
+            "description": "The reserved application.",
+            "id": "ReservedApplicationView",
+            "properties": {
+                "contextRoot": {
+                    "description": "The context root for the reserved application.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "contextRoot"
+            ]
+        },
+        "ResourceMatchingEntryView": {
+            "description": "A resource matching entry.",
+            "id": "ResourceMatchingEntryView",
+            "properties": {
+                "link": {
+                    "$ref": "LinkView",
+                    "description": "A link to the associated resource."
+                },
+                "methods": {
+                    "$ref": "Set",
+                    "description": "A set of HTTP methods configured for the resource, or '*' to indicate any method.",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "name": {
+                    "description": "The name of the associated resource.",
+                    "type": "string"
+                },
+                "pattern": {
+                    "description": "A path-matching pattern, relative to the Application context root (interpreted according to the pattern 'type').",
+                    "type": "string"
+                },
+                "patternType": {
+                    "$ref": "PathPatternType",
+                    "description": "The pattern syntax type.",
+                    "enum": [
+                        "WILDCARD",
+                        "REGEX"
+                    ]
+                },
+                "type": {
+                    "$ref": "EntryType",
+                    "description": "The enumerated type of the associated resource.",
+                    "enum": [
+                        "ApplicationResource",
+                        "GlobalUnprotectedResource"
+                    ]
+                }
+            },
+            "required": [
+                "link",
+                "methods",
+                "name",
+                "pattern",
+                "patternType",
+                "type"
+            ]
+        },
+        "ResourceMatchingEvaluationOrderView": {
+            "description": "Specifies an ordering of Resource Matching Entries.",
+            "id": "ResourceMatchingEvaluationOrderView",
+            "properties": {
+                "entries": {
+                    "description": "Resource Matching Entries.",
+                    "items": {
+                        "$ref": "ResourceMatchingEntryView"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "entries"
+            ]
+        },
+        "ResourceOrderView": {
+            "description": "Specifies an ordering of Application Resources.",
+            "id": "ResourceOrderView",
+            "properties": {
+                "resourceIds": {
+                    "description": "An ordered list of Resource IDs (integers).",
+                    "items": {
+                        "type": "int"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "resourceIds"
+            ]
+        },
+        "ResourceTypeConfigurationView": {
+            "description": "A container for configuration specific to various types of resources.",
+            "id": "ResourceTypeConfigurationView",
+            "properties": {
+                "responseGenerator": {
+                    "$ref": "ResponseGeneratorView",
+                    "description": "The response generator to use when access is granted to this resource and the resource type is 'Virtual'. PingAccess will return the response defined by the response generator instead of proxying the traffic to and from the backend targets."
+                }
+            }
+        },
+        "ResourceView": {
+            "description": "A resource.",
+            "id": "ResourceView",
+            "properties": {
+                "anonymous": {
+                    "description": "(sortable) True if the resource is anonymous.",
+                    "type": "boolean"
+                },
+                "applicationId": {
+                    "description": "The id of the associated application. This field is read-only.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "auditLevel": {
+                    "$ref": "AuditLevel",
+                    "description": "(sortable) Indicates if audit logging is enabled for the resource.",
+                    "enum": [
+                        "ON",
+                        "OFF"
+                    ]
+                },
+                "authenticationChallengePolicyId": {
+                    "description": "The UUID of the authentication challenge policy associated with the resource. This policy takes precedence over an application-level policy.",
+                    "type": "string"
+                },
+                "defaultAuthTypeOverride": {
+                    "$ref": "DefaultAuthTypeView",
+                    "description": "For Web + API applications (dynamic) defaultAuthType selects the processing mode when a request: does not have a token (web session, OAuth bearer) or has both tokens.  defaultAuthTypeOverride overrides the defaultAuthType at the application level for this resource.  A value of null indicates the resource should not override the defaultAuthType.",
+                    "enum": [
+                        "Web",
+                        "API"
+                    ]
+                },
+                "enabled": {
+                    "description": "(sortable) True if the resource is enabled.",
+                    "type": "boolean"
+                },
+                "id": {
+                    "description": "When creating a new Resource, this is the ID for the Resource. If not specified, an ID will be automatically assigned. When updating an existing Resource, this field is ignored and the ID is determined by the path parameter.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "methods": {
+                    "$ref": "Set",
+                    "description": "An array of HTTP methods configured for the resource.",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "name": {
+                    "description": "(sortable) The name of the resource.",
+                    "type": "string"
+                },
+                "pathPatterns": {
+                    "description": "A list of one or more request path-matching patterns.",
+                    "items": {
+                        "$ref": "PathPatternView"
+                    },
+                    "type": "array"
+                },
+                "pathPrefixes": {
+                    "description": "An array of path prefixes for the resource (DEPRECATED - to be removed in a future release; please use 'pathPatterns' instead).",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "policy": {
+                    "$ref": "Map[string,List[PolicyItem]]",
+                    "description": "A map of policy items associated with the resource.  The key is 'Web' or 'API' and the value is a list of PolicyItems."
+                },
+                "queryParamConfig": {
+                    "$ref": "QueryParamConfigView",
+                    "description": "Query parameter configuration settings for matching a query string."
+                },
+                "resourceType": {
+                    "$ref": "ResourceTypeView",
+                    "description": "(sortable) The type of this resource. 'Standard' resources are those served by the protected applications. 'Virtual' resources do not have a corresponding resource in the protected application. Instead, when accessing the resource, PingAccess returns a response created by the response generator defined in the resource type configuration. The default type is 'Standard'.",
+                    "enum": [
+                        "Standard",
+                        "Virtual"
+                    ]
+                },
+                "resourceTypeConfiguration": {
+                    "$ref": "ResourceTypeConfigurationView",
+                    "description": "A container for configuration specific to different types of resources."
+                },
+                "rootResource": {
+                    "description": "(sortable) True if the resource is the root resource for the application.",
+                    "type": "boolean"
+                },
+                "unprotected": {
+                    "description": "(sortable) True if the resource is unprotected.",
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "authenticationChallengePolicyId",
+                "defaultAuthTypeOverride",
+                "methods",
+                "name"
+            ]
+        },
+        "ResourcesView": {
+            "description": "A collection of resources.",
+            "id": "ResourcesView",
+            "properties": {
+                "items": {
+                    "description": "The actual list of resources.",
+                    "items": {
+                        "$ref": "ResourceView"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "items"
+            ]
+        },
+        "ResponseGeneratorView": {
+            "id": "ResponseGeneratorView",
+            "properties": {
+                "className": {
+                    "description": "The response generator's class name.",
+                    "type": "string"
+                },
+                "configuration": {
+                    "$ref": "Map[string,java.lang.Object]",
+                    "description": "The response generator's configuration data."
+                }
+            },
+            "required": [
+                "className",
+                "configuration"
+            ]
+        }
+    },
+    "resourcePath": "/applications",
+    "swaggerVersion": "1.2"
+}

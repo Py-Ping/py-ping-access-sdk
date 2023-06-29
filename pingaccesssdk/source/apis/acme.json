@@ -1,0 +1,673 @@
+{
+    "apiVersion": "7.1.3.0",
+    "apis": [
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getAcmeServersCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Page number to retrieve",
+                            "format": "int32",
+                            "name": "page",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Number of ACME Servers per page",
+                            "format": "int32",
+                            "name": "numberPerPage",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Search for ACME Server with name matching filter text",
+                            "name": "filter",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Get a specific ACME Server by name (case-sensitive)",
+                            "name": "name",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "A comma separated list of ACME Server attributes (keys) to be used to sort the results",
+                            "name": "sortKey",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Order of the sorted results (ASC for ascending, DESC for descending)",
+                            "name": "order",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get all ACME Servers",
+                    "type": "AcmeServersView"
+                },
+                {
+                    "method": "POST",
+                    "nickname": "addAcmeServerCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ACME Server to add",
+                            "name": "AcmeServer",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "AcmeServerView"
+                        }
+                    ],
+                    "summary": "Add an ACME Server",
+                    "type": "AcmeServerView"
+                }
+            ],
+            "path": "/acme/servers"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getDefaultAcmeServerCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get the default ACME Server",
+                    "type": "LinkView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updateDefaultAcmeServerCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ACME Server to update",
+                            "name": "AcmeServer",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "LinkView"
+                        }
+                    ],
+                    "summary": "Update the default ACME Server",
+                    "type": "LinkView"
+                }
+            ],
+            "path": "/acme/servers/default"
+        },
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "deleteAcmeServerCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of ACME Server to delete",
+                            "name": "acmeServerId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Delete an ACME Server",
+                    "type": "AcmeServerView"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "getAcmeServerCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of ACME Server to get",
+                            "name": "acmeServerId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get an ACME Server",
+                    "type": "AcmeServerView"
+                }
+            ],
+            "path": "/acme/servers/{acmeServerId}"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getAcmeAccountsCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of ACME Server that holds accounts",
+                            "name": "acmeServerId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Page number to retrieve",
+                            "format": "int32",
+                            "name": "page",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Number of ACME Accounts per page",
+                            "format": "int32",
+                            "name": "numberPerPage",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "A comma separated list of ACME Account attributes (keys) to be used to sort the results",
+                            "name": "sortKey",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Order of the sorted results (ASC for ascending, DESC for descending)",
+                            "name": "order",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get all ACME Accounts",
+                    "type": "AcmeAccountView"
+                },
+                {
+                    "method": "POST",
+                    "nickname": "addAcmeAccountCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ACME Server to add account to",
+                            "name": "acmeServerId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "ACME Account to add",
+                            "name": "AcmeAccount",
+                            "paramType": "body",
+                            "required": false,
+                            "type": "AcmeAccountView"
+                        }
+                    ],
+                    "summary": "Add an ACME Account",
+                    "type": "AcmeAccountView"
+                }
+            ],
+            "path": "/acme/servers/{acmeServerId}/accounts"
+        },
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "deleteAcmeAccountCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of ACME Server that holds account",
+                            "name": "acmeServerId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of ACME Account to delete",
+                            "name": "acmeAccountId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Delete an ACME Account",
+                    "type": "AcmeAccountView"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "getAcmeAccountCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of ACME Server that holds account",
+                            "name": "acmeServerId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of ACME Account to get",
+                            "name": "acmeAccountId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get an ACME Account",
+                    "type": "AcmeAccountView"
+                }
+            ],
+            "path": "/acme/servers/{acmeServerId}/accounts/{acmeAccountId}"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getAcmeCertificateRequestsCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of the ACME Server",
+                            "name": "acmeServerId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of the ACME Account",
+                            "name": "acmeAccountId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of the Key Pair",
+                            "name": "keyPairId",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Page number to retrieve",
+                            "format": "int32",
+                            "name": "page",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Number of ACME Certificate Requests per page",
+                            "format": "int32",
+                            "name": "numberPerPage",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "A comma separated list of ACME Certificate Request attributes (keys) to be used to sort the results",
+                            "name": "sortKey",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Order of the sorted results (ASC for ascending, DESC for descending)",
+                            "name": "order",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get all ACME Certificate Requests",
+                    "type": "AcmeCertificateRequestView"
+                },
+                {
+                    "method": "POST",
+                    "nickname": "addAcmeCertificateRequestCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ACME Server that the account belongs to",
+                            "name": "acmeServerId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "ACME Account to add certificate to",
+                            "name": "acmeAccountId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "ACME Certificate Request data",
+                            "name": "AcmeCertificateRequest",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "AcmeCertificateRequestView"
+                        }
+                    ],
+                    "summary": "Initiate the ACME protocol",
+                    "type": "AcmeCertificateRequestView"
+                }
+            ],
+            "path": "/acme/servers/{acmeServerId}/accounts/{acmeAccountId}/certificateRequests"
+        },
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "deleteAcmeCertificateRequestCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of ACME Server that holds account",
+                            "name": "acmeServerId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of an ACME Account",
+                            "name": "acmeAccountId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of ACME Certificate Request to delete",
+                            "name": "acmeCertificateRequestId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Delete an ACME Certificate Request",
+                    "type": "AcmeCertificateRequestView"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "getAcmeCertificateRequestCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of ACME Server that holds account",
+                            "name": "acmeServerId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of the ACME Account",
+                            "name": "acmeAccountId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of ACME Certificate Request to get",
+                            "name": "acmeCertificateRequestId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get an ACME Certificate Request",
+                    "type": "AcmeCertificateRequestView"
+                }
+            ],
+            "path": "/acme/servers/{acmeServerId}/accounts/{acmeAccountId}/certificateRequests/{acmeCertificateRequestId}"
+        }
+    ],
+    "basePath": "https://localhost:9000/pa-admin-api/v3",
+    "models": {
+        "AcmeAccountView": {
+            "description": "An ACME Account associated with a CA.",
+            "id": "AcmeAccountView",
+            "properties": {
+                "acmeServerId": {
+                    "description": "The associated ACME Server.",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "When creating a new AcmeAccount, this is the ID for the AcmeAccount. If not specified, an ID will be automatically assigned. When updating an existing AcmeAccount, this field is ignored and the ID is determined by the path parameter.",
+                    "type": "string"
+                },
+                "keyAlgorithm": {
+                    "description": "The key algorithm used to generate a key.",
+                    "type": "string"
+                },
+                "privateKey": {
+                    "$ref": "HiddenFieldView",
+                    "description": "The account's private key data."
+                },
+                "publicKey": {
+                    "$ref": "PublicKeyView",
+                    "description": "The account's public key data."
+                },
+                "url": {
+                    "description": "The URL the CA uses to reference the account.",
+                    "type": "string"
+                }
+            }
+        },
+        "AcmeCertStatusView": {
+            "description": "The status of a certificate.",
+            "id": "AcmeCertStatusView",
+            "properties": {
+                "problems": {
+                    "$ref": "Map[string,ProblemDocumentView]",
+                    "description": "A map of problem documents for requested domains. The key is the domain and the value is a ProblemDocumentView."
+                },
+                "state": {
+                    "$ref": "AcmeCertState",
+                    "description": "The state of the certificate.",
+                    "enum": [
+                        "PENDING",
+                        "READY",
+                        "PROCESSING",
+                        "VALID",
+                        "INVALID",
+                        "UNKNOWN"
+                    ]
+                }
+            },
+            "required": [
+                "state"
+            ]
+        },
+        "AcmeCertificateRequestView": {
+            "description": "A reference to a Key Pair to be signed by the ACME protocol.",
+            "id": "AcmeCertificateRequestView",
+            "properties": {
+                "acmeAccountId": {
+                    "description": "The ID of the ACME Account to be used for the ACME protocol. This is read-only.",
+                    "type": "string"
+                },
+                "acmeCertStatus": {
+                    "$ref": "AcmeCertStatusView",
+                    "description": "The status of the certificate."
+                },
+                "acmeServerId": {
+                    "description": "The ID of the ACME Server to be used for the ACME protocol. This is read-only.",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "When creating a new AcmeCertificateRequest, this is the ID for the AcmeCertificateRequest. If not specified, an ID will be automatically assigned. When updating an existing AcmeCertificateRequest, this field is ignored and the ID is determined by the path parameter.",
+                    "type": "string"
+                },
+                "keyPairId": {
+                    "description": "The ID of the Key Pair for which a signed certificate will be requested.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "url": {
+                    "description": "The URL at the ACME server for the associated ACME order.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "keyPairId"
+            ]
+        },
+        "AcmeServerView": {
+            "description": "An ACME server.",
+            "id": "AcmeServerView",
+            "properties": {
+                "acmeAccounts": {
+                    "description": "An array of references to accounts. This array is read-only.",
+                    "items": {
+                        "$ref": "LinkView"
+                    },
+                    "type": "array"
+                },
+                "id": {
+                    "description": "When creating a new AcmeServer, this is the ID for the AcmeServer. If not specified, an ID will be automatically assigned. When updating an existing AcmeServer, this field is ignored and the ID is determined by the path parameter.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "(sortable) A user-friendly name for the ACME server.",
+                    "type": "string"
+                },
+                "url": {
+                    "description": "The URL of the ACME directory resource on the ACME server.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name",
+                "url"
+            ]
+        },
+        "AcmeServersView": {
+            "description": "A collection of ACME servers.",
+            "id": "AcmeServersView",
+            "properties": {
+                "items": {
+                    "description": "An array of ACME servers.",
+                    "items": {
+                        "$ref": "AcmeServerView"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "items"
+            ]
+        },
+        "HiddenFieldView": {
+            "description": "A hidden field.",
+            "id": "HiddenFieldView",
+            "properties": {
+                "encryptedValue": {
+                    "description": "The encrypted value of the field, as originally returned by the API.",
+                    "type": "string"
+                },
+                "value": {
+                    "description": "The value of the field. This field takes precedence over the encryptedValue field, if both are specified.",
+                    "type": "string"
+                }
+            }
+        },
+        "LinkView": {
+            "description": "A reference to the associated resource.",
+            "id": "LinkView",
+            "properties": {
+                "id": {
+                    "description": "The id of the associated resource. When both id and location are specified, id takes precedence and location is ignored.",
+                    "type": "string"
+                },
+                "location": {
+                    "description": "An absolute path to the associated resource.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id",
+                "location"
+            ]
+        },
+        "ProblemDocumentView": {
+            "description": "An RFC 7807 problem details object.",
+            "id": "ProblemDocumentView",
+            "properties": {
+                "detail": {
+                    "description": "A user-friendly explanation of the problem.",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "The problem type.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "detail",
+                "type"
+            ]
+        },
+        "PublicKeyView": {
+            "description": "A public key.",
+            "id": "PublicKeyView",
+            "properties": {
+                "created": {
+                    "$ref": "Instant",
+                    "description": "A timestamp when the key was created."
+                },
+                "jwk": {
+                    "$ref": "JsonNode",
+                    "description": "The JSON of the public key."
+                }
+            },
+            "required": [
+                "jwk"
+            ]
+        }
+    },
+    "resourcePath": "/acme",
+    "swaggerVersion": "1.2"
+}

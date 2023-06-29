@@ -1,0 +1,242 @@
+{
+    "apiVersion": "7.1.3.0",
+    "apis": [
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getTrustedCertificateGroupsCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Page number to retrieve",
+                            "format": "int32",
+                            "name": "page",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Number of Trusted Certificate Groups per page",
+                            "format": "int32",
+                            "name": "numberPerPage",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Search for Trusted Certificate Groups with name matching filter text",
+                            "name": "filter",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Get a Trusted Certificate Group by name (case-sensitive)",
+                            "name": "name",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "A comma separated list of Trusted Certificate Group attributes (keys) to be used to sort the results",
+                            "name": "sortKey",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Order of the sorted results (ASC for ascending, DESC for descending)",
+                            "name": "order",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get all Trusted Certificate Groups",
+                    "type": "TrustedCertificateGroupsView"
+                },
+                {
+                    "method": "POST",
+                    "nickname": "addTrustedCertificateGroupCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Trusted Certificate Group to create",
+                            "name": "TrustedCertificateGroup",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "TrustedCertificateGroupView"
+                        }
+                    ],
+                    "summary": "Create a Trusted Certificate Group",
+                    "type": "TrustedCertificateGroupView"
+                }
+            ],
+            "path": "/trustedCertificateGroups"
+        },
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "deleteTrustedCertificateGroupCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of the Trusted Certificate Group to delete",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Delete a Trusted Certificate Group",
+                    "type": "void"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "getTrustedCertificateGroupCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of TrustedCertificateGroup to get",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get a Trusted Certificate Group",
+                    "type": "TrustedCertificateGroupView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updateTrustedCertificateGroupCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of TrustedCertificateGroup to update",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "TrustedCertificateGroup to update",
+                            "name": "TrustedCertificateGroup",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "TrustedCertificateGroupView"
+                        }
+                    ],
+                    "summary": "Update a TrustedCertificateGroup",
+                    "type": "TrustedCertificateGroupView"
+                }
+            ],
+            "path": "/trustedCertificateGroups/{id}"
+        }
+    ],
+    "basePath": "https://localhost:9000/pa-admin-api/v3",
+    "models": {
+        "RevocationCheckingView": {
+            "description": "The client certificate revocation checking configuration.",
+            "id": "RevocationCheckingView",
+            "properties": {
+                "crlChecking": {
+                    "description": "This field is true if CRL client certificate revocation checking is enabled.",
+                    "type": "boolean"
+                },
+                "denyRevocationStatusUnknown": {
+                    "description": "This field is true if client certificates should be denied when the revocation status cannot be determined.",
+                    "type": "boolean"
+                },
+                "ocsp": {
+                    "description": "This field is true if OCSP client certificate revocation checking is enabled.",
+                    "type": "boolean"
+                },
+                "skipTrustAnchors": {
+                    "description": "When set to true, PA will skip validation of any certificates configured in the trusted certificate group as well as their subsequent chain of issuers when trusted certificates are found in the client certificate chain.",
+                    "type": "boolean"
+                },
+                "supportDisorderedChain": {
+                    "description": "When set to true, PA can validate client certificate chains that are not in the standard order of leaf -> intermediate(s) -> root. When false, validation may fail on client certificate chains that are not in the standard order.",
+                    "type": "boolean"
+                }
+            }
+        },
+        "TrustedCertificateGroupView": {
+            "description": "A trusted certificate group.",
+            "id": "TrustedCertificateGroupView",
+            "properties": {
+                "certIds": {
+                    "description": "The IDs of the certificates that are in the trusted certificate group.",
+                    "items": {
+                        "type": "int"
+                    },
+                    "type": "array"
+                },
+                "id": {
+                    "description": "When creating a new TrustedCertificateGroup, this is the ID for the TrustedCertificateGroup. If not specified, an ID will be automatically assigned. When updating an existing TrustedCertificateGroup, this field is ignored and the ID is determined by the path parameter.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "ignoreAllCertificateErrors": {
+                    "description": "(sortable) This field is read-only and is only set to true for the Trust Any certificate group.",
+                    "type": "boolean"
+                },
+                "name": {
+                    "description": "(sortable) The name of the trusted certificate group.",
+                    "type": "string"
+                },
+                "revocationChecking": {
+                    "$ref": "RevocationCheckingView",
+                    "description": "The configuration for client certificate revocation checking."
+                },
+                "skipCertificateDateCheck": {
+                    "description": "(sortable) This field is true if certificates that have expired or are not yet valid but have passed the other certificate checks should be trusted.",
+                    "type": "boolean"
+                },
+                "systemGroup": {
+                    "description": "(sortable) This field is read-only and indicates the trusted certificate group cannot be modified.",
+                    "type": "boolean"
+                },
+                "useJavaTrustStore": {
+                    "description": "(sortable) This field is true if the certificates in the group should also include all certificates in the Java Trust Store.",
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "name"
+            ]
+        },
+        "TrustedCertificateGroupsView": {
+            "description": "A collection of trusted certificate group items.",
+            "id": "TrustedCertificateGroupsView",
+            "properties": {
+                "items": {
+                    "description": "The actual list of trusted certificate groups.",
+                    "items": {
+                        "$ref": "TrustedCertificateGroupView"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "items"
+            ]
+        }
+    },
+    "resourcePath": "/trustedCertificateGroups",
+    "swaggerVersion": "1.2"
+}

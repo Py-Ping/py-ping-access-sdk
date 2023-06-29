@@ -1,0 +1,214 @@
+{
+    "apiVersion": "7.1.3.0",
+    "apis": [
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getProxiesCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Page number to retrieve",
+                            "format": "int32",
+                            "name": "page",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Number of Proxies per page",
+                            "format": "int32",
+                            "name": "numberPerPage",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Search for Proxies with name matching filter text",
+                            "name": "filter",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Get a Proxy by name (case-sensitive)",
+                            "name": "name",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "A comma separated list of Proxy attributes (keys) to be used to sort the results",
+                            "name": "sortKey",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Order of the sorted results (ASC for ascending, DESC for descending)",
+                            "name": "order",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get all Proxies",
+                    "type": "HttpClientProxyView"
+                },
+                {
+                    "method": "POST",
+                    "nickname": "addProxyCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Proxy to add",
+                            "name": "Proxy",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "HttpClientProxyView"
+                        }
+                    ],
+                    "summary": "Create a Proxy",
+                    "type": "HttpClientProxyView"
+                }
+            ],
+            "path": "/proxies"
+        },
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "deleteProxyCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Proxy to delete",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Delete a Proxy",
+                    "type": "void"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "getProxyCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Proxy to get",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get a Proxy",
+                    "type": "HttpClientProxyView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updateProxyCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Proxy to update",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Proxy to update",
+                            "name": "Proxy",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "HttpClientProxyView"
+                        }
+                    ],
+                    "summary": "Update a Proxy",
+                    "type": "HttpClientProxyView"
+                }
+            ],
+            "path": "/proxies/{id}"
+        }
+    ],
+    "basePath": "https://localhost:9000/pa-admin-api/v3",
+    "models": {
+        "HiddenFieldView": {
+            "description": "A hidden field.",
+            "id": "HiddenFieldView",
+            "properties": {
+                "encryptedValue": {
+                    "description": "The encrypted value of the field, as originally returned by the API.",
+                    "type": "string"
+                },
+                "value": {
+                    "description": "The value of the field. This field takes precedence over the encryptedValue field, if both are specified.",
+                    "type": "string"
+                }
+            }
+        },
+        "HttpClientProxyView": {
+            "description": "A proxy.",
+            "id": "HttpClientProxyView",
+            "properties": {
+                "description": {
+                    "description": "(sortable) A description of the proxy.",
+                    "type": "string"
+                },
+                "host": {
+                    "description": "(sortable) The proxy host.",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "When creating a new HttpClientProxy, this is the ID for the HttpClientProxy. If not specified, an ID will be automatically assigned. When updating an existing HttpClientProxy, this field is ignored and the ID is determined by the path parameter.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "(sortable) The name of the proxy.",
+                    "type": "string"
+                },
+                "password": {
+                    "$ref": "HiddenFieldView",
+                    "description": "(sortable) The password used for proxy authentication."
+                },
+                "port": {
+                    "description": "(sortable) The proxy port.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "requiresAuthentication": {
+                    "description": "(sortable) True if the proxy requires authentication.",
+                    "type": "boolean"
+                },
+                "username": {
+                    "description": "(sortable) The username used for proxy authentication.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "host",
+                "name",
+                "port"
+            ]
+        }
+    },
+    "resourcePath": "/proxies",
+    "swaggerVersion": "1.2"
+}

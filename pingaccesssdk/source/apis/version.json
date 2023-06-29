@@ -1,0 +1,36 @@
+{
+    "apiVersion": "7.1.3.0",
+    "apis": [
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "versionCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get the PingAccess version number",
+                    "type": "VersionDocClass"
+                }
+            ],
+            "path": "/version"
+        }
+    ],
+    "basePath": "https://localhost:9000/pa-admin-api/v3",
+    "models": {
+        "VersionDocClass": {
+            "description": "A version.",
+            "id": "VersionDocClass",
+            "properties": {
+                "version": {
+                    "description": "The version of PingAccess.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "version"
+            ]
+        }
+    },
+    "resourcePath": "/version",
+    "swaggerVersion": "1.2"
+}

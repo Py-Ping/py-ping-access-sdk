@@ -1,0 +1,115 @@
+{
+    "apiVersion": "7.1.3.0",
+    "apis": [
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "deleteOAuthKeyManagementCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Resets the OAuth Key Management configuration to default values",
+                    "type": "void"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "getOAuthKeyManagementCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get the OAuth Key Management configuration",
+                    "type": "OAuthKeyManagementView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updateOAuthKeyManagementCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "OAuth Key Management configuration to update",
+                            "name": "OAuthKeyManagement",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "OAuthKeyManagementView"
+                        }
+                    ],
+                    "summary": "Update the OAuth Key Management configuration",
+                    "type": "OAuthKeyManagementView"
+                }
+            ],
+            "path": "/oauthKeyManagement"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getOAuthKeySetCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get the OAuth key set configuration",
+                    "type": "KeySetView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updateOAuthKeySetCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "OAuth key set configuration to update",
+                            "name": "KeySet",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "KeySetView"
+                        }
+                    ],
+                    "summary": "Update the OAuth key set configuration",
+                    "type": "KeySetView"
+                }
+            ],
+            "path": "/oauthKeyManagement/keySet"
+        }
+    ],
+    "basePath": "https://localhost:9000/pa-admin-api/v3",
+    "models": {
+        "KeySetView": {
+            "description": "An auth token key set configuration.",
+            "id": "KeySetView",
+            "properties": {
+                "keySet": {
+                    "description": "The encrypted key set. This value is bound to the nonce field and cannot be decrypted without also submitting the nonce used to produce the value.",
+                    "type": "string"
+                },
+                "nonce": {
+                    "description": "The nonce used to derive the key used to encrypt the keySet value.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "keySet",
+                "nonce"
+            ]
+        },
+        "OAuthKeyManagementView": {
+            "description": "An OAuth key management configuration.",
+            "id": "OAuthKeyManagementView",
+            "properties": {
+                "keyRollEnabled": {
+                    "description": "This field is true if key rollover is enabled. When false, PingAccess will not rollover keys at the configured interval.",
+                    "type": "boolean"
+                },
+                "keyRollPeriodInHours": {
+                    "description": "The interval (in hours) at which PingAccess will roll the keys. Key rollover updates keys at regular intervals to ensure the security of encrypted OAuth access tokens and encrypted OIDC id_tokens.",
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "signingAlgorithm": {
+                    "description": "The signing algorithm used when creating tokens for private key JWT OAuth client authentication. When set to null or empty, the algorithm will be selected from the OpenID Provider metadata.",
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "resourcePath": "/oauthKeyManagement",
+    "swaggerVersion": "1.2"
+}

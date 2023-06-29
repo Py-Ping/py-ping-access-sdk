@@ -34,7 +34,7 @@ setup(
     license="proprietary",
     url="https://github.com/Versent/py-ping-access-sdk",
     py_modules=["pingaccesssdk"],
-    package_dir={"": "pingaccesssdk"},
+    packages=["pingaccesssdk", "pingaccesssdk/apis", "pingaccesssdk/models"],
     install_requires=requires,
     zip_safe=False,
 )

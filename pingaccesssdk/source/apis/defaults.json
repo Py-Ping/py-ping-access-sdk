@@ -1,0 +1,58 @@
+{
+    "apiVersion": "7.1.3.0",
+    "apis": [
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "deleteApplicationDefaultsCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Resets the Application Defaults to their default values",
+                    "type": "void"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "getApplicationDefaultsCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get the default application settings",
+                    "type": "ApplicationDefaultsView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updateApplicationDefaultsCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Application Defaults",
+                            "name": "Defaults",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "ApplicationDefaultsView"
+                        }
+                    ],
+                    "summary": "Update the default application settings",
+                    "type": "ApplicationDefaultsView"
+                }
+            ],
+            "path": "/defaults/entities/application"
+        }
+    ],
+    "basePath": "https://localhost:9000/pa-admin-api/v3",
+    "models": {
+        "ApplicationDefaultsView": {
+            "description": "Default Application Settings for PingAccess.",
+            "id": "ApplicationDefaultsView",
+            "properties": {
+                "defaultAuthnChallengePolicyId": {
+                    "description": "The ID of the Authentication Challenge Policy to be used by default on new Applications created in the PingAccess Admin UI.",
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "resourcePath": "/defaults",
+    "swaggerVersion": "1.2"
+}

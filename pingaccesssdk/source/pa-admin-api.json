@@ -1,0 +1,155 @@
+{
+    "apiVersion": "v3",
+    "apis": [
+        {
+            "path": "/accessTokenValidators"
+        },
+        {
+            "path": "/acme"
+        },
+        {
+            "path": "/adminConfig"
+        },
+        {
+            "path": "/adminSessionInfo"
+        },
+        {
+            "path": "/agents"
+        },
+        {
+            "path": "/applications"
+        },
+        {
+            "path": "/auth"
+        },
+        {
+            "path": "/authTokenManagement"
+        },
+        {
+            "path": "/authenticationChallengePolicies"
+        },
+        {
+            "path": "/authnReqLists"
+        },
+        {
+            "path": "/backup"
+        },
+        {
+            "path": "/certificates"
+        },
+        {
+            "path": "/config"
+        },
+        {
+            "path": "/defaults"
+        },
+        {
+            "path": "/engineListeners"
+        },
+        {
+            "path": "/engines"
+        },
+        {
+            "path": "/environment"
+        },
+        {
+            "path": "/globalUnprotectedResources"
+        },
+        {
+            "path": "/highAvailability"
+        },
+        {
+            "path": "/hsmProviders"
+        },
+        {
+            "path": "/httpConfig"
+        },
+        {
+            "path": "/httpsListeners"
+        },
+        {
+            "path": "/identityMappings"
+        },
+        {
+            "path": "/keyPairs"
+        },
+        {
+            "path": "/license"
+        },
+        {
+            "path": "/oauth"
+        },
+        {
+            "path": "/oauthKeyManagement"
+        },
+        {
+            "path": "/oidc"
+        },
+        {
+            "path": "/pingfederate"
+        },
+        {
+            "path": "/pingone"
+        },
+        {
+            "path": "/proxies"
+        },
+        {
+            "path": "/redirects"
+        },
+        {
+            "path": "/rejectionHandlers"
+        },
+        {
+            "path": "/rules"
+        },
+        {
+            "path": "/rulesets"
+        },
+        {
+            "path": "/sharedSecrets"
+        },
+        {
+            "path": "/sidebandClients"
+        },
+        {
+            "path": "/siteAuthenticators"
+        },
+        {
+            "path": "/sites"
+        },
+        {
+            "path": "/thirdPartyServices"
+        },
+        {
+            "path": "/tokenProvider"
+        },
+        {
+            "path": "/trustedCertificateGroups"
+        },
+        {
+            "path": "/unknownResources"
+        },
+        {
+            "path": "/users"
+        },
+        {
+            "path": "/version"
+        },
+        {
+            "path": "/virtualhosts"
+        },
+        {
+            "path": "/webSessionManagement"
+        },
+        {
+            "path": "/webSessions"
+        }
+    ],
+    "basePath": "https://localhost:9000/pa-admin-api/v3/api-docs/pa",
+    "info": {
+        "description": "The PingAccess Administrative API is a REST-based interface that provides a programmatic way to make configuration changes to PingAccess as an alternative to using the administrative console.<br/><br/>Expand the resources below to display implementation details on that resource such as the available endpoints, the parameter and response models for the operation, and the model structure of the resources themselves. Each resource operation comes with the ability to interact with the API.",
+        "title": "Administrative API Documentation"
+    },
+    "swaggerVersion": "1.2"
+}

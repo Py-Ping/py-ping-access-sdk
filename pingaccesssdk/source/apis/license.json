@@ -1,0 +1,131 @@
+{
+    "apiVersion": "7.1.3.0",
+    "apis": [
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getLicenseCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get the License File",
+                    "type": "LicenseView"
+                },
+                {
+                    "method": "POST",
+                    "nickname": "importLicenseCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "License to import",
+                            "name": "License File",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "LicenseImportDocView"
+                        }
+                    ],
+                    "summary": "Import a License",
+                    "type": "LicenseView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "importLicenseCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "License to import",
+                            "name": "License File",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "LicenseImportDocView"
+                        }
+                    ],
+                    "summary": "Import a License",
+                    "type": "LicenseView"
+                }
+            ],
+            "path": "/license"
+        }
+    ],
+    "basePath": "https://localhost:9000/pa-admin-api/v3",
+    "models": {
+        "LicenseImportDocView": {
+            "description": "A license file.",
+            "id": "LicenseImportDocView",
+            "properties": {
+                "fileData": {
+                    "description": "The base64-encoded license file.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "fileData"
+            ]
+        },
+        "LicenseView": {
+            "description": "A Ping Identity license.",
+            "id": "LicenseView",
+            "properties": {
+                "enforcementType": {
+                    "description": "The enforcement type value from the license file.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "expirationDate": {
+                    "description": "The expiration date value from the license file.",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "The ID value from the license file.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "issueDate": {
+                    "description": "The issue date value from the license file.",
+                    "type": "string"
+                },
+                "maxApplications": {
+                    "description": "The maximum number of applications from the license file.",
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "The name value from the license file.  Name is required if the organization value is not set.",
+                    "type": "string"
+                },
+                "organization": {
+                    "description": "The organization value from the license file.",
+                    "type": "string"
+                },
+                "product": {
+                    "description": "The Ping Identity product value from the license file.",
+                    "type": "string"
+                },
+                "tier": {
+                    "description": "The tier value from the license file.",
+                    "type": "string"
+                },
+                "version": {
+                    "description": "The Ping Identity product version from the license file.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id",
+                "enforcementType",
+                "expirationDate",
+                "issueDate",
+                "maxApplications",
+                "name",
+                "organization",
+                "product",
+                "tier",
+                "version"
+            ]
+        }
+    },
+    "resourcePath": "/license",
+    "swaggerVersion": "1.2"
+}

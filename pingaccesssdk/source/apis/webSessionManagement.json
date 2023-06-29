@@ -1,0 +1,394 @@
+{
+    "apiVersion": "7.1.3.0",
+    "apis": [
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "deleteWebSessionManagementCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Resets the Web Session Management configuration to default values",
+                    "type": "void"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "getWebSessionManagementCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get the Web Session Management configuration",
+                    "type": "WebSessionManagementView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updateWebSessionManagementCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "WebSessionManagement configuration to update",
+                            "name": "WebSessionManagement",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "WebSessionManagementView"
+                        }
+                    ],
+                    "summary": "Update the Web Session Management configuration",
+                    "type": "WebSessionManagementView"
+                }
+            ],
+            "path": "/webSessionManagement"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getCookieTypes",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get the valid OIDC Cookie Types",
+                    "type": "CookieTypesView"
+                }
+            ],
+            "path": "/webSessionManagement/cookieTypes"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getWebSessionSupportedEncryptionAlgorithmsCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get the valid algorithms for Web Session Cookie Encryption",
+                    "type": "AlgorithmsView"
+                }
+            ],
+            "path": "/webSessionManagement/encryptionAlgorithms"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getWebSessionKeySetCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get the Web Session key set configuration",
+                    "type": "KeySetView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updateWebSessionKeySetCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "WebSession key set configuration to update",
+                            "name": "KeySet",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "KeySetView"
+                        }
+                    ],
+                    "summary": "Update the WebSession key set configuration",
+                    "type": "KeySetView"
+                }
+            ],
+            "path": "/webSessionManagement/keySet"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getOidcLoginTypes",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get the valid OIDC Login Types",
+                    "type": "OidcLoginTypesView"
+                }
+            ],
+            "path": "/webSessionManagement/oidcLoginTypes"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getOidcScopesCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of a specific client to retrieve supported scopes for",
+                            "name": "clientId",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get the scopes supported by the current OIDC Provider",
+                    "type": "SupportedScopesView"
+                }
+            ],
+            "path": "/webSessionManagement/oidcScopes"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getRequestPreservationTypes",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get the valid Request Preservation Types",
+                    "type": "RequestPreservationTypesView"
+                }
+            ],
+            "path": "/webSessionManagement/requestPreservationTypes"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getWebSessionSupportedSigningAlgorithms",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get the valid algorithms for Web Session Cookie Signing",
+                    "type": "SigningAlgorithmsView"
+                }
+            ],
+            "path": "/webSessionManagement/signingAlgorithms"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getWebStorageTypes",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get the valid Web Storage Types",
+                    "type": "WebStorageTypesView"
+                }
+            ],
+            "path": "/webSessionManagement/webStorageTypes"
+        }
+    ],
+    "basePath": "https://localhost:9000/pa-admin-api/v3",
+    "models": {
+        "AlgorithmView": {
+            "description": "An algorithm.",
+            "id": "AlgorithmView",
+            "properties": {
+                "description": {
+                    "description": "The description of the algorithm.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "The name of the algorithm.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "description",
+                "name"
+            ]
+        },
+        "AlgorithmsView": {
+            "description": "A collection of valid web session encryption algorithms.",
+            "id": "AlgorithmsView",
+            "properties": {
+                "items": {
+                    "description": "The actual list of valid web session encryption algorithms.",
+                    "items": {
+                        "$ref": "AlgorithmView"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "items"
+            ]
+        },
+        "CookieTypesView": {
+            "description": "A collection of valid values for the web session cookie type.",
+            "id": "CookieTypesView",
+            "properties": {
+                "items": {
+                    "description": "The actual list of valid values for the web session cookie type.",
+                    "items": {
+                        "$ref": "ItemView"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "items"
+            ]
+        },
+        "ItemView": {
+            "description": "An item.",
+            "id": "ItemView",
+            "properties": {
+                "description": {
+                    "description": "A description of the item.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "The name of the item.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "description",
+                "name"
+            ]
+        },
+        "KeySetView": {
+            "description": "An auth token key set configuration.",
+            "id": "KeySetView",
+            "properties": {
+                "keySet": {
+                    "description": "The encrypted key set. This value is bound to the nonce field and cannot be decrypted without also submitting the nonce used to produce the value.",
+                    "type": "string"
+                },
+                "nonce": {
+                    "description": "The nonce used to derive the key used to encrypt the keySet value.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "keySet",
+                "nonce"
+            ]
+        },
+        "OidcLoginTypesView": {
+            "description": "A collection of valid web session OIDC login types.",
+            "id": "OidcLoginTypesView",
+            "properties": {
+                "items": {
+                    "description": "The actual list of valid web session OIDC login types.",
+                    "items": {
+                        "$ref": "ItemView"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "items"
+            ]
+        },
+        "RequestPreservationTypesView": {
+            "description": "A collection of valid web session request preservation types.",
+            "id": "RequestPreservationTypesView",
+            "properties": {
+                "items": {
+                    "description": "The actual list of valid web session request preservation types.",
+                    "items": {
+                        "$ref": "ItemView"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "items"
+            ]
+        },
+        "SigningAlgorithmsView": {
+            "description": "A collection of valid web session signing algorithms.",
+            "id": "SigningAlgorithmsView",
+            "properties": {
+                "items": {
+                    "description": "The actual list of valid web session signing algorithms.",
+                    "items": {
+                        "$ref": "AlgorithmView"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "items"
+            ]
+        },
+        "SupportedScopesView": {
+            "description": "A set of scopes supported by the OIDC Provider.",
+            "id": "SupportedScopesView",
+            "properties": {
+                "clientId": {
+                    "description": "The ID of the client that the scopes are associated with. If not specified, the list of scopes represents all scopes supported by the provider.",
+                    "type": "string"
+                },
+                "scopes": {
+                    "description": "The list of supported scopes (excluding 'openid').",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "clientId",
+                "scopes"
+            ]
+        },
+        "WebSessionManagementView": {
+            "description": "A web session management configuration.",
+            "id": "WebSessionManagementView",
+            "properties": {
+                "cookieName": {
+                    "description": "The name for the browser cookie to contain the PA token.",
+                    "type": "string"
+                },
+                "encryptionAlgorithm": {
+                    "description": "The encryption algorithm used when creating encrypted PA tokens and when verifying them from a user's browser.",
+                    "type": "string"
+                },
+                "issuer": {
+                    "description": "The issuer value to include in the PA token. PingAccess inserts this value as the iss claim within the PA Token.",
+                    "type": "string"
+                },
+                "keyRollEnabled": {
+                    "description": "This field is true if key rollover is enabled. When false, PingAccess will not rollover keys at the configured interval.",
+                    "type": "boolean"
+                },
+                "keyRollPeriodInHours": {
+                    "description": "The interval (in hours) at which PingAccess will roll the keys. Key rollover updates keys at regular intervals to ensure the security of signed and encrypted PA tokens.",
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "nonceCookieTimeToLiveInMinutes": {
+                    "description": "The number of minutes that the nonce cookie is valid when multiple concurrent authentication requests are made. 0 indicates that the system default value should be used.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "sessionStateCookieName": {
+                    "description": "The name of the session state cookie.",
+                    "type": "string"
+                },
+                "signingAlgorithm": {
+                    "description": "The signing algorithm used when creating signed PA tokens and when verifying them from a user's browser.",
+                    "type": "string"
+                },
+                "updateTokenWindowInSeconds": {
+                    "description": "The number of seconds before the idle timeout is updated in the PA token.",
+                    "format": "int64",
+                    "type": "integer"
+                }
+            }
+        },
+        "WebStorageTypesView": {
+            "description": "A collection of valid web storage types.",
+            "id": "WebStorageTypesView",
+            "properties": {
+                "items": {
+                    "description": "The actual list of valid web storage types.",
+                    "items": {
+                        "$ref": "ItemView"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "items"
+            ]
+        }
+    },
+    "resourcePath": "/webSessionManagement",
+    "swaggerVersion": "1.2"
+}

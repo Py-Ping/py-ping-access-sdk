@@ -1,0 +1,433 @@
+{
+    "apiVersion": "7.1.3.0",
+    "apis": [
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getAccessTokenValidatorsCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Page number to retrieve",
+                            "format": "int32",
+                            "name": "page",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Number of Access Token Validators per page",
+                            "format": "int32",
+                            "name": "numberPerPage",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Search for Access Token Validator with name matching filter text",
+                            "name": "filter",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Get a specific Access Token Validator by name (case-sensitive)",
+                            "name": "name",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "A comma separated list of Access Token Validator attributes (keys) to be used to sort the results",
+                            "name": "sortKey",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Order of the sorted results (ASC for ascending, DESC for descending)",
+                            "name": "order",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get all Access Token Validators",
+                    "type": "AccessTokenValidatorsView"
+                },
+                {
+                    "method": "POST",
+                    "nickname": "addAccessTokenValidatorCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Access Token Validator to add",
+                            "name": "AccessTokenValidator",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "AccessTokenValidatorView"
+                        }
+                    ],
+                    "summary": "Create an Access Token Validator",
+                    "type": "AccessTokenValidatorView"
+                }
+            ],
+            "path": "/accessTokenValidators"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getAccessTokenValidatorDescriptorsCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get descriptors for all Access Token Validators",
+                    "type": "DescriptorsView"
+                }
+            ],
+            "path": "/accessTokenValidators/descriptors"
+        },
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "deleteAccessTokenValidatorCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Access Token Validator to delete",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Delete a Access Token Validator",
+                    "type": "void"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "getAccessTokenValidatorCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Access Token Validator to get",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get an Access Token Validator",
+                    "type": "AccessTokenValidatorView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updateAccessTokenValidatorCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "ID of Access Token Validator to update",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "Access Token Validator to update",
+                            "name": "AccessTokenValidator",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "AccessTokenValidatorView"
+                        }
+                    ],
+                    "summary": "Update an Access Token Validator",
+                    "type": "AccessTokenValidatorView"
+                }
+            ],
+            "path": "/accessTokenValidators/{id}"
+        }
+    ],
+    "basePath": "https://localhost:9000/pa-admin-api/v3",
+    "models": {
+        "AccessTokenValidatorView": {
+            "description": "An access token validator.",
+            "id": "AccessTokenValidatorView",
+            "properties": {
+                "className": {
+                    "description": "(sortable) The access token validator's class name.",
+                    "type": "string"
+                },
+                "configuration": {
+                    "$ref": "Map[string,java.lang.Object]",
+                    "description": "The access token validator's configuration data."
+                },
+                "id": {
+                    "description": "When creating a new AccessTokenValidator, this is the ID for the AccessTokenValidator. If not specified, an ID will be automatically assigned. When updating an existing AccessTokenValidator, this field is ignored and the ID is determined by the path parameter.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "(sortable) The access token validator's name.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "className",
+                "configuration",
+                "name"
+            ]
+        },
+        "AccessTokenValidatorsView": {
+            "description": "A collection of access token validators.",
+            "id": "AccessTokenValidatorsView",
+            "properties": {
+                "items": {
+                    "description": "The actual list of access token validators.",
+                    "items": {
+                        "$ref": "AccessTokenValidatorView"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "items"
+            ]
+        },
+        "ConfigurationDependentFieldOption": {
+            "description": "Configuration of the dependent field option.",
+            "id": "ConfigurationDependentFieldOption",
+            "properties": {
+                "options": {
+                    "description": "The dependent field options.",
+                    "items": {
+                        "$ref": "ConfigurationOption"
+                    },
+                    "type": "array"
+                },
+                "value": {
+                    "description": "The dependent field option value.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "options",
+                "value"
+            ]
+        },
+        "ConfigurationField": {
+            "description": "Details for configuration in the administrator console.",
+            "id": "ConfigurationField",
+            "properties": {
+                "advanced": {
+                    "description": "Indicates that the configuration field is an advanced field or not.",
+                    "type": "boolean"
+                },
+                "buttonGroup": {
+                    "description": "The name of group radio buttons that cooperate in a single selection.",
+                    "type": "string"
+                },
+                "default": {
+                    "description": "The default value of the configuration field.",
+                    "type": "string"
+                },
+                "deselectable": {
+                    "description": "Indicates that a radio button is able to be deselected.",
+                    "type": "boolean"
+                },
+                "fields": {
+                    "description": "The list of configuration fields that the current configuration field is the parent of.",
+                    "items": {
+                        "$ref": "ConfigurationField"
+                    },
+                    "type": "array"
+                },
+                "help": {
+                    "$ref": "Help",
+                    "description": "The help attributes of the configuration field."
+                },
+                "label": {
+                    "description": "The label of the configuration field.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "The name of the configuration field.",
+                    "type": "string"
+                },
+                "options": {
+                    "$ref": "java.util.Collection<com.pingidentity.pa.sdk.ui.ConfigurationOption>",
+                    "description": "The available options for the select based configuration fields."
+                },
+                "parentField": {
+                    "$ref": "ConfigurationParentField",
+                    "description": "The parent field attributes."
+                },
+                "required": {
+                    "description": "Indicates that the configuration field value is required or not.",
+                    "type": "boolean"
+                },
+                "type": {
+                    "$ref": "ConfigurationType",
+                    "description": "The type of the configuration field.",
+                    "enum": [
+                        "TEXT",
+                        "TEXTAREA",
+                        "TIME",
+                        "SELECT",
+                        "GROOVY",
+                        "CONCEALED",
+                        "LIST",
+                        "TABLE",
+                        "CHECKBOX",
+                        "AUTOCOMPLETEOPEN",
+                        "AUTOCOMPLETECLOSED",
+                        "COMPOSITE",
+                        "RADIO_BUTTON"
+                    ]
+                }
+            },
+            "required": [
+                "advanced",
+                "buttonGroup",
+                "default",
+                "deselectable",
+                "fields",
+                "help",
+                "label",
+                "name",
+                "options",
+                "parentField",
+                "required",
+                "type"
+            ]
+        },
+        "ConfigurationOption": {
+            "description": "The configuration option attributes.",
+            "id": "ConfigurationOption",
+            "properties": {
+                "category": {
+                    "$ref": "java.util.Optional<java.lang.String>",
+                    "description": "The configuration option category."
+                },
+                "label": {
+                    "description": "The configuration option label.",
+                    "type": "string"
+                },
+                "value": {
+                    "description": "The configuration option value.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "category",
+                "label",
+                "value"
+            ]
+        },
+        "ConfigurationParentField": {
+            "description": "Configuration of the parent field.",
+            "id": "ConfigurationParentField",
+            "properties": {
+                "dependentFieldOptions": {
+                    "description": "The dependent field options attributes.",
+                    "items": {
+                        "$ref": "ConfigurationDependentFieldOption"
+                    },
+                    "type": "array"
+                },
+                "fieldName": {
+                    "description": "The configuration parent field name.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "dependentFieldOptions",
+                "fieldName"
+            ]
+        },
+        "DescriptorView": {
+            "description": "A descriptor.",
+            "id": "DescriptorView",
+            "properties": {
+                "className": {
+                    "description": "The name of the implementation class.",
+                    "type": "string"
+                },
+                "configurationFields": {
+                    "description": "The list of configuration fields for the class.",
+                    "items": {
+                        "$ref": "ConfigurationField"
+                    },
+                    "type": "array"
+                },
+                "label": {
+                    "description": "The label for the entity.",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "The type for the entity.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "className",
+                "configurationFields",
+                "label",
+                "type"
+            ]
+        },
+        "DescriptorsView": {
+            "description": "A list of descriptors.",
+            "id": "DescriptorsView",
+            "properties": {
+                "items": {
+                    "description": "The actual list of descriptors.",
+                    "items": {
+                        "$ref": "DescriptorView"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "items"
+            ]
+        },
+        "Help": {
+            "description": "Configuration of the help context of a configuration field.",
+            "id": "Help",
+            "properties": {
+                "content": {
+                    "description": "The help content of the configuration field.",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "The help title of the configuration field.",
+                    "type": "string"
+                },
+                "url": {
+                    "description": "The help URL for the configuration field.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "content",
+                "title",
+                "url"
+            ]
+        }
+    },
+    "resourcePath": "/accessTokenValidators",
+    "swaggerVersion": "1.2"
+}

@@ -1,0 +1,166 @@
+{
+    "apiVersion": "7.1.3.0",
+    "apis": [
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "deleteAuthorizationServerCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Resets the OpenID Connect Provider configuration to default values",
+                    "type": "void"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "getAuthorizationServerCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get Authorization Server configuration",
+                    "type": "AuthorizationServerView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updateAuthorizationServerCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "OAuth 2.0 Authorization Server configuration",
+                            "name": "OpenIDConnectProvider",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "AuthorizationServerView"
+                        }
+                    ],
+                    "summary": "Update OAuth 2.0 Authorization Server configuration",
+                    "type": "AuthorizationServerView"
+                }
+            ],
+            "path": "/oauth/authServer"
+        }
+    ],
+    "basePath": "https://localhost:9000/pa-admin-api/v3",
+    "models": {
+        "AuthorizationServerView": {
+            "description": "The third-party OAuth 2.0 Authorization Server configuration.",
+            "id": "AuthorizationServerView",
+            "properties": {
+                "auditLevel": {
+                    "$ref": "AuditLevel",
+                    "description": "Enable to record requests to third-party OAuth 2.0 Authorization Server to the audit store.",
+                    "enum": [
+                        "ON",
+                        "OFF"
+                    ]
+                },
+                "cacheTokens": {
+                    "description": "Enable to retain token details for subsequent requests.",
+                    "type": "boolean"
+                },
+                "clientCredentials": {
+                    "$ref": "OAuthClientCredentialsView",
+                    "description": "Specify the client credentials."
+                },
+                "description": {
+                    "description": "The description of the third-party OAuth 2.0 Authorization Server.",
+                    "type": "string"
+                },
+                "introspectionEndpoint": {
+                    "description": "The third-party OAuth 2.0 Authorization Server's token introspection endpoint.",
+                    "type": "string"
+                },
+                "secure": {
+                    "description": "Enable if third-party OAuth 2.0 Authorization Server is expecting HTTPS connections.",
+                    "type": "boolean"
+                },
+                "sendAudience": {
+                    "description": "Enable to send the URI the user requested as the 'aud' OAuth parameter for PingAccess to the OAuth 2.0 Authorization server.",
+                    "type": "boolean"
+                },
+                "subjectAttributeName": {
+                    "description": "The attribute you want to use from the OAuth access token as the subject for auditing purposes.",
+                    "type": "string"
+                },
+                "targets": {
+                    "description": "One or more server hostname:port pairs used to access third-party OAuth 2.0 Authorization Server.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "tokenEndpoint": {
+                    "description": "The third-party OAuth 2.0 Authorization Server's token endpoint.",
+                    "type": "string"
+                },
+                "tokenTimeToLiveSeconds": {
+                    "description": "Defines the number of seconds to cache the access token. -1 means no limit. This value should be less than the PingFederate Token Lifetime.",
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "trustedCertificateGroupId": {
+                    "description": "The group of certificates to use when authenticating to third-party OAuth 2.0 Authorization Server.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "useProxy": {
+                    "description": "True if a proxy should be used for HTTP or HTTPS requests.",
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "introspectionEndpoint",
+                "subjectAttributeName",
+                "targets",
+                "trustedCertificateGroupId"
+            ]
+        },
+        "HiddenFieldView": {
+            "description": "A hidden field.",
+            "id": "HiddenFieldView",
+            "properties": {
+                "encryptedValue": {
+                    "description": "The encrypted value of the field, as originally returned by the API.",
+                    "type": "string"
+                },
+                "value": {
+                    "description": "The value of the field. This field takes precedence over the encryptedValue field, if both are specified.",
+                    "type": "string"
+                }
+            }
+        },
+        "OAuthClientCredentialsView": {
+            "description": "OAuth client credentials.",
+            "id": "OAuthClientCredentialsView",
+            "properties": {
+                "clientId": {
+                    "description": "Specify the client ID.",
+                    "type": "string"
+                },
+                "clientSecret": {
+                    "$ref": "HiddenFieldView",
+                    "description": "Specify the client secret."
+                },
+                "credentialsType": {
+                    "$ref": "CredentialsType",
+                    "description": "Specify the credential type.",
+                    "enum": [
+                        "SECRET",
+                        "CERTIFICATE",
+                        "PRIVATE_KEY_JWT"
+                    ]
+                },
+                "keyPairId": {
+                    "description": "Specify the ID of a key pair to use for mutual TLS.",
+                    "format": "int32",
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "clientId"
+            ]
+        }
+    },
+    "resourcePath": "/oauth",
+    "swaggerVersion": "1.2"
+}

@@ -1,0 +1,61 @@
+{
+    "apiVersion": "7.1.3.0",
+    "apis": [
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "deleteEnvironmentCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Resets the Environment configuration to default values",
+                    "type": "void"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "getEnvironmentCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get the Environment",
+                    "type": "EnvironmentView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updateEnvironmentCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "Environment configuration",
+                            "name": "/environment",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "EnvironmentView"
+                        }
+                    ],
+                    "summary": "Update the Environment",
+                    "type": "EnvironmentView"
+                }
+            ],
+            "path": "/environment"
+        }
+    ],
+    "basePath": "https://localhost:9000/pa-admin-api/v3",
+    "models": {
+        "EnvironmentView": {
+            "description": "An Environment.",
+            "id": "EnvironmentView",
+            "properties": {
+                "name": {
+                    "description": "The name of the Ping Identity product environment that will be displayed in the administrative console.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name"
+            ]
+        }
+    },
+    "resourcePath": "/environment",
+    "swaggerVersion": "1.2"
+}

@@ -1,0 +1,593 @@
+{
+    "apiVersion": "7.1.3.0",
+    "apis": [
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "deleteOIDCProviderCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Resets the OpenID Connect Provider configuration to default values",
+                    "type": "void"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "getOIDCProviderCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get the OpenID Connect Provider configuration",
+                    "type": "OIDCProviderView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updateOIDCProviderCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "OpenID Connect Provider configuration",
+                            "name": "OpenIDConnectProvider",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "OIDCProviderView"
+                        }
+                    ],
+                    "summary": "Update the OpenID Connect Provider configuration",
+                    "type": "OIDCProviderView"
+                }
+            ],
+            "path": "/oidc/provider"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getOIDCProviderPluginDescriptorsCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get descriptors for all OIDC Provider plugins",
+                    "type": "DescriptorsView"
+                }
+            ],
+            "path": "/oidc/provider/descriptors"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getOIDCProviderPluginDescriptorCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "OIDC Provider plugin descriptor to retrieve",
+                            "name": "pluginType",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Get a descriptor for a OIDC Provider plugin",
+                    "type": "DescriptorView"
+                }
+            ],
+            "path": "/oidc/provider/descriptors/{pluginType}"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getOIDCProviderMetadataCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get the OpenID Connect Provider's metadata",
+                    "type": "OIDCProviderMetadata"
+                }
+            ],
+            "path": "/oidc/provider/metadata"
+        }
+    ],
+    "basePath": "https://localhost:9000/pa-admin-api/v3",
+    "models": {
+        "ConfigurationDependentFieldOption": {
+            "description": "Configuration of the dependent field option.",
+            "id": "ConfigurationDependentFieldOption",
+            "properties": {
+                "options": {
+                    "description": "The dependent field options.",
+                    "items": {
+                        "$ref": "ConfigurationOption"
+                    },
+                    "type": "array"
+                },
+                "value": {
+                    "description": "The dependent field option value.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "options",
+                "value"
+            ]
+        },
+        "ConfigurationField": {
+            "description": "Details for configuration in the administrator console.",
+            "id": "ConfigurationField",
+            "properties": {
+                "advanced": {
+                    "description": "Indicates that the configuration field is an advanced field or not.",
+                    "type": "boolean"
+                },
+                "buttonGroup": {
+                    "description": "The name of group radio buttons that cooperate in a single selection.",
+                    "type": "string"
+                },
+                "default": {
+                    "description": "The default value of the configuration field.",
+                    "type": "string"
+                },
+                "deselectable": {
+                    "description": "Indicates that a radio button is able to be deselected.",
+                    "type": "boolean"
+                },
+                "fields": {
+                    "description": "The list of configuration fields that the current configuration field is the parent of.",
+                    "items": {
+                        "$ref": "ConfigurationField"
+                    },
+                    "type": "array"
+                },
+                "help": {
+                    "$ref": "Help",
+                    "description": "The help attributes of the configuration field."
+                },
+                "label": {
+                    "description": "The label of the configuration field.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "The name of the configuration field.",
+                    "type": "string"
+                },
+                "options": {
+                    "$ref": "java.util.Collection<com.pingidentity.pa.sdk.ui.ConfigurationOption>",
+                    "description": "The available options for the select based configuration fields."
+                },
+                "parentField": {
+                    "$ref": "ConfigurationParentField",
+                    "description": "The parent field attributes."
+                },
+                "required": {
+                    "description": "Indicates that the configuration field value is required or not.",
+                    "type": "boolean"
+                },
+                "type": {
+                    "$ref": "ConfigurationType",
+                    "description": "The type of the configuration field.",
+                    "enum": [
+                        "TEXT",
+                        "TEXTAREA",
+                        "TIME",
+                        "SELECT",
+                        "GROOVY",
+                        "CONCEALED",
+                        "LIST",
+                        "TABLE",
+                        "CHECKBOX",
+                        "AUTOCOMPLETEOPEN",
+                        "AUTOCOMPLETECLOSED",
+                        "COMPOSITE",
+                        "RADIO_BUTTON"
+                    ]
+                }
+            },
+            "required": [
+                "advanced",
+                "buttonGroup",
+                "default",
+                "deselectable",
+                "fields",
+                "help",
+                "label",
+                "name",
+                "options",
+                "parentField",
+                "required",
+                "type"
+            ]
+        },
+        "ConfigurationOption": {
+            "description": "The configuration option attributes.",
+            "id": "ConfigurationOption",
+            "properties": {
+                "category": {
+                    "$ref": "java.util.Optional<java.lang.String>",
+                    "description": "The configuration option category."
+                },
+                "label": {
+                    "description": "The configuration option label.",
+                    "type": "string"
+                },
+                "value": {
+                    "description": "The configuration option value.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "category",
+                "label",
+                "value"
+            ]
+        },
+        "ConfigurationParentField": {
+            "description": "Configuration of the parent field.",
+            "id": "ConfigurationParentField",
+            "properties": {
+                "dependentFieldOptions": {
+                    "description": "The dependent field options attributes.",
+                    "items": {
+                        "$ref": "ConfigurationDependentFieldOption"
+                    },
+                    "type": "array"
+                },
+                "fieldName": {
+                    "description": "The configuration parent field name.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "dependentFieldOptions",
+                "fieldName"
+            ]
+        },
+        "DescriptorView": {
+            "description": "A descriptor.",
+            "id": "DescriptorView",
+            "properties": {
+                "className": {
+                    "description": "The name of the implementation class.",
+                    "type": "string"
+                },
+                "configurationFields": {
+                    "description": "The list of configuration fields for the class.",
+                    "items": {
+                        "$ref": "ConfigurationField"
+                    },
+                    "type": "array"
+                },
+                "label": {
+                    "description": "The label for the entity.",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "The type for the entity.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "className",
+                "configurationFields",
+                "label",
+                "type"
+            ]
+        },
+        "DescriptorsView": {
+            "description": "A list of descriptors.",
+            "id": "DescriptorsView",
+            "properties": {
+                "items": {
+                    "description": "The actual list of descriptors.",
+                    "items": {
+                        "$ref": "DescriptorView"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "items"
+            ]
+        },
+        "Help": {
+            "description": "Configuration of the help context of a configuration field.",
+            "id": "Help",
+            "properties": {
+                "content": {
+                    "description": "The help content of the configuration field.",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "The help title of the configuration field.",
+                    "type": "string"
+                },
+                "url": {
+                    "description": "The help URL for the configuration field.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "content",
+                "title",
+                "url"
+            ]
+        },
+        "OIDCProviderMetadata": {
+            "description": "The OpenID Connect provider's metadata.",
+            "id": "OIDCProviderMetadata",
+            "properties": {
+                "authorization_endpoint": {
+                    "description": "URL of the OpenID Connect provider's authorization endpoint.",
+                    "type": "string"
+                },
+                "backchannel_authentication_endpoint": {
+                    "description": "the endpoint used to initiate an out-of-band authentication.",
+                    "type": "string"
+                },
+                "claim_types_supported": {
+                    "description": "JSON array containing a list of the claim types that the OpenID Connect provider supports.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "claims_parameter_supported": {
+                    "description": "boolean value specifying whether the OpenID Connect provider supports use of the claims parameter, with true indicating support.",
+                    "type": "boolean"
+                },
+                "claims_supported": {
+                    "description": "JSON array containing a list of the claim names of the claims that the OpenID Connect provider MAY be able to supply values for.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "code_challenge_methods_supported": {
+                    "description": "Proof Key for Code Exchange (PKCE) code challenge methods supported by this OpenID Connect provider.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "end_session_endpoint": {
+                    "description": "URL at the OpenID Connect provider to which a relying party can perform a redirect to request that the end-user be logged out at the OpenID Connect provider.",
+                    "type": "string"
+                },
+                "grant_types_supported": {
+                    "description": "JSON array containing a list of the OAuth 2.0 grant type values that this OpenID Connect provider supports.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "id_token_signing_alg_values_supported": {
+                    "description": "JSON array containing a list of the JWS signing algorithms supported by the OpenID Connect provider for the id token to encode the claims in a JWT.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "introspection_endpoint": {
+                    "description": "URL of the OpenID Connect provider's OAuth 2.0 introspection endpoint.",
+                    "type": "string"
+                },
+                "issuer": {
+                    "description": "OpenID Connect provider's issuer identifier URL.",
+                    "type": "string"
+                },
+                "jwks_uri": {
+                    "description": "URL of the OpenID Connect provider's JWK Set document.",
+                    "type": "string"
+                },
+                "mtls_endpoint_aliases": {
+                    "$ref": "Map[string,string]",
+                    "description": "a map of alternative authorization server endpoints. The key is an authorization server endpoint, and the value is a preferred URL for the endpoint."
+                },
+                "ping_end_session_endpoint": {
+                    "description": "PingFederate logout endpoint. (Not applicable if PingFederate is not the OpenID Connect provider)",
+                    "type": "string"
+                },
+                "ping_revoked_sris_endpoint": {
+                    "description": "PingFederate session revocation endpoint. (Not applicable if PingFederate is not the OpenID Connect provider)",
+                    "type": "string"
+                },
+                "request_object_signing_alg_values_supported": {
+                    "description": "JSON array containing a list of the JWS signing algorithms supported by the OpenID Connect provider for request objects.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "request_parameter_supported": {
+                    "description": "boolean value specifying whether the OpenID Connect provider supports use of the request parameter, with true indicating support.",
+                    "type": "boolean"
+                },
+                "request_uri_parameter_supported": {
+                    "description": "boolean value specifying whether the OpenID Connect provider supports use of the request_uri parameter, with true indicating support.",
+                    "type": "boolean"
+                },
+                "response_modes_supported": {
+                    "description": "JSON array containing a list of the OAuth 2.0 \"response_mode\" values that this OpenID Connect provider supports.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "response_types_supported": {
+                    "description": "JSON array containing a list of the OAuth 2.0 \"response_type\" values that this OpenID Connect provider supports.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "revocation_endpoint": {
+                    "description": "URL of the OpenID Connect provider's OAuth 2.0 revocation endpoint.",
+                    "type": "string"
+                },
+                "scopes_supported": {
+                    "description": "JSON array containing a list of the OAuth 2.0 \"scope\" values that this OpenID Connect provider supports.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "subject_types_supported": {
+                    "description": "JSON array containing a list of the Subject Identifier types that this OpenID Connect provider supports.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "token_endpoint": {
+                    "description": "URL of the OpenID Connect provider's token endpoint.",
+                    "type": "string"
+                },
+                "token_endpoint_auth_methods_supported": {
+                    "description": "JSON array containing a list of client authentication methods supported by this token endpoint.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "token_endpoint_auth_signing_alg_values_supported": {
+                    "description": "JSON array containing a list of client authentication signing algorithms supported by this token endpoint.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "userinfo_endpoint": {
+                    "description": "URL of the OpenID Connect provider's userInfo endpoint.",
+                    "type": "string"
+                },
+                "userinfo_signing_alg_values_supported": {
+                    "description": "JSON array containing a list of the JWS signing algorithms supported by the userInfo endpoint to encode the claims in a JWT.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "authorization_endpoint",
+                "backchannel_authentication_endpoint",
+                "claim_types_supported",
+                "claims_parameter_supported",
+                "claims_supported",
+                "code_challenge_methods_supported",
+                "end_session_endpoint",
+                "grant_types_supported",
+                "id_token_signing_alg_values_supported",
+                "introspection_endpoint",
+                "issuer",
+                "jwks_uri",
+                "mtls_endpoint_aliases",
+                "ping_end_session_endpoint",
+                "ping_revoked_sris_endpoint",
+                "request_object_signing_alg_values_supported",
+                "request_parameter_supported",
+                "request_uri_parameter_supported",
+                "response_modes_supported",
+                "response_types_supported",
+                "revocation_endpoint",
+                "scopes_supported",
+                "subject_types_supported",
+                "token_endpoint",
+                "token_endpoint_auth_methods_supported",
+                "token_endpoint_auth_signing_alg_values_supported",
+                "userinfo_endpoint",
+                "userinfo_signing_alg_values_supported"
+            ]
+        },
+        "OIDCProviderPluginView": {
+            "description": "An OpenID Connect provider plugin.",
+            "id": "OIDCProviderPluginView",
+            "properties": {
+                "className": {
+                    "description": "The class name of the OpenID Connect provider plugin.",
+                    "type": "string"
+                },
+                "configuration": {
+                    "$ref": "Map[string,java.lang.Object]",
+                    "description": "The OpenID Connect provider plugin's configuration data."
+                }
+            },
+            "required": [
+                "className",
+                "configuration"
+            ]
+        },
+        "OIDCProviderView": {
+            "description": "The third-party OpenID Connect provider configuration.",
+            "id": "OIDCProviderView",
+            "properties": {
+                "auditLevel": {
+                    "$ref": "AuditLevel",
+                    "description": "Enable to record requests to third-party OpenID Connect provider to the audit store.",
+                    "enum": [
+                        "ON",
+                        "OFF"
+                    ]
+                },
+                "description": {
+                    "description": "The description of the third-party OpenID Connect provider.",
+                    "type": "string"
+                },
+                "issuer": {
+                    "description": "The issuer of the third-party OpenID Connect provider.",
+                    "type": "string"
+                },
+                "plugin": {
+                    "$ref": "OIDCProviderPluginView",
+                    "description": "The OpenID Connect provider plugin."
+                },
+                "queryParameters": {
+                    "description": "The query parameters used by the authentication request to third-party OpenID Connect provider.",
+                    "items": {
+                        "$ref": "QueryParameterView"
+                    },
+                    "type": "array"
+                },
+                "requestSupportedScopesOnly": {
+                    "description": "Specifies whether the scopes in an access request should be limited to those advertised in the OIDC metadata.",
+                    "type": "boolean"
+                },
+                "trustedCertificateGroupId": {
+                    "description": "The group of certificates to use when authenticating to third-party OpenID Connect provider.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "useProxy": {
+                    "description": "True if a proxy should be used for HTTP or HTTPS requests.",
+                    "type": "boolean"
+                },
+                "useSlo": {
+                    "description": "True if single log off (SLO) should be used.",
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "issuer"
+            ]
+        },
+        "QueryParameterView": {
+            "description": "A name-value pair of custom query parameters.",
+            "id": "QueryParameterView",
+            "properties": {
+                "name": {
+                    "description": "The name of the query parameter.",
+                    "type": "string"
+                },
+                "value": {
+                    "description": "The value of the query parameter.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name",
+                "value"
+            ]
+        }
+    },
+    "resourcePath": "/oidc",
+    "swaggerVersion": "1.2"
+}

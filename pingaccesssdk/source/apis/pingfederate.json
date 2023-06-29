@@ -1,0 +1,757 @@
+{
+    "apiVersion": "7.1.3.0",
+    "apis": [
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "deletePingFederateCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Resets the PingFederate configuration to default values",
+                    "type": "void"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "getPingFederateCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get the PingFederate configuration",
+                    "type": "PingFederateRuntimeView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updatePingFederateCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "PingFederate configuration",
+                            "name": "PingFederate",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "PingFederateRuntimeView"
+                        }
+                    ],
+                    "summary": "Update the PingFederate configuration",
+                    "type": "PingFederateRuntimeView"
+                }
+            ],
+            "path": "/pingfederate"
+        },
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "deletePingFederateAccessTokensCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Resets the PingAccess OAuth Client configuration to default values",
+                    "type": "void"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "getPingFederateAccessTokensCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get the PingAccess OAuth Client configuration",
+                    "type": "PingFederateAccessTokenView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updatePingFederateAccessTokensCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "PingFederate OAuth Client configuration",
+                            "name": "PingFederateAccessToken",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "PingFederateAccessTokenView"
+                        }
+                    ],
+                    "summary": "Update the PingFederate OAuth Client configuration",
+                    "type": "PingFederateAccessTokenView"
+                }
+            ],
+            "path": "/pingfederate/accessTokens"
+        },
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "deletePingFederateAdminCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Resets the PingFederate Admin configuration to default values",
+                    "type": "void"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "getPingFederateAdminCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get the PingFederate Admin configuration",
+                    "type": "PingFederateAdminView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updatePingFederateAdminCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "PingFederate Admin configuration",
+                            "name": "PingFederate",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "PingFederateAdminView"
+                        }
+                    ],
+                    "summary": "Update the PingFederate Admin configuration",
+                    "type": "PingFederateAdminView"
+                }
+            ],
+            "path": "/pingfederate/admin"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getPingFederateMetadataCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get the PingFederate metadata",
+                    "type": "OIDCProviderMetadata"
+                }
+            ],
+            "path": "/pingfederate/metadata"
+        },
+        {
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "deletePingFederateRuntimeCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Resets the PingFederate configuration",
+                    "type": "void"
+                },
+                {
+                    "method": "GET",
+                    "nickname": "getPingFederateRuntimeCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get the PingFederate configuration",
+                    "type": "PingFederateMetadataRuntimeView"
+                },
+                {
+                    "method": "PUT",
+                    "nickname": "updatePingFederateRuntimeCommand",
+                    "notes": "",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "PingFederate configuration",
+                            "name": "PingFederate",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "PingFederateMetadataRuntimeView"
+                        }
+                    ],
+                    "summary": "Update the PingFederate configuration",
+                    "type": "PingFederateMetadataRuntimeView"
+                }
+            ],
+            "path": "/pingfederate/runtime"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getPingFederateRuntimeMetadataCommand",
+                    "notes": "",
+                    "parameters": [],
+                    "summary": "Get the PingFederate Runtime metadata",
+                    "type": "OIDCProviderMetadata"
+                }
+            ],
+            "path": "/pingfederate/runtime/metadata"
+        }
+    ],
+    "basePath": "https://localhost:9000/pa-admin-api/v3",
+    "models": {
+        "HiddenFieldView": {
+            "description": "A hidden field.",
+            "id": "HiddenFieldView",
+            "properties": {
+                "encryptedValue": {
+                    "description": "The encrypted value of the field, as originally returned by the API.",
+                    "type": "string"
+                },
+                "value": {
+                    "description": "The value of the field. This field takes precedence over the encryptedValue field, if both are specified.",
+                    "type": "string"
+                }
+            }
+        },
+        "OAuthAuthenticationConfigurationView": {
+            "description": "Required when the authentication type is 'OAuth'.",
+            "id": "OAuthAuthenticationConfigurationView",
+            "properties": {
+                "clientCredentials": {
+                    "$ref": "OAuthClientCredentialsView",
+                    "description": "Specify the credentials for the OAuth client configured in the Token Provider."
+                },
+                "configuredAuthorizationServerType": {
+                    "$ref": "ConfiguredAuthorizationServerType",
+                    "description": "Specify an Authorization Server configured within PA that will be used for obtaining an access token. Default value is 'PINGFEDERATE_RUNTIME'.",
+                    "enum": [
+                        "PINGFEDERATE_RUNTIME",
+                        "PINGONE",
+                        "COMMON_AUTHZSERVER",
+                        "ADMIN_TOKENPROVIDER"
+                    ]
+                },
+                "scopes": {
+                    "description": "The required scopes of validated ATs authorized to call the PingFederate administrative API. Scopes can be input as an array of case-sensitive strings.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "clientCredentials",
+                "configuredAuthorizationServerType"
+            ]
+        },
+        "OAuthClientCredentialsView": {
+            "description": "OAuth client credentials.",
+            "id": "OAuthClientCredentialsView",
+            "properties": {
+                "clientId": {
+                    "description": "Specify the client ID.",
+                    "type": "string"
+                },
+                "clientSecret": {
+                    "$ref": "HiddenFieldView",
+                    "description": "Specify the client secret."
+                },
+                "credentialsType": {
+                    "$ref": "CredentialsType",
+                    "description": "Specify the credential type.",
+                    "enum": [
+                        "SECRET",
+                        "CERTIFICATE",
+                        "PRIVATE_KEY_JWT"
+                    ]
+                },
+                "keyPairId": {
+                    "description": "Specify the ID of a key pair to use for mutual TLS.",
+                    "format": "int32",
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "clientId"
+            ]
+        },
+        "OIDCProviderMetadata": {
+            "description": "The OpenID Connect provider's metadata.",
+            "id": "OIDCProviderMetadata",
+            "properties": {
+                "authorization_endpoint": {
+                    "description": "URL of the OpenID Connect provider's authorization endpoint.",
+                    "type": "string"
+                },
+                "backchannel_authentication_endpoint": {
+                    "description": "the endpoint used to initiate an out-of-band authentication.",
+                    "type": "string"
+                },
+                "claim_types_supported": {
+                    "description": "JSON array containing a list of the claim types that the OpenID Connect provider supports.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "claims_parameter_supported": {
+                    "description": "boolean value specifying whether the OpenID Connect provider supports use of the claims parameter, with true indicating support.",
+                    "type": "boolean"
+                },
+                "claims_supported": {
+                    "description": "JSON array containing a list of the claim names of the claims that the OpenID Connect provider MAY be able to supply values for.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "code_challenge_methods_supported": {
+                    "description": "Proof Key for Code Exchange (PKCE) code challenge methods supported by this OpenID Connect provider.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "end_session_endpoint": {
+                    "description": "URL at the OpenID Connect provider to which a relying party can perform a redirect to request that the end-user be logged out at the OpenID Connect provider.",
+                    "type": "string"
+                },
+                "grant_types_supported": {
+                    "description": "JSON array containing a list of the OAuth 2.0 grant type values that this OpenID Connect provider supports.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "id_token_signing_alg_values_supported": {
+                    "description": "JSON array containing a list of the JWS signing algorithms supported by the OpenID Connect provider for the id token to encode the claims in a JWT.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "introspection_endpoint": {
+                    "description": "URL of the OpenID Connect provider's OAuth 2.0 introspection endpoint.",
+                    "type": "string"
+                },
+                "issuer": {
+                    "description": "OpenID Connect provider's issuer identifier URL.",
+                    "type": "string"
+                },
+                "jwks_uri": {
+                    "description": "URL of the OpenID Connect provider's JWK Set document.",
+                    "type": "string"
+                },
+                "mtls_endpoint_aliases": {
+                    "$ref": "Map[string,string]",
+                    "description": "a map of alternative authorization server endpoints. The key is an authorization server endpoint, and the value is a preferred URL for the endpoint."
+                },
+                "ping_end_session_endpoint": {
+                    "description": "PingFederate logout endpoint. (Not applicable if PingFederate is not the OpenID Connect provider)",
+                    "type": "string"
+                },
+                "ping_revoked_sris_endpoint": {
+                    "description": "PingFederate session revocation endpoint. (Not applicable if PingFederate is not the OpenID Connect provider)",
+                    "type": "string"
+                },
+                "request_object_signing_alg_values_supported": {
+                    "description": "JSON array containing a list of the JWS signing algorithms supported by the OpenID Connect provider for request objects.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "request_parameter_supported": {
+                    "description": "boolean value specifying whether the OpenID Connect provider supports use of the request parameter, with true indicating support.",
+                    "type": "boolean"
+                },
+                "request_uri_parameter_supported": {
+                    "description": "boolean value specifying whether the OpenID Connect provider supports use of the request_uri parameter, with true indicating support.",
+                    "type": "boolean"
+                },
+                "response_modes_supported": {
+                    "description": "JSON array containing a list of the OAuth 2.0 \"response_mode\" values that this OpenID Connect provider supports.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "response_types_supported": {
+                    "description": "JSON array containing a list of the OAuth 2.0 \"response_type\" values that this OpenID Connect provider supports.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "revocation_endpoint": {
+                    "description": "URL of the OpenID Connect provider's OAuth 2.0 revocation endpoint.",
+                    "type": "string"
+                },
+                "scopes_supported": {
+                    "description": "JSON array containing a list of the OAuth 2.0 \"scope\" values that this OpenID Connect provider supports.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "subject_types_supported": {
+                    "description": "JSON array containing a list of the Subject Identifier types that this OpenID Connect provider supports.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "token_endpoint": {
+                    "description": "URL of the OpenID Connect provider's token endpoint.",
+                    "type": "string"
+                },
+                "token_endpoint_auth_methods_supported": {
+                    "description": "JSON array containing a list of client authentication methods supported by this token endpoint.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "token_endpoint_auth_signing_alg_values_supported": {
+                    "description": "JSON array containing a list of client authentication signing algorithms supported by this token endpoint.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "userinfo_endpoint": {
+                    "description": "URL of the OpenID Connect provider's userInfo endpoint.",
+                    "type": "string"
+                },
+                "userinfo_signing_alg_values_supported": {
+                    "description": "JSON array containing a list of the JWS signing algorithms supported by the userInfo endpoint to encode the claims in a JWT.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "authorization_endpoint",
+                "backchannel_authentication_endpoint",
+                "claim_types_supported",
+                "claims_parameter_supported",
+                "claims_supported",
+                "code_challenge_methods_supported",
+                "end_session_endpoint",
+                "grant_types_supported",
+                "id_token_signing_alg_values_supported",
+                "introspection_endpoint",
+                "issuer",
+                "jwks_uri",
+                "mtls_endpoint_aliases",
+                "ping_end_session_endpoint",
+                "ping_revoked_sris_endpoint",
+                "request_object_signing_alg_values_supported",
+                "request_parameter_supported",
+                "request_uri_parameter_supported",
+                "response_modes_supported",
+                "response_types_supported",
+                "revocation_endpoint",
+                "scopes_supported",
+                "subject_types_supported",
+                "token_endpoint",
+                "token_endpoint_auth_methods_supported",
+                "token_endpoint_auth_signing_alg_values_supported",
+                "userinfo_endpoint",
+                "userinfo_signing_alg_values_supported"
+            ]
+        },
+        "PingFederateAccessTokenView": {
+            "description": "A PingAccess OAuth client configuration.",
+            "id": "PingFederateAccessTokenView",
+            "properties": {
+                "accessValidatorId": {
+                    "description": "The Access Validator Id. This field is read-only.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "cacheTokens": {
+                    "description": "Enable to retain token details for subsequent requests.",
+                    "type": "boolean"
+                },
+                "clientCredentials": {
+                    "$ref": "OAuthClientCredentialsView",
+                    "description": "Specify the credentials for the OAuth client configured in PingFederate."
+                },
+                "clientId": {
+                    "description": "The Client ID which PingAccess should use when requesting PingFederate to validate access tokens. The client must have Access Token Validation grant type allowed. (DEPRECATED - to be removed in a future release; please use 'clientCredentials' instead)",
+                    "type": "string"
+                },
+                "clientSecret": {
+                    "$ref": "HiddenFieldView",
+                    "description": "The Client Secret for the Client ID. (DEPRECATED - to be removed in a future release; please use 'clientCredentials' instead)"
+                },
+                "name": {
+                    "description": "The unique Access Validator name. This field is read-only.",
+                    "type": "string"
+                },
+                "sendAudience": {
+                    "description": "Enable to send the URI the user requested as the 'aud' OAuth parameter for PingAccess to use to select an Access Token Manager.",
+                    "type": "boolean"
+                },
+                "subjectAttributeName": {
+                    "description": "The attribute you want to use from the OAuth access token as the subject for auditing purposes.",
+                    "type": "string"
+                },
+                "tokenTimeToLiveSeconds": {
+                    "description": "Defines the number of seconds to cache the access token. -1 means no limit. This value should be less than the PingFederate Token Lifetime.",
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "useTokenIntrospection": {
+                    "description": "Specify if token introspection is enabled.",
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "accessValidatorId",
+                "subjectAttributeName"
+            ]
+        },
+        "PingFederateAdminView": {
+            "description": "A PingFederate Admin configuration.",
+            "id": "PingFederateAdminView",
+            "properties": {
+                "adminPassword": {
+                    "$ref": "HiddenFieldView",
+                    "description": "The password for the administrator username. Required when the authentication type is set to 'Basic'."
+                },
+                "adminUsername": {
+                    "description": "The administrator username. Required when the authentication type is set to 'Basic'.",
+                    "type": "string"
+                },
+                "auditLevel": {
+                    "description": "['ON' or 'OFF']: Enable to record requests to the PingFederate Administrative API to the audit store.",
+                    "type": "string"
+                },
+                "authenticationType": {
+                    "$ref": "AuthenticationType",
+                    "description": "Specify the authentication type for a PingFederate Admin node. Default value is 'Basic'. When not set, this field will be treated as having a value of 'Basic'. 'Cookie' type authentication is not supported at the moment.",
+                    "enum": [
+                        "OAuth",
+                        "Cookie",
+                        "Basic"
+                    ]
+                },
+                "basePath": {
+                    "description": "The base path, if needed, for Administration API.",
+                    "type": "string"
+                },
+                "expectedHostname": {
+                    "description": "The name of the host expected in the certificate used by PingFederate.",
+                    "type": "string"
+                },
+                "host": {
+                    "description": "The host name or IP address for PingFederate Administration API.",
+                    "type": "string"
+                },
+                "oAuthAuthenticationConfig": {
+                    "$ref": "OAuthAuthenticationConfigurationView"
+                },
+                "port": {
+                    "description": "The port number for PingFederate Administration API.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "secure": {
+                    "description": "Enable if PingFederate is expecting HTTPS connections.",
+                    "type": "boolean"
+                },
+                "skipHostnameVerification": {
+                    "description": "Set to true if HTTP communications to PingFederate should not perform hostname verification of the certificate.",
+                    "type": "boolean"
+                },
+                "trustedCertificateGroupId": {
+                    "description": "The group of certificates to use when authenticating to PingFederate Administrative API.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "useProxy": {
+                    "description": "True if a proxy should be used for HTTP or HTTPS requests.",
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "adminPassword",
+                "host",
+                "port"
+            ]
+        },
+        "PingFederateMetadataRuntimeView": {
+            "description": "A PingFederate configuration.",
+            "id": "PingFederateMetadataRuntimeView",
+            "properties": {
+                "description": {
+                    "description": "The description of the PingFederate Runtime token provider.",
+                    "type": "string"
+                },
+                "issuer": {
+                    "description": "The issuer url of the PingFederate token provider.",
+                    "type": "string"
+                },
+                "skipHostnameVerification": {
+                    "description": "Set to true if HTTP communications to PingFederate should not perform hostname verification of the certificate.",
+                    "type": "boolean"
+                },
+                "stsTokenExchangeEndpoint": {
+                    "description": "The url of the PingFederate STS token-to-token exchange endpoint that is used for token mediation. Specify if it is being served from a different host/port than the issuer is. Otherwise, it is assumed to be {{issuer}}/pf/sts.wst.",
+                    "type": "string"
+                },
+                "trustedCertificateGroupId": {
+                    "description": "The group of certificates to use when authenticating to PingFederate.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "useProxy": {
+                    "description": "Set to true if a proxy should be used for HTTP or HTTPS requests.",
+                    "type": "boolean"
+                },
+                "useSlo": {
+                    "description": "Set to true if OIDC single log out should be used on the /pa/oidc/logout on the engines.",
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "issuer"
+            ]
+        },
+        "PingFederateRuntimeApplicationView": {
+            "description": "Configuration required to help define application data to handle PingFederate as both a token provider and a proxied application.",
+            "id": "PingFederateRuntimeApplicationView",
+            "properties": {
+                "additionalVirtualHostIds": {
+                    "description": "Additional virtual host IDs that can be used to proxy the PingFederate runtime application.",
+                    "items": {
+                        "type": "int"
+                    },
+                    "type": "array"
+                },
+                "caseSensitive": {
+                    "description": "True if the context root is case sensitive.",
+                    "type": "boolean"
+                },
+                "clientCertHeaderNames": {
+                    "description": "The header names to contain PEM-encoded client certificates. The list position correlates to the index in the client certificate chain. For example, the first element always maps to the leaf certificate.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "contextRoot": {
+                    "description": "The base path of the PingFederate runtime application. Default value is '/'.",
+                    "type": "string"
+                },
+                "policy": {
+                    "description": "A List of PolicyItems associated with the PingFederate runtime application.",
+                    "items": {
+                        "$ref": "PolicyItem"
+                    },
+                    "type": "array"
+                },
+                "primaryVirtualHostId": {
+                    "description": "The ID of the primary virtual host to use for front channel requests to the PA proxied PingFederate runtime application. This virtual host will be used for the default OpenID Connect Issuer when an application specific issuer is not configured.",
+                    "format": "int32",
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "primaryVirtualHostId"
+            ]
+        },
+        "PingFederateRuntimeView": {
+            "description": "A PingFederate configuration.",
+            "id": "PingFederateRuntimeView",
+            "properties": {
+                "application": {
+                    "$ref": "PingFederateRuntimeApplicationView",
+                    "description": "Application configuration for the PingFederate runtime application proxied by PingAccess."
+                },
+                "auditLevel": {
+                    "description": "['ON' or 'OFF']: Enable to record requests to PingFederate to the audit store.",
+                    "type": "string"
+                },
+                "availabilityProfileId": {
+                    "description": "The ID of the availability profile to use for the PingFederate runtime. When set to 0, an availability profile defined by the pa.default.availability.ondemand properties in run.properties will be used for back end communication to PingFederate.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "backChannelBasePath": {
+                    "description": "The base path, if needed, for the PingFederate Runtime accessed using a Back Channel hostname. This field is ignored when the PingFederate application is configured.",
+                    "type": "string"
+                },
+                "backChannelSecure": {
+                    "description": "Enable if PingFederate is expecting HTTPS connections for calls via the Back Channel hostnames.",
+                    "type": "boolean"
+                },
+                "basePath": {
+                    "description": "The base path, if needed, for PingFederate Runtime. This field is ignored when the PingFederate application is configured.",
+                    "type": "string"
+                },
+                "expectedHostname": {
+                    "description": "The name of the host expected in the certificate.",
+                    "type": "string"
+                },
+                "host": {
+                    "description": "The host name or IP address for PingFederate Runtime. This field is ignored and can be an empty string when the PingFederate application is configured.",
+                    "type": "string"
+                },
+                "loadBalancingStrategyId": {
+                    "description": "The ID of the load balancing strategy to use for requests to the PingFederate targets.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "port": {
+                    "description": "The port number for PingFederate Runtime. This field is ignored when the PingFederate application is configured.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "secure": {
+                    "description": "Enable if PingFederate is expecting HTTPS connections. This field is ignored when the PingFederate application is configured. In this case, use backChannelSecure instead.",
+                    "type": "boolean"
+                },
+                "skipHostnameVerification": {
+                    "description": "Enable if the Back Channel servers should not perform hostname verification of the certificate.",
+                    "type": "boolean"
+                },
+                "targets": {
+                    "description": "One or more server hostname:port pairs used to access the PingFederate server from inside a private network. Required when the PingFederate application is configured.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "trustedCertificateGroupId": {
+                    "description": "The group of certificates to use when authenticating to PingFederate.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "useProxy": {
+                    "description": "True if a proxy should be used for HTTP or HTTPS requests.",
+                    "type": "boolean"
+                },
+                "useSlo": {
+                    "description": "Enable if OIDC single log out should be used on the /pa/oidc/logout on the engines.",
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "host",
+                "port"
+            ]
+        },
+        "PolicyItem": {
+            "description": "A policy item.",
+            "id": "PolicyItem",
+            "properties": {
+                "id": {
+                    "description": "The ID of the rule or rule set.",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "type": {
+                    "$ref": "PolicyItemType",
+                    "description": "The type of policy item.",
+                    "enum": [
+                        "Rule",
+                        "RuleSet"
+                    ]
+                }
+            },
+            "required": [
+                "id",
+                "type"
+            ]
+        }
+    },
+    "resourcePath": "/pingfederate",
+    "swaggerVersion": "1.2"
+}
